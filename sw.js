@@ -1,4 +1,4 @@
-const CACHE = 'dokdok-v2';
+const CACHE = 'dokdok-v4';
 const ASSETS = [
   './index.html',
   './style.css',

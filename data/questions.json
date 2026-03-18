@@ -422,5 +422,141 @@
       "go": "func setZeroes(matrix [][]int) {\n    rows, cols := len(matrix), len(matrix[0])\n    zeroRows := make(map[int]bool)\n    zeroCols := make(map[int]bool)\n\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            if matrix[r][c] == 0 {\n                zeroRows[r] = true\n                zeroCols[c] = true\n            }\n        }\n    }\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            if zeroRows[r] || zeroCols[c] {\n                matrix[r][c] = 0\n            }\n        }\n    }\n}",
       "java": "public void setZeroes(int[][] matrix) {\n    int rows = matrix.length, cols = matrix[0].length;\n    Set<Integer> zeroRows = new HashSet<>(), zeroCols = new HashSet<>();\n\n    for (int r = 0; r < rows; r++)\n        for (int c = 0; c < cols; c++)\n            if (matrix[r][c] == 0) { zeroRows.add(r); zeroCols.add(c); }\n\n    for (int r = 0; r < rows; r++)\n        for (int c = 0; c < cols; c++)\n            if (zeroRows.contains(r) || zeroCols.contains(c))\n                matrix[r][c] = 0;\n}"
     }
+  },
+  {
+    "id": 17,
+    "number": "#57",
+    "title": "Insert Interval",
+    "difficulty": "Medium",
+    "category": "Interval",
+    "description": "Given an array of non-overlapping intervals sorted by start time and a newInterval, insert the interval and merge if necessary. Return the resulting array.",
+    "examples": [
+      { "input": "intervals = [[1,3],[6,9]], newInterval = [2,5]", "output": "[[1,5],[6,9]]", "explanation": "Merge [1,3] and [2,5] into [1,5]" },
+      { "input": "intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]", "output": "[[1,2],[3,10],[12,16]]" }
+    ],
+    "hints": [
+      "Add all intervals ending before newInterval starts",
+      "Merge all overlapping intervals",
+      "Add remaining intervals after newInterval ends"
+    ],
+    "tags": ["Array"],
+    "approach": "Iterate through. Add intervals that end before new one starts. Merge all overlapping by expanding newInterval. Add the rest.",
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def insert(intervals, newInterval):\n    res = []\n    for i, (start, end) in enumerate(intervals):\n        if newInterval[1] < start:\n            res.append(newInterval)\n            return res + intervals[i:]\n        elif newInterval[0] > end:\n            res.append([start, end])\n        else:\n            newInterval = [min(newInterval[0], start),\n                           max(newInterval[1], end)]\n    res.append(newInterval)\n    return res",
+      "go": "func insert(intervals [][]int, newInterval []int) [][]int {\n    res := [][]int{}\n    for i, iv := range intervals {\n        if newInterval[1] < iv[0] {\n            res = append(res, newInterval)\n            return append(res, intervals[i:]...)\n        } else if newInterval[0] > iv[1] {\n            res = append(res, iv)\n        } else {\n            if iv[0] < newInterval[0] { newInterval[0] = iv[0] }\n            if iv[1] > newInterval[1] { newInterval[1] = iv[1] }\n        }\n    }\n    return append(res, newInterval)\n}",
+      "javascript": "function insert(intervals, newInterval) {\n    const res = [];\n    for (let i = 0; i < intervals.length; i++) {\n        if (newInterval[1] < intervals[i][0]) {\n            res.push(newInterval);\n            return res.concat(intervals.slice(i));\n        } else if (newInterval[0] > intervals[i][1]) {\n            res.push(intervals[i]);\n        } else {\n            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);\n            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);\n        }\n    }\n    res.push(newInterval);\n    return res;\n}",
+      "java": "public int[][] insert(int[][] intervals, int[] newInterval) {\n    List<int[]> res = new ArrayList<>();\n    for (int i = 0; i < intervals.length; i++) {\n        if (newInterval[1] < intervals[i][0]) {\n            res.add(newInterval);\n            for (; i < intervals.length; i++) res.add(intervals[i]);\n            return res.toArray(new int[0][]);\n        } else if (newInterval[0] > intervals[i][1]) {\n            res.add(intervals[i]);\n        } else {\n            newInterval[0] = Math.min(newInterval[0], intervals[i][0]);\n            newInterval[1] = Math.max(newInterval[1], intervals[i][1]);\n        }\n    }\n    res.add(newInterval);\n    return res.toArray(new int[0][]);\n}"
+    }
+  },
+  {
+    "id": 18,
+    "number": "#56",
+    "title": "Merge Intervals",
+    "difficulty": "Medium",
+    "category": "Interval",
+    "description": "Given an array of intervals, merge all overlapping intervals and return an array of the non-overlapping intervals.",
+    "examples": [
+      { "input": "intervals = [[1,3],[2,6],[8,10],[15,18]]", "output": "[[1,6],[8,10],[15,18]]", "explanation": "Intervals [1,3] and [2,6] overlap, merge to [1,6]" },
+      { "input": "intervals = [[1,4],[4,5]]", "output": "[[1,5]]", "explanation": "Intervals [1,4] and [4,5] are considered overlapping" }
+    ],
+    "hints": [
+      "Sort intervals by start time first",
+      "Compare each interval's start with the last merged interval's end",
+      "Merge if overlapping, else add new interval"
+    ],
+    "tags": ["Array", "Sorting"],
+    "approach": "Sort by start. Iterate and merge if current start <= last merged end, otherwise append.",
+    "timeComplexity": "O(n log n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def merge(intervals):\n    intervals.sort(key=lambda x: x[0])\n    merged = [intervals[0]]\n    for start, end in intervals[1:]:\n        if start <= merged[-1][1]:\n            merged[-1][1] = max(merged[-1][1], end)\n        else:\n            merged.append([start, end])\n    return merged",
+      "go": "import \"sort\"\n\nfunc merge(intervals [][]int) [][]int {\n    sort.Slice(intervals, func(i, j int) bool {\n        return intervals[i][0] < intervals[j][0]\n    })\n    merged := [][]int{intervals[0]}\n    for _, iv := range intervals[1:] {\n        last := merged[len(merged)-1]\n        if iv[0] <= last[1] {\n            if iv[1] > last[1] { last[1] = iv[1] }\n        } else {\n            merged = append(merged, iv)\n        }\n    }\n    return merged\n}",
+      "javascript": "function merge(intervals) {\n    intervals.sort((a, b) => a[0] - b[0]);\n    const merged = [intervals[0]];\n    for (let i = 1; i < intervals.length; i++) {\n        const last = merged[merged.length - 1];\n        if (intervals[i][0] <= last[1]) {\n            last[1] = Math.max(last[1], intervals[i][1]);\n        } else {\n            merged.push(intervals[i]);\n        }\n    }\n    return merged;\n}",
+      "java": "public int[][] merge(int[][] intervals) {\n    Arrays.sort(intervals, (a, b) -> a[0] - b[0]);\n    List<int[]> merged = new ArrayList<>();\n    merged.add(intervals[0]);\n    for (int[] iv : intervals) {\n        int[] last = merged.get(merged.size() - 1);\n        if (iv[0] <= last[1]) {\n            last[1] = Math.max(last[1], iv[1]);\n        } else {\n            merged.add(iv);\n        }\n    }\n    return merged.toArray(new int[0][]);\n}"
+    }
+  },
+  {
+    "id": 19,
+    "number": "#435",
+    "title": "Non-overlapping Intervals",
+    "difficulty": "Medium",
+    "category": "Interval",
+    "description": "Given an array of intervals, return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.",
+    "examples": [
+      { "input": "intervals = [[1,2],[2,3],[3,4],[1,3]]", "output": "1", "explanation": "Remove [1,3] and the rest are non-overlapping" },
+      { "input": "intervals = [[1,2],[1,2],[1,2]]", "output": "2" }
+    ],
+    "hints": [
+      "Sort by end time, not start time",
+      "Greedy: always keep the interval that ends earliest",
+      "Count intervals that can't be kept (they overlap with previous)"
+    ],
+    "tags": ["Array", "Greedy"],
+    "approach": "Greedy: sort by end time. Keep an interval if its start >= prevEnd. Count removals otherwise.",
+    "timeComplexity": "O(n log n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def eraseOverlapIntervals(intervals):\n    intervals.sort(key=lambda x: x[1])\n    count = 0\n    prevEnd = float('-inf')\n    for start, end in intervals:\n        if start >= prevEnd:\n            prevEnd = end\n        else:\n            count += 1\n    return count",
+      "go": "import (\n    \"math\"\n    \"sort\"\n)\n\nfunc eraseOverlapIntervals(intervals [][]int) int {\n    sort.Slice(intervals, func(i, j int) bool {\n        return intervals[i][1] < intervals[j][1]\n    })\n    count, prevEnd := 0, math.MinInt32\n    for _, iv := range intervals {\n        if iv[0] >= prevEnd {\n            prevEnd = iv[1]\n        } else {\n            count++\n        }\n    }\n    return count\n}",
+      "javascript": "function eraseOverlapIntervals(intervals) {\n    intervals.sort((a, b) => a[1] - b[1]);\n    let count = 0, prevEnd = -Infinity;\n    for (const [start, end] of intervals) {\n        if (start >= prevEnd) {\n            prevEnd = end;\n        } else {\n            count++;\n        }\n    }\n    return count;\n}",
+      "java": "public int eraseOverlapIntervals(int[][] intervals) {\n    Arrays.sort(intervals, (a, b) -> a[1] - b[1]);\n    int count = 0, prevEnd = Integer.MIN_VALUE;\n    for (int[] iv : intervals) {\n        if (iv[0] >= prevEnd) {\n            prevEnd = iv[1];\n        } else {\n            count++;\n        }\n    }\n    return count;\n}"
+    }
+  },
+  {
+    "id": 20,
+    "number": "#252",
+    "title": "Meeting Rooms",
+    "difficulty": "Easy",
+    "category": "Interval",
+    "description": "Given an array of meeting time intervals where intervals[i] = [start_i, end_i], determine if a person could attend all meetings.",
+    "examples": [
+      { "input": "intervals = [[0,30],[5,10],[15,20]]", "output": "false", "explanation": "Meeting [0,30] overlaps with [5,10] and [15,20]" },
+      { "input": "intervals = [[7,10],[2,4]]", "output": "true" }
+    ],
+    "hints": [
+      "Sort intervals by start time",
+      "Check if any meeting starts before the previous one ends",
+      "One overlap means false"
+    ],
+    "tags": ["Array", "Sorting"],
+    "approach": "Sort by start. If any interval starts before the previous ends, return false.",
+    "timeComplexity": "O(n log n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def canAttendMeetings(intervals):\n    intervals.sort()\n    for i in range(1, len(intervals)):\n        if intervals[i][0] < intervals[i-1][1]:\n            return False\n    return True",
+      "go": "import \"sort\"\n\nfunc canAttendMeetings(intervals [][]int) bool {\n    sort.Slice(intervals, func(i, j int) bool {\n        return intervals[i][0] < intervals[j][0]\n    })\n    for i := 1; i < len(intervals); i++ {\n        if intervals[i][0] < intervals[i-1][1] {\n            return false\n        }\n    }\n    return true\n}",
+      "javascript": "function canAttendMeetings(intervals) {\n    intervals.sort((a, b) => a[0] - b[0]);\n    for (let i = 1; i < intervals.length; i++) {\n        if (intervals[i][0] < intervals[i - 1][1]) return false;\n    }\n    return true;\n}",
+      "java": "public boolean canAttendMeetings(int[][] intervals) {\n    Arrays.sort(intervals, (a, b) -> a[0] - b[0]);\n    for (int i = 1; i < intervals.length; i++) {\n        if (intervals[i][0] < intervals[i-1][1]) return false;\n    }\n    return true;\n}"
+    }
+  },
+  {
+    "id": 21,
+    "number": "#253",
+    "title": "Meeting Rooms II",
+    "difficulty": "Medium",
+    "category": "Interval",
+    "description": "Given an array of meeting time intervals, return the minimum number of conference rooms required.",
+    "examples": [
+      { "input": "intervals = [[0,30],[5,10],[15,20]]", "output": "2" },
+      { "input": "intervals = [[7,10],[2,4]]", "output": "1" }
+    ],
+    "hints": [
+      "Use a min-heap to track end times of ongoing meetings",
+      "Sort by start time",
+      "If earliest ending meeting ends before next starts, reuse that room",
+      "Heap size at end = number of rooms needed"
+    ],
+    "tags": ["Array", "Heap", "Greedy"],
+    "approach": "Sort by start. Use min-heap of end times. If heap top <= current start, pop (reuse room). Push current end. Heap size = rooms needed.",
+    "timeComplexity": "O(n log n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "import heapq\n\ndef minMeetingRooms(intervals):\n    if not intervals:\n        return 0\n    intervals.sort(key=lambda x: x[0])\n    heap = []  # min-heap of end times\n    for start, end in intervals:\n        if heap and heap[0] <= start:\n            heapq.heapreplace(heap, end)\n        else:\n            heapq.heappush(heap, end)\n    return len(heap)",
+      "go": "import (\n    \"container/heap\"\n    \"sort\"\n)\n\ntype MinHeap []int\nfunc (h MinHeap) Len() int           { return len(h) }\nfunc (h MinHeap) Less(i, j int) bool { return h[i] < h[j] }\nfunc (h MinHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }\nfunc (h *MinHeap) Push(x interface{}) { *h = append(*h, x.(int)) }\nfunc (h *MinHeap) Pop() interface{} {\n    old := *h; n := len(old)\n    x := old[n-1]; *h = old[:n-1]; return x\n}\n\nfunc minMeetingRooms(intervals [][]int) int {\n    sort.Slice(intervals, func(i, j int) bool {\n        return intervals[i][0] < intervals[j][0]\n    })\n    h := &MinHeap{}\n    heap.Init(h)\n    for _, iv := range intervals {\n        if h.Len() > 0 && (*h)[0] <= iv[0] {\n            heap.Pop(h)\n        }\n        heap.Push(h, iv[1])\n    }\n    return h.Len()\n}",
+      "javascript": "function minMeetingRooms(intervals) {\n    if (!intervals.length) return 0;\n    const starts = intervals.map(i => i[0]).sort((a, b) => a - b);\n    const ends   = intervals.map(i => i[1]).sort((a, b) => a - b);\n    let rooms = 0, endPtr = 0;\n    for (let i = 0; i < starts.length; i++) {\n        if (starts[i] < ends[endPtr]) {\n            rooms++;\n        } else {\n            endPtr++;\n        }\n    }\n    return rooms;\n}",
+      "java": "public int minMeetingRooms(int[][] intervals) {\n    int n = intervals.length;\n    int[] starts = new int[n], ends = new int[n];\n    for (int i = 0; i < n; i++) {\n        starts[i] = intervals[i][0];\n        ends[i]   = intervals[i][1];\n    }\n    Arrays.sort(starts);\n    Arrays.sort(ends);\n    int rooms = 0, endPtr = 0;\n    for (int i = 0; i < n; i++) {\n        if (starts[i] < ends[endPtr]) {\n            rooms++;\n        } else {\n            endPtr++;\n        }\n    }\n    return rooms;\n}"
+    }
   }
 ]
