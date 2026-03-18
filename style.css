@@ -74,20 +74,25 @@ html, body {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   width: 100%;
-  min-height: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
+  /* Fixed height = viewport minus header and nav.
+     This is the key fix: the snap container never sees a height change
+     when the solution expands, so there's no rubber-banding. */
+  height: calc(100dvh - var(--header-h) - var(--nav-h));
+  flex-shrink: 0;
+  overflow: hidden;
   border-bottom: 1px solid var(--border);
 }
 
 .card-inner {
-  flex: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px 16px 16px;
   gap: 16px;
+  /* Content scrolls inside the card, not at the feed level */
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 /* ─── Card Meta ─────────────────────────────────────────────────────────── */
@@ -200,8 +205,12 @@ html, body {
 .card-actions {
   display: flex;
   gap: 10px;
+  /* Stick to bottom of the scrollable card-inner */
   margin-top: auto;
-  padding-top: 8px;
+  padding-top: 12px;
+  padding-bottom: 4px;
+  /* Prevent actions from being pushed off screen on small phones */
+  flex-shrink: 0;
 }
 
 .btn-solution, .btn-hints {
