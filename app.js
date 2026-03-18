@@ -146,29 +146,26 @@ function nextDokItems(count) {
 
 function appendDokCards(count) {
   const feed = document.getElementById('feed');
-  // Remove old sentinel if present
-  const old = feed.querySelector('.dok-sentinel');
-  if (old) old.remove();
-
   nextDokItems(count).forEach(q =>
     feed.appendChild(buildCard('question-card-tpl', q))
   );
 }
 
 function setupDokSentinel(feed) {
-  const sentinel = document.createElement('div');
-  sentinel.className = 'dok-sentinel';
-  feed.appendChild(sentinel);
+  // Observe the last card — scroll-snap makes the 1px sentinel unreachable
+  const cards = feed.querySelectorAll('.card');
+  if (!cards.length) return;
+  const lastCard = cards[cards.length - 1];
 
   const observer = new IntersectionObserver(entries => {
     if (entries[0].isIntersecting && currentMode === 'dok') {
-      appendDokCards(DOK_BATCH);
-      setupDokSentinel(feed); // re-attach at new end
       observer.disconnect();
+      appendDokCards(DOK_BATCH);
+      setupDokSentinel(feed);
     }
-  }, { root: feed, threshold: 0.1 });
+  }, { root: feed, threshold: 0.5 });
 
-  observer.observe(sentinel);
+  observer.observe(lastCard);
 }
 
 // ─── Card builders ────────────────────────────────────────────────────────────

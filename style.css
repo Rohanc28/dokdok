@@ -115,10 +115,6 @@ html, body {
   color: var(--accent);
 }
 
-.dok-sentinel {
-  height: 1px;
-  flex-shrink: 0;
-}
 
 .card-inner {
   height: 100%;
