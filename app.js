@@ -20,7 +20,47 @@ window.addEventListener('DOMContentLoaded', async () => {
   renderFeed();
   // Re-measure after first render in case layout shifted during load
   setCardHeight();
+  initDesktopNav();
 });
+
+// ─── Desktop scroll & keyboard navigation ────────────────────────────────────
+function initDesktopNav() {
+  const feed = document.getElementById('feed');
+  let cooldown = false;
+
+  function scrollFeed(dir) {
+    if (cooldown) return;
+    cooldown = true;
+    const cardH = parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue('--card-h')
+    );
+    feed.scrollBy({ top: dir * cardH, behavior: 'smooth' });
+    // Lock for ~700 ms so one wheel notch = one card
+    setTimeout(() => { cooldown = false; }, 700);
+  }
+
+  // Wheel: let card-inner scroll normally when it has room;
+  // once it hits its limit, navigate to the next/prev card.
+  feed.addEventListener('wheel', (e) => {
+    const inner = e.target.closest('.card-inner');
+    if (inner) {
+      const atTop    = inner.scrollTop <= 0;
+      const atBottom = inner.scrollTop + inner.clientHeight >= inner.scrollHeight - 1;
+      if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) return;
+    }
+    e.preventDefault();
+    scrollFeed(Math.sign(e.deltaY));
+  }, { passive: false });
+
+  // Arrow / Page keys — always navigate cards
+  document.addEventListener('keydown', (e) => {
+    const down = ['ArrowDown', 'PageDown', ' '].includes(e.key);
+    const up   = ['ArrowUp',   'PageUp'       ].includes(e.key);
+    if (!down && !up) return;
+    e.preventDefault();
+    scrollFeed(down ? 1 : -1);
+  });
+}
 
 // Set --card-h = window.innerHeight minus the actual rendered heights of
 // header and nav. This is reliable on every device/browser because
