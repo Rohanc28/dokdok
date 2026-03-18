@@ -2,21 +2,18 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #080808;
-  --surface:  #0e0e0e;
-  --surface2: #141414;
-  --border:   #1e1e1e;
-  --border2:  #2a2a2a;
-  --text:     #f0f0f0;
-  --muted:    #555;
-  --accent:   #e8ff47;
-  --easy:     #39e58c;
-  --medium:   #ffb547;
-  --hard:     #ff4d6d;
-  --nav-h:    64px;
-  --header-h: 52px;
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bot: env(safe-area-inset-bottom, 0px);
+  --bg:         #0c0c0c;
+  --surface:    #111111;
+  --surface2:   #171717;
+  --border:     #222222;
+  --border2:    #2e2e2e;
+  --text:       #f2f2f2;
+  --muted:      #484848;
+  --card-color: #a855f7;   /* overridden per card via inline style */
+  --nav-h:      64px;
+  --header-h:   52px;
+  --safe-top:   env(safe-area-inset-top, 0px);
+  --safe-bot:   env(safe-area-inset-bottom, 0px);
 }
 
 html, body {
@@ -42,14 +39,13 @@ html, body {
 }
 
 .app-logo {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.5px;
-  text-transform: uppercase;
 }
 
-.logo-d1 { color: var(--accent); }
-.logo-d2 { color: var(--text); }
+.logo-d1 { color: #0ff0b3; }
+.logo-d2 { color: #a855f7; }
 
 /* ─── Feed ──────────────────────────────────────────────────────────────── */
 #feed {
@@ -74,14 +70,25 @@ html, body {
   flex-shrink: 0;
   overflow: hidden;
   background: var(--bg);
-  /* Difficulty stripe applied via JS class on card-top — see below */
+  /* Top stripe uses the per-card color */
+  border-top: 4px solid var(--card-color);
+  border-bottom: 1px solid var(--border);
 }
 
-/* Thick top stripe per difficulty */
-.card.easy-card   { border-top: 3px solid var(--easy); }
-.card.medium-card { border-top: 3px solid var(--medium); }
-.card.hard-card   { border-top: 3px solid var(--hard); }
-.card.concept-card { border-top: 3px solid var(--accent); }
+/* Atmospheric color blob — top-right of each card */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: var(--card-color);
+  filter: blur(90px);
+  opacity: 0.13;
+  pointer-events: none;
+}
 
 /* ─── Card nav arrows ────────────────────────────────────────────────────── */
 .card-nav {
@@ -97,7 +104,7 @@ html, body {
 .card-nav-btn {
   width: 32px;
   height: 32px;
-  border-radius: 4px;
+  border-radius: 6px;
   background: var(--surface2);
   border: 1px solid var(--border2);
   color: var(--muted);
@@ -111,16 +118,17 @@ html, body {
 }
 
 .card-nav-btn:active {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: var(--card-color);
+  color: var(--card-color);
 }
 
-
 .card-inner {
+  position: relative;
+  z-index: 1;
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 24px 20px 16px;
+  padding: 22px 20px 16px;
   gap: 14px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -138,33 +146,39 @@ html, body {
 .badge-difficulty, .badge-category, .badge-number {
   font-size: 10px;
   font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 3px;
+  padding: 4px 10px;
+  border-radius: 4px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
 }
 
-.badge-difficulty.easy   { background: transparent; color: var(--easy);   border: 1px solid var(--easy); }
-.badge-difficulty.medium { background: transparent; color: var(--medium); border: 1px solid var(--medium); }
-.badge-difficulty.hard   { background: transparent; color: var(--hard);   border: 1px solid var(--hard); }
-.badge-category  { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
-.badge-number    { background: var(--surface2); color: var(--muted); border: 1px solid var(--border2); }
+/* All difficulty/category badges use the card color */
+.badge-difficulty,
+.badge-category {
+  background: color-mix(in srgb, var(--card-color) 18%, transparent);
+  color: var(--card-color);
+  border: 1px solid color-mix(in srgb, var(--card-color) 40%, transparent);
+}
+
+.badge-number {
+  background: var(--surface2);
+  color: var(--muted);
+  border: 1px solid var(--border2);
+}
 
 /* ─── Card Content ───────────────────────────────────────────────────────── */
 .card-title {
   font-size: 24px;
   font-weight: 800;
   line-height: 1.2;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.5px;
   color: #ffffff;
 }
 
 .card-description {
   font-size: 13.5px;
   line-height: 1.75;
-  color: #888;
-  border-left: 2px solid var(--border2);
-  padding-left: 12px;
+  color: #777;
 }
 
 /* ─── Examples ───────────────────────────────────────────────────────────── */
@@ -175,15 +189,15 @@ html, body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--muted);
+  color: var(--card-color);
   margin-bottom: 8px;
 }
 
 .example-block {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-left: 2px solid var(--border2);
-  border-radius: 4px;
+  border-left: 3px solid color-mix(in srgb, var(--card-color) 50%, transparent);
+  border-radius: 6px;
   padding: 10px 12px;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   font-size: 12px;
@@ -192,8 +206,9 @@ html, body {
 }
 
 .example-block .ex-label {
-  color: var(--muted);
+  color: var(--card-color);
   font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   margin-bottom: 4px;
@@ -233,13 +248,13 @@ html, body {
 .tag-pill {
   font-size: 10px;
   font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 3px;
-  background: transparent;
-  color: var(--easy);
-  border: 1px solid var(--easy);
-  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--card-color) 12%, transparent);
+  color: var(--card-color);
+  border: 1px solid color-mix(in srgb, var(--card-color) 35%, transparent);
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* ─── Key Points ─────────────────────────────────────────────────────────── */
@@ -248,36 +263,35 @@ html, body {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
 .points-list li {
   font-size: 13px;
   color: #888;
   line-height: 1.6;
-  padding-left: 14px;
+  padding-left: 16px;
   position: relative;
 }
 
 .points-list li::before {
-  content: '—';
+  content: '▸';
   position: absolute;
   left: 0;
-  color: var(--accent);
-  font-weight: 700;
+  color: var(--card-color);
 }
 
 /* ─── Visual Diagram ─────────────────────────────────────────────────────── */
 .visual-diagram {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: 4px;
+  border-left: 3px solid var(--card-color);
+  border-radius: 6px;
   padding: 12px;
   font-family: 'SF Mono', 'Fira Code', monospace;
   font-size: 11.5px;
   line-height: 1.6;
-  color: var(--accent);
+  color: var(--card-color);
   white-space: pre;
   overflow-x: auto;
 }
@@ -295,7 +309,7 @@ html, body {
 .btn-solution, .btn-hints {
   flex: 1;
   padding: 13px;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
@@ -305,9 +319,10 @@ html, body {
 }
 
 .btn-solution {
-  background: var(--accent);
+  background: var(--card-color);
   color: #000;
   border: none;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--card-color) 35%, transparent);
 }
 
 .btn-hints {
@@ -327,7 +342,8 @@ html, body {
 .solution-area {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-top: 2px solid color-mix(in srgb, var(--card-color) 50%, transparent);
+  border-radius: 8px;
   overflow: clip;
 }
 
@@ -358,8 +374,8 @@ html, body {
 }
 
 .lang-tab.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--card-color);
+  border-bottom-color: var(--card-color);
 }
 
 /* ─── Complexity ─────────────────────────────────────────────────────────── */
@@ -372,14 +388,14 @@ html, body {
 .complexity-badge {
   font-size: 10px;
   font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 3px;
+  padding: 4px 10px;
+  border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.8px;
+  background: color-mix(in srgb, var(--card-color) 12%, transparent);
+  color: var(--card-color);
+  border: 1px solid color-mix(in srgb, var(--card-color) 30%, transparent);
 }
-
-.complexity-badge.time  { background: transparent; color: var(--accent);  border: 1px solid var(--accent); }
-.complexity-badge.space { background: transparent; color: var(--easy);    border: 1px solid var(--easy); }
 
 /* ─── Approach ───────────────────────────────────────────────────────────── */
 .approach-text {
@@ -401,10 +417,7 @@ html, body {
   overscroll-behavior: contain;
 }
 
-.solution-area pre::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
+.solution-area pre::-webkit-scrollbar { width: 4px; height: 4px; }
 .solution-area pre::-webkit-scrollbar-track { background: transparent; }
 .solution-area pre::-webkit-scrollbar-thumb {
   background: var(--border2);
@@ -447,10 +460,9 @@ html, body {
   transition: color 0.15s;
 }
 
-.nav-btn.active { color: var(--text); }
-
-.dok-btn .nav-icon { font-size: 26px; line-height: 1; }
-.dok-btn.active    { color: var(--accent); }
+.nav-btn.active      { color: #f2f2f2; }
+.dok-btn .nav-icon   { font-size: 26px; line-height: 1; }
+.dok-btn.active      { color: #0ff0b3; }
 
 .nav-icon  { font-size: 20px; }
 .nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }

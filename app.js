@@ -111,6 +111,7 @@ window.switchMode = function(mode) {
 function renderFeed() {
   const feed = document.getElementById('feed');
   feed.innerHTML = '';
+  conceptColorIdx = 0;
 
   if (currentMode === 'dok') {
     dokPool = [];           // reset pool on each entry into dok
@@ -179,8 +180,10 @@ function buildCard(tplId, item) {
 }
 
 // ─── Question Card ────────────────────────────────────────────────────────────
+const DIFF_COLORS = { easy: '#0ff0b3', medium: '#ffcc02', hard: '#ff4b6e' };
+
 function buildQuestionCard(el, q) {
-  el.classList.add(`${q.difficulty.toLowerCase()}-card`);
+  el.style.setProperty('--card-color', DIFF_COLORS[q.difficulty.toLowerCase()] || '#a855f7');
 
   const diffBadge = el.querySelector('.badge-difficulty');
   diffBadge.textContent = q.difficulty;
@@ -230,7 +233,11 @@ function buildQuestionCard(el, q) {
 }
 
 // ─── Concept Card ─────────────────────────────────────────────────────────────
+const CONCEPT_COLORS = ['#a855f7', '#3b82f6', '#ec4899', '#f97316', '#06b6d4'];
+let conceptColorIdx = 0;
+
 function buildConceptCard(el, c) {
+  el.style.setProperty('--card-color', CONCEPT_COLORS[conceptColorIdx++ % CONCEPT_COLORS.length]);
   el.querySelector('.badge-category').textContent   = c.category;
   el.querySelector('.card-title').textContent       = c.title;
   el.querySelector('.card-description').textContent = c.description;
