@@ -48,6 +48,9 @@ html, body {
   letter-spacing: -0.3px;
 }
 
+.logo-d1 { color: #7c6af7; }   /* purple */
+.logo-d2 { color: #22d3ee; }   /* cyan   */
+
 #card-counter {
   font-size: 13px;
   color: var(--muted);

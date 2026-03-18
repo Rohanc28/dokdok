@@ -153,6 +153,9 @@ function buildSolutionArea(el, item) {
     const code = item.solutions[lang];
     codeEl.className = `solution-code language-${hlLang(lang)}`;
     codeEl.textContent = code;
+    // hljs marks elements with data-highlighted after first run and skips them —
+    // remove it so switching languages always re-highlights correctly.
+    codeEl.removeAttribute('data-highlighted');
     hljs.highlightElement(codeEl);
 
     tabsEl.querySelectorAll('.lang-tab').forEach(t => {
