@@ -1,4 +1,4 @@
-const CACHE = 'dsa-flash-v1';
+const CACHE = 'dokdok-v2';
 const ASSETS = [
   './index.html',
   './style.css',
