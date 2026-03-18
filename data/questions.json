@@ -214,5 +214,213 @@
       "javascript": "function numIslands(grid) {\n    const rows = grid.length, cols = grid[0].length;\n    let count = 0;\n    function dfs(r, c) {\n        if (r<0||r>=rows||c<0||c>=cols||grid[r][c]!=='1') return;\n        grid[r][c] = '0';\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1);\n    }\n    for (let r = 0; r < rows; r++)\n        for (let c = 0; c < cols; c++)\n            if (grid[r][c] === '1') { count++; dfs(r,c); }\n    return count;\n}",
       "java": "public int numIslands(char[][] grid) {\n    int count = 0;\n    for (int r = 0; r < grid.length; r++)\n        for (int c = 0; c < grid[0].length; c++)\n            if (grid[r][c] == '1') { dfs(grid,r,c); count++; }\n    return count;\n}\nvoid dfs(char[][] g, int r, int c) {\n    if (r<0||r>=g.length||c<0||c>=g[0].length||g[r][c]!='1') return;\n    g[r][c]='0';\n    dfs(g,r+1,c); dfs(g,r-1,c); dfs(g,r,c+1); dfs(g,r,c-1);\n}"
     }
+  },
+  {
+    "id": 9,
+    "number": "#191",
+    "title": "Number of 1 Bits",
+    "difficulty": "Easy",
+    "category": "Bit Manipulation",
+    "description": "Given a positive integer n, write a function that returns the number of set bits in its binary representation (also known as the Hamming weight).",
+    "examples": [
+      { "input": "n = 11 (binary: 00000000000000000000000000001011)", "output": "3" },
+      { "input": "n = 128 (binary: 00000000000000000000000010000000)", "output": "1" }
+    ],
+    "hints": [
+      "n & (n-1) clears the lowest set bit each time.",
+      "Count how many times you can do this before n becomes 0.",
+      "Built-ins: bin(n).count('1') in Python, bits.OnesCount32 in Go, Integer.bitCount in Java."
+    ],
+    "tags": ["Bit Manipulation"],
+    "approach": "Use n & (n-1) to clear the lowest set bit each iteration. Count iterations until n reaches 0. This is O(k) where k is the number of set bits — faster than checking all 32 bits.",
+    "timeComplexity": "O(k) — k set bits",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def hammingWeight(n: int) -> int:\n    count = 0\n    while n:\n        n &= n - 1  # clears lowest set bit\n        count += 1\n    return count\n\n# One-liner\n# return bin(n).count('1')",
+      "go": "func hammingWeight(n uint32) int {\n    count := 0\n    for n != 0 {\n        n &= n - 1  // clears lowest set bit\n        count++\n    }\n    return count\n}\n\n// Built-in alternative:\n// import \"math/bits\" → bits.OnesCount32(n)",
+      "java": "public int hammingWeight(int n) {\n    int count = 0;\n    while (n != 0) {\n        n &= n - 1;  // clears lowest set bit\n        count++;\n    }\n    return count;\n}\n\n// Built-in: Integer.bitCount(n)"
+    }
+  },
+  {
+    "id": 10,
+    "number": "#338",
+    "title": "Counting Bits",
+    "difficulty": "Easy",
+    "category": "Bit Manipulation",
+    "description": "Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.",
+    "examples": [
+      { "input": "n = 2", "output": "[0,1,1]" },
+      { "input": "n = 5", "output": "[0,1,1,2,1,2]" }
+    ],
+    "hints": [
+      "dp[i] = dp[i >> 1] + (i & 1)",
+      "i >> 1 is i with the last bit removed — you already computed its count.",
+      "The last bit (i & 1) is either 0 or 1, just add it."
+    ],
+    "tags": ["Bit Manipulation", "Dynamic Programming"],
+    "approach": "DP: for each i, shift right by 1 (drop last bit) — already computed — then add the last bit (i & 1). This builds the answer in O(n) using prior results.",
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def countBits(n: int) -> list[int]:\n    dp = [0] * (n + 1)\n    for i in range(1, n + 1):\n        dp[i] = dp[i >> 1] + (i & 1)\n    return dp",
+      "go": "func countBits(n int) []int {\n    dp := make([]int, n+1)\n    for i := 1; i <= n; i++ {\n        dp[i] = dp[i>>1] + i&1\n    }\n    return dp\n}",
+      "java": "public int[] countBits(int n) {\n    int[] dp = new int[n + 1];\n    for (int i = 1; i <= n; i++) {\n        dp[i] = dp[i >> 1] + (i & 1);\n    }\n    return dp;\n}"
+    }
+  },
+  {
+    "id": 11,
+    "number": "#190",
+    "title": "Reverse Bits",
+    "difficulty": "Easy",
+    "category": "Bit Manipulation",
+    "description": "Reverse bits of a given 32-bit unsigned integer.",
+    "examples": [
+      { "input": "n = 00000010100101000001111010011100", "output": "964176192 (00111001011110000010100101000000)" },
+      { "input": "n = 11111111111111111111111111111101", "output": "3221225471 (10111111111111111111111111111111)" }
+    ],
+    "hints": [
+      "Extract the last bit of n with (n & 1), put it into result.",
+      "Shift result left and n right by 1 each iteration.",
+      "Repeat 32 times — one per bit."
+    ],
+    "tags": ["Bit Manipulation"],
+    "approach": "Loop 32 times. Each iteration: shift result left by 1, OR in the lowest bit of n (n & 1), then shift n right by 1. After 32 iterations result holds the reversed bits.",
+    "timeComplexity": "O(1) — always 32 iterations",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def reverseBits(n: int) -> int:\n    result = 0\n    for _ in range(32):\n        result = (result << 1) | (n & 1)\n        n >>= 1\n    return result",
+      "go": "func reverseBits(num uint32) uint32 {\n    var result uint32\n    for i := 0; i < 32; i++ {\n        result = (result << 1) | (num & 1)\n        num >>= 1\n    }\n    return result\n}\n\n// Built-in: bits.Reverse32(num)",
+      "java": "public int reverseBits(int n) {\n    int result = 0;\n    for (int i = 0; i < 32; i++) {\n        result = (result << 1) | (n & 1);\n        n >>>= 1;  // >>> = unsigned right shift in Java\n    }\n    return result;\n}\n\n// Built-in: Integer.reverse(n)"
+    }
+  },
+  {
+    "id": 12,
+    "number": "#268",
+    "title": "Missing Number",
+    "difficulty": "Easy",
+    "category": "Bit Manipulation",
+    "description": "Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.",
+    "examples": [
+      { "input": "nums = [3,0,1]", "output": "2" },
+      { "input": "nums = [9,6,4,2,3,5,7,0,1]", "output": "8" }
+    ],
+    "hints": [
+      "Math: expected sum = n*(n+1)/2. Answer = expected - actual sum.",
+      "XOR: XOR all indices 0..n and all values. Paired values cancel out, leaving the missing one.",
+      "Math approach is simpler and O(1) space."
+    ],
+    "tags": ["Bit Manipulation", "Array"],
+    "approach": "Gauss formula: expected sum of [0..n] is n*(n+1)/2. Subtract the actual array sum to get the missing number. XOR alternative: XOR all indices and all values — everything cancels except the missing index.",
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def missingNumber(nums: list[int]) -> int:\n    n = len(nums)\n    return n * (n + 1) // 2 - sum(nums)\n\n# XOR approach\ndef missingNumberXOR(nums: list[int]) -> int:\n    result = len(nums)\n    for i, num in enumerate(nums):\n        result ^= i ^ num\n    return result",
+      "go": "func missingNumber(nums []int) int {\n    n := len(nums)\n    expected := n * (n + 1) / 2\n    actual := 0\n    for _, num := range nums {\n        actual += num\n    }\n    return expected - actual\n}\n\n// XOR approach\nfunc missingNumberXOR(nums []int) int {\n    result := len(nums)\n    for i, num := range nums {\n        result ^= i ^ num\n    }\n    return result\n}",
+      "java": "public int missingNumber(int[] nums) {\n    int n = nums.length;\n    int expected = n * (n + 1) / 2;\n    int actual = 0;\n    for (int num : nums) actual += num;\n    return expected - actual;\n}\n\n// XOR approach\npublic int missingNumberXOR(int[] nums) {\n    int result = nums.length;\n    for (int i = 0; i < nums.length; i++)\n        result ^= i ^ nums[i];\n    return result;\n}"
+    }
+  },
+  {
+    "id": 13,
+    "number": "#371",
+    "title": "Sum of Two Integers",
+    "difficulty": "Medium",
+    "category": "Bit Manipulation",
+    "description": "Given two integers a and b, return the sum of the two integers without using the operators + and -.",
+    "examples": [
+      { "input": "a = 1, b = 2", "output": "3" },
+      { "input": "a = 2, b = 3", "output": "5" }
+    ],
+    "hints": [
+      "XOR (a ^ b) gives the sum bits without carrying.",
+      "AND shifted left ((a & b) << 1) gives the carry bits.",
+      "Repeat until there is no carry (b == 0)."
+    ],
+    "tags": ["Bit Manipulation"],
+    "approach": "XOR gives sum without carry; AND<<1 gives the carry. Add carry into the partial sum by repeating until carry is 0. In Python, mask to 32 bits to handle Python's arbitrary-precision integers.",
+    "timeComplexity": "O(1) — at most 32 iterations",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def getSum(a: int, b: int) -> int:\n    mask    = 0xFFFFFFFF\n    max_int = 0x7FFFFFFF\n    while b & mask:\n        carry = ((a & b) << 1) & mask\n        a = (a ^ b) & mask\n        b = carry\n    # If high bit set, convert back to negative\n    return a if a <= max_int else ~(a ^ mask)",
+      "go": "func getSum(a int, b int) int {\n    for b != 0 {\n        carry := (a & b) << 1\n        a = a ^ b\n        b = carry\n    }\n    return a\n}",
+      "java": "public int getSum(int a, int b) {\n    while (b != 0) {\n        int carry = (a & b) << 1;\n        a = a ^ b;\n        b = carry;\n    }\n    return a;\n}"
+    }
+  },
+  {
+    "id": 14,
+    "number": "#48",
+    "title": "Rotate Image",
+    "difficulty": "Medium",
+    "category": "Matrix",
+    "description": "You are given an n x n 2D matrix representing an image. Rotate the image by 90 degrees clockwise in-place.",
+    "examples": [
+      { "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]", "output": "[[7,4,1],[8,5,2],[9,6,3]]" },
+      { "input": "matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]", "output": "[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]" }
+    ],
+    "hints": [
+      "90° clockwise = transpose then reverse each row.",
+      "Transpose: swap matrix[i][j] with matrix[j][i] for j > i.",
+      "Then reverse each row in-place."
+    ],
+    "tags": ["Matrix", "Array"],
+    "approach": "Two-step in-place: (1) Transpose the matrix by swapping matrix[i][j] with matrix[j][i]. (2) Reverse each row. This is equivalent to a 90° clockwise rotation.",
+    "timeComplexity": "O(n²)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def rotate(matrix: list[list[int]]) -> None:\n    n = len(matrix)\n    # Step 1: Transpose\n    for i in range(n):\n        for j in range(i + 1, n):\n            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]\n    # Step 2: Reverse each row\n    for row in matrix:\n        row.reverse()",
+      "go": "func rotate(matrix [][]int) {\n    n := len(matrix)\n    // Transpose\n    for i := 0; i < n; i++ {\n        for j := i + 1; j < n; j++ {\n            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]\n        }\n    }\n    // Reverse each row\n    for i := 0; i < n; i++ {\n        for l, r := 0, n-1; l < r; l, r = l+1, r-1 {\n            matrix[i][l], matrix[i][r] = matrix[i][r], matrix[i][l]\n        }\n    }\n}",
+      "java": "public void rotate(int[][] matrix) {\n    int n = matrix.length;\n    // Transpose\n    for (int i = 0; i < n; i++)\n        for (int j = i + 1; j < n; j++) {\n            int tmp = matrix[i][j];\n            matrix[i][j] = matrix[j][i];\n            matrix[j][i] = tmp;\n        }\n    // Reverse each row\n    for (int[] row : matrix)\n        for (int l = 0, r = n-1; l < r; l++, r--) {\n            int tmp = row[l]; row[l] = row[r]; row[r] = tmp;\n        }\n}"
+    }
+  },
+  {
+    "id": 15,
+    "number": "#54",
+    "title": "Spiral Matrix",
+    "difficulty": "Medium",
+    "category": "Matrix",
+    "description": "Given an m x n matrix, return all elements of the matrix in spiral order.",
+    "examples": [
+      { "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]", "output": "[1,2,3,6,9,8,7,4,5]" },
+      { "input": "matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]", "output": "[1,2,3,4,8,12,11,10,9,5,6,7]" }
+    ],
+    "hints": [
+      "Use four boundaries: top, bottom, left, right.",
+      "Traverse: right along top, down along right, left along bottom, up along left. Then shrink boundaries.",
+      "Check top <= bottom and left <= right before each pass to avoid duplicates."
+    ],
+    "tags": ["Matrix", "Array"],
+    "approach": "Maintain four boundary pointers (top, bottom, left, right). Traverse each layer: go right → down → left → up, then shrink all four boundaries inward. Guard the left/up passes to avoid re-visiting cells in non-square matrices.",
+    "timeComplexity": "O(m × n)",
+    "spaceComplexity": "O(1) extra",
+    "solutions": {
+      "python": "def spiralOrder(matrix: list[list[int]]) -> list[int]:\n    result = []\n    top, bottom = 0, len(matrix) - 1\n    left, right  = 0, len(matrix[0]) - 1\n    while top <= bottom and left <= right:\n        for c in range(left, right + 1):   result.append(matrix[top][c])\n        top += 1\n        for r in range(top, bottom + 1):   result.append(matrix[r][right])\n        right -= 1\n        if top <= bottom:\n            for c in range(right, left - 1, -1): result.append(matrix[bottom][c])\n            bottom -= 1\n        if left <= right:\n            for r in range(bottom, top - 1, -1): result.append(matrix[r][left])\n            left += 1\n    return result",
+      "go": "func spiralOrder(matrix [][]int) []int {\n    result := []int{}\n    top, bottom := 0, len(matrix)-1\n    left, right  := 0, len(matrix[0])-1\n    for top <= bottom && left <= right {\n        for c := left;   c <= right;  c++ { result = append(result, matrix[top][c]) }\n        top++\n        for r := top;    r <= bottom; r++ { result = append(result, matrix[r][right]) }\n        right--\n        if top <= bottom {\n            for c := right; c >= left; c-- { result = append(result, matrix[bottom][c]) }\n            bottom--\n        }\n        if left <= right {\n            for r := bottom; r >= top; r-- { result = append(result, matrix[r][left]) }\n            left++\n        }\n    }\n    return result\n}",
+      "java": "public List<Integer> spiralOrder(int[][] matrix) {\n    List<Integer> result = new ArrayList<>();\n    int top = 0, bottom = matrix.length - 1;\n    int left = 0, right = matrix[0].length - 1;\n    while (top <= bottom && left <= right) {\n        for (int c = left;   c <= right;  c++) result.add(matrix[top][c]);\n        top++;\n        for (int r = top;    r <= bottom; r++) result.add(matrix[r][right]);\n        right--;\n        if (top <= bottom) {\n            for (int c = right; c >= left; c--) result.add(matrix[bottom][c]);\n            bottom--;\n        }\n        if (left <= right) {\n            for (int r = bottom; r >= top; r--) result.add(matrix[r][left]);\n            left++;\n        }\n    }\n    return result;\n}"
+    }
+  },
+  {
+    "id": 16,
+    "number": "#73",
+    "title": "Set Matrix Zeroes",
+    "difficulty": "Medium",
+    "category": "Matrix",
+    "description": "Given an m x n integer matrix, if an element is 0, set its entire row and column to 0's. You must do it in place.",
+    "examples": [
+      { "input": "matrix = [[1,1,1],[1,0,1],[1,1,1]]", "output": "[[1,0,1],[0,0,0],[1,0,1]]" },
+      { "input": "matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]", "output": "[[0,0,0,0],[0,4,5,0],[0,3,1,0]]" }
+    ],
+    "hints": [
+      "First pass: record which rows and columns contain a zero.",
+      "Second pass: zero out those rows and columns.",
+      "O(1) space trick: use the first row and first column as your markers."
+    ],
+    "tags": ["Matrix", "Array", "Hash Set"],
+    "approach": "Two-pass approach: first collect all (row, col) positions of zeros into sets. Second pass: if row or col is in the sets, set to 0. O(1) space upgrade: use matrix[0][c] and matrix[r][0] as flags, being careful to handle the first row/column separately.",
+    "timeComplexity": "O(m × n)",
+    "spaceComplexity": "O(m + n)",
+    "solutions": {
+      "python": "def setZeroes(matrix: list[list[int]]) -> None:\n    rows, cols = len(matrix), len(matrix[0])\n    zero_rows, zero_cols = set(), set()\n\n    for r in range(rows):\n        for c in range(cols):\n            if matrix[r][c] == 0:\n                zero_rows.add(r)\n                zero_cols.add(c)\n\n    for r in range(rows):\n        for c in range(cols):\n            if r in zero_rows or c in zero_cols:\n                matrix[r][c] = 0",
+      "go": "func setZeroes(matrix [][]int) {\n    rows, cols := len(matrix), len(matrix[0])\n    zeroRows := make(map[int]bool)\n    zeroCols := make(map[int]bool)\n\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            if matrix[r][c] == 0 {\n                zeroRows[r] = true\n                zeroCols[c] = true\n            }\n        }\n    }\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            if zeroRows[r] || zeroCols[c] {\n                matrix[r][c] = 0\n            }\n        }\n    }\n}",
+      "java": "public void setZeroes(int[][] matrix) {\n    int rows = matrix.length, cols = matrix[0].length;\n    Set<Integer> zeroRows = new HashSet<>(), zeroCols = new HashSet<>();\n\n    for (int r = 0; r < rows; r++)\n        for (int c = 0; c < cols; c++)\n            if (matrix[r][c] == 0) { zeroRows.add(r); zeroCols.add(c); }\n\n    for (int r = 0; r < rows; r++)\n        for (int c = 0; c < cols; c++)\n            if (zeroRows.contains(r) || zeroCols.contains(c))\n                matrix[r][c] = 0;\n}"
+    }
   }
 ]
