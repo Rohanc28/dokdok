@@ -67,13 +67,44 @@ html, body {
 .card {
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  position: relative;
   width: 100%;
-  /* --card-h is set by JS (window.innerHeight - header - nav).
-     Fallback covers the instant before JS runs. */
   height: var(--card-h, calc(100vh - var(--header-h) - var(--nav-h)));
   flex-shrink: 0;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
+}
+
+/* ─── Card nav arrows ────────────────────────────────────────────────────── */
+/* Sit outside card-inner so they don't scroll away when solution is open */
+.card-nav {
+  position: absolute;
+  right: 12px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 10;
+}
+
+.card-nav-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.card-nav-btn:active {
+  background: rgba(255,255,255,0.18);
 }
 
 .dok-sentinel {

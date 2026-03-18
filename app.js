@@ -241,14 +241,39 @@ function buildSolutionArea(el, item) {
 
 // ─── Toggle Handlers ──────────────────────────────────────────────────────────
 window.toggleSolution = function(btn) {
-  const card    = btn.closest('.card');
-  const area    = card.querySelector('.solution-area');
-  const visible = area.style.display !== 'none';
+  const card      = btn.closest('.card');
+  const area      = card.querySelector('.solution-area');
+  const cardInner = card.querySelector('.card-inner');
+  const visible   = area.style.display !== 'none';
+
   area.style.display = visible ? 'none' : 'block';
+
   const isQuestion = card.classList.contains('question-card');
   btn.textContent = visible
     ? (isQuestion ? 'Show Solution' : 'Show Code Example')
     : 'Hide Solution';
+
+  if (!visible) {
+    // Wait one frame for the area to paint, then scroll card-inner
+    // so the language tabs + code are visible.
+    requestAnimationFrame(() => {
+      const areaRect  = area.getBoundingClientRect();
+      const innerRect = cardInner.getBoundingClientRect();
+      cardInner.scrollTo({
+        top: cardInner.scrollTop + (areaRect.top - innerRect.top) - 8,
+        behavior: 'smooth'
+      });
+    });
+  }
+};
+
+// Programmatic card navigation — works even when card-inner is scrolled
+window.navigateCard = function(btn, dir) {
+  const feed  = document.getElementById('feed');
+  const cardH = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue('--card-h')
+  );
+  feed.scrollBy({ top: dir * cardH, behavior: 'smooth' });
 };
 
 window.toggleHints = function(btn) {

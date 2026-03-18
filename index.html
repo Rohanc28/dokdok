@@ -75,6 +75,11 @@
           <button class="btn-solution" onclick="toggleSolution(this)">Show Solution</button>
         </div>
       </div>
+      <!-- Outside card-inner so they stay fixed even when card scrolls -->
+      <div class="card-nav">
+        <button class="card-nav-btn" onclick="navigateCard(this,-1)" aria-label="Previous">&#8593;</button>
+        <button class="card-nav-btn" onclick="navigateCard(this,1)"  aria-label="Next">&#8595;</button>
+      </div>
     </article>
   </template>
 
@@ -104,6 +109,10 @@
         <div class="card-actions">
           <button class="btn-solution" onclick="toggleSolution(this)">Show Code Example</button>
         </div>
+      </div>
+      <div class="card-nav">
+        <button class="card-nav-btn" onclick="navigateCard(this,-1)" aria-label="Previous">&#8593;</button>
+        <button class="card-nav-btn" onclick="navigateCard(this,1)"  aria-label="Next">&#8595;</button>
       </div>
     </article>
   </template>
