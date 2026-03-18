@@ -183,6 +183,8 @@ function buildCard(tplId, item) {
 
 // ─── Question Card ────────────────────────────────────────────────────────────
 function buildQuestionCard(el, q) {
+  el.classList.add(`${q.difficulty.toLowerCase()}-card`);
+
   const diffBadge = el.querySelector('.badge-difficulty');
   diffBadge.textContent = q.difficulty;
   diffBadge.className = `badge-difficulty ${q.difficulty.toLowerCase()}`;

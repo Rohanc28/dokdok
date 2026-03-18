@@ -2,29 +2,38 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #080808;
-  --surface:  #0e0e0e;
-  --surface2: #141414;
-  --border:   #1e1e1e;
-  --border2:  #2a2a2a;
-  --text:     #f0f0f0;
-  --muted:    #555;
-  --accent:   #e8ff47;
-  --easy:     #39e58c;
-  --medium:   #ffb547;
-  --hard:     #ff4d6d;
-  --nav-h:    64px;
-  --header-h: 52px;
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bot: env(safe-area-inset-bottom, 0px);
+  --bg:           #0d0d1a;
+  --glass:        rgba(255,255,255,0.07);
+  --glass-strong: rgba(255,255,255,0.11);
+  --glass-border: rgba(255,255,255,0.12);
+  --glass-shine:  rgba(255,255,255,0.06);
+  --text:         #f0f0ff;
+  --muted:        rgba(255,255,255,0.45);
+  --accent:       #a78bfa;
+  --accent2:      #22d3ee;
+  --easy:         #34d399;
+  --medium:       #fbbf24;
+  --hard:         #f87171;
+  --nav-h:        64px;
+  --header-h:     52px;
+  --safe-top:     env(safe-area-inset-top, 0px);
+  --safe-bot:     env(safe-area-inset-bottom, 0px);
+  --blur:         blur(18px);
+  --blur-light:   blur(10px);
 }
 
 html, body {
   height: 100%;
-  background: var(--bg);
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
   overflow: hidden;
+  /* Gradient background with soft coloured orbs */
+  background:
+    radial-gradient(ellipse at 15% 40%, rgba(139,92,246,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(34,211,238,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 85%, rgba(99,102,241,0.14) 0%, transparent 50%),
+    #0d0d1a;
+  background-attachment: fixed;
 }
 
 /* ─── Header ────────────────────────────────────────────────────────────── */
@@ -34,22 +43,23 @@ html, body {
   height: calc(var(--header-h) + var(--safe-top));
   padding: 0 20px;
   padding-top: var(--safe-top);
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
+  background: rgba(13,13,26,0.6);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border-bottom: 1px solid var(--glass-border);
   display: flex;
   align-items: center;
   z-index: 100;
 }
 
 .app-logo {
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.3px;
 }
 
-.logo-d1 { color: var(--accent); }
-.logo-d2 { color: var(--text); }
+.logo-d1 { color: #a78bfa; }
+.logo-d2 { color: #22d3ee; }
 
 /* ─── Feed ──────────────────────────────────────────────────────────────── */
 #feed {
@@ -73,15 +83,8 @@ html, body {
   height: var(--card-h, calc(100vh - var(--header-h) - var(--nav-h)));
   flex-shrink: 0;
   overflow: hidden;
-  background: var(--bg);
-  /* Difficulty stripe applied via JS class on card-top — see below */
+  border-bottom: 1px solid var(--glass-border);
 }
-
-/* Thick top stripe per difficulty */
-.card.easy-card   { border-top: 3px solid var(--easy); }
-.card.medium-card { border-top: 3px solid var(--medium); }
-.card.hard-card   { border-top: 3px solid var(--hard); }
-.card.concept-card { border-top: 3px solid var(--accent); }
 
 /* ─── Card nav arrows ────────────────────────────────────────────────────── */
 .card-nav {
@@ -95,24 +98,25 @@ html, body {
 }
 
 .card-nav-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  color: var(--muted);
-  font-size: 14px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--glass);
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  font-size: 15px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.15s, color 0.15s;
+  transition: background 0.15s;
   -webkit-tap-highlight-color: transparent;
 }
 
 .card-nav-btn:active {
-  border-color: var(--accent);
-  color: var(--accent);
+  background: var(--glass-strong);
 }
 
 .dok-sentinel {
@@ -125,7 +129,7 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 24px 20px 16px;
-  gap: 14px;
+  gap: 16px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
@@ -140,66 +144,65 @@ html, body {
 }
 
 .badge-difficulty, .badge-category, .badge-number {
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
 }
 
-.badge-difficulty.easy   { background: transparent; color: var(--easy);   border: 1px solid var(--easy); }
-.badge-difficulty.medium { background: transparent; color: var(--medium); border: 1px solid var(--medium); }
-.badge-difficulty.hard   { background: transparent; color: var(--hard);   border: 1px solid var(--hard); }
-.badge-category  { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
-.badge-number    { background: var(--surface2); color: var(--muted); border: 1px solid var(--border2); }
+.badge-difficulty.easy   { background: rgba(52,211,153,0.15);  color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
+.badge-difficulty.medium { background: rgba(251,191,36,0.15);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+.badge-difficulty.hard   { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
+.badge-category  { background: rgba(167,139,250,0.15); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
+.badge-number    { background: var(--glass); color: var(--muted); border: 1px solid var(--glass-border); }
 
 /* ─── Card Content ───────────────────────────────────────────────────────── */
 .card-title {
-  font-size: 24px;
-  font-weight: 800;
-  line-height: 1.2;
-  letter-spacing: -0.6px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.4px;
   color: #ffffff;
 }
 
 .card-description {
-  font-size: 13.5px;
+  font-size: 14px;
   line-height: 1.75;
-  color: #888;
-  border-left: 2px solid var(--border2);
-  padding-left: 12px;
+  color: rgba(255,255,255,0.7);
 }
 
 /* ─── Examples ───────────────────────────────────────────────────────────── */
 .examples-section h4,
 .hints-section h4,
 .key-points h4 {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.8px;
   color: var(--muted);
   margin-bottom: 8px;
 }
 
 .example-block {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 2px solid var(--border2);
-  border-radius: 4px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
   padding: 10px 12px;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   font-size: 12px;
   line-height: 1.6;
   margin-bottom: 8px;
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
 }
 
 .example-block .ex-label {
   color: var(--muted);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
+  font-size: 11px;
   margin-bottom: 4px;
 }
 
@@ -213,7 +216,7 @@ html, body {
 
 .hints-list li {
   font-size: 13px;
-  color: #777;
+  color: rgba(255,255,255,0.65);
   line-height: 1.6;
 }
 
@@ -227,29 +230,26 @@ html, body {
 }
 
 .tags-label {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.6px;
   color: var(--muted);
 }
 
 .tag-pill {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   padding: 3px 9px;
-  border-radius: 3px;
-  background: transparent;
-  color: var(--easy);
-  border: 1px solid var(--easy);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
+  border-radius: 20px;
+  background: rgba(52,211,153,0.12);
+  color: #34d399;
+  border: 1px solid rgba(52,211,153,0.25);
 }
 
 /* ─── Key Points ─────────────────────────────────────────────────────────── */
 .points-list {
-  padding-left: 0;
-  list-style: none;
+  padding-left: 18px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -257,33 +257,24 @@ html, body {
 
 .points-list li {
   font-size: 13px;
-  color: #888;
+  color: rgba(255,255,255,0.65);
   line-height: 1.6;
-  padding-left: 14px;
-  position: relative;
-}
-
-.points-list li::before {
-  content: '—';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-weight: 700;
 }
 
 /* ─── Visual Diagram ─────────────────────────────────────────────────────── */
 .visual-diagram {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: 4px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
   padding: 12px;
   font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 11.5px;
-  line-height: 1.6;
-  color: var(--accent);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--accent2);
   white-space: pre;
   overflow-x: auto;
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
 }
 
 /* ─── Buttons ─────────────────────────────────────────────────────────────── */
@@ -299,27 +290,29 @@ html, body {
 .btn-solution, .btn-hints {
   flex: 1;
   padding: 13px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: opacity 0.15s, transform 0.1s;
+  backdrop-filter: var(--blur-light);
+  -webkit-backdrop-filter: var(--blur-light);
 }
 
 .btn-solution {
-  background: var(--accent);
-  color: #000;
-  border: none;
+  background: rgba(167,139,250,0.25);
+  color: #fff;
+  border: 1px solid rgba(167,139,250,0.5);
+  box-shadow: 0 4px 20px rgba(167,139,250,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
 }
 
 .btn-hints {
-  background: transparent;
+  background: var(--glass);
   color: var(--text);
-  border: 1px solid var(--border2);
+  border: 1px solid var(--glass-border);
   flex: 0 0 auto;
   padding: 13px 16px;
+  box-shadow: inset 0 1px 0 var(--glass-shine);
 }
 
 .btn-solution:active, .btn-hints:active {
@@ -329,29 +322,30 @@ html, body {
 
 /* ─── Solution Area ──────────────────────────────────────────────────────── */
 .solution-area {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 4px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
   overflow: clip;
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25), inset 0 1px 0 var(--glass-shine);
 }
 
 /* ─── Language Tabs ──────────────────────────────────────────────────────── */
 .lang-tabs {
   display: flex;
   gap: 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--glass-border);
   overflow-x: auto;
   scrollbar-width: none;
-  background: var(--surface2);
+  background: var(--glass-strong);
 }
 .lang-tabs::-webkit-scrollbar { display: none; }
 
 .lang-tab {
   padding: 9px 16px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
+  font-size: 12px;
+  font-weight: 600;
   color: var(--muted);
   background: none;
   border: none;
@@ -374,21 +368,19 @@ html, body {
 }
 
 .complexity-badge {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   padding: 3px 10px;
-  border-radius: 3px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
+  border-radius: 20px;
 }
 
-.complexity-badge.time  { background: transparent; color: var(--accent);  border: 1px solid var(--accent); }
-.complexity-badge.space { background: transparent; color: var(--easy);    border: 1px solid var(--easy); }
+.complexity-badge.time  { background: rgba(167,139,250,0.15); color: #a78bfa; border: 1px solid rgba(167,139,250,0.25); }
+.complexity-badge.space { background: rgba(52,211,153,0.12);  color: #34d399; border: 1px solid rgba(52,211,153,0.25);  }
 
 /* ─── Approach ───────────────────────────────────────────────────────────── */
 .approach-text {
   font-size: 13px;
-  color: #777;
+  color: rgba(255,255,255,0.6);
   line-height: 1.6;
   padding: 10px 12px 0;
 }
@@ -406,15 +398,19 @@ html, body {
 }
 
 .solution-area pre::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
 }
-.solution-area pre::-webkit-scrollbar-track { background: transparent; }
+.solution-area pre::-webkit-scrollbar-track {
+  background: transparent;
+}
 .solution-area pre::-webkit-scrollbar-thumb {
-  background: var(--border2);
-  border-radius: 2px;
+  background: var(--glass-border);
+  border-radius: 3px;
 }
-.solution-area pre::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+.solution-area pre::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
 
 .solution-area pre code {
   background: none !important;
@@ -422,6 +418,7 @@ html, body {
   border-radius: 0 !important;
 }
 
+/* Override hljs background */
 .hljs { background: transparent !important; }
 
 /* ─── Bottom Nav ─────────────────────────────────────────────────────────── */
@@ -430,8 +427,10 @@ html, body {
   bottom: 0; left: 0; right: 0;
   height: calc(var(--nav-h) + var(--safe-bot));
   padding-bottom: var(--safe-bot);
-  background: var(--bg);
-  border-top: 1px solid var(--border);
+  background: rgba(13,13,26,0.6);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border-top: 1px solid var(--glass-border);
   display: flex;
   align-items: stretch;
   z-index: 100;
@@ -451,13 +450,21 @@ html, body {
   transition: color 0.15s;
 }
 
-.nav-btn.active { color: var(--text); }
+.nav-btn.active {
+  color: var(--accent);
+}
 
-.dok-btn .nav-icon { font-size: 26px; line-height: 1; }
-.dok-btn.active    { color: var(--accent); }
+.dok-btn .nav-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.dok-btn.active {
+  color: var(--accent2);
+}
 
 .nav-icon  { font-size: 20px; }
-.nav-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
+.nav-label { font-size: 11px; font-weight: 600; }
 
 /* ─── Scroll Indicator ────────────────────────────────────────────────────── */
 .scroll-hint {
