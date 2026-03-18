@@ -1,0 +1,210 @@
+[
+  {
+    "id": 1,
+    "number": "#1",
+    "title": "Two Sum",
+    "difficulty": "Easy",
+    "category": "Array",
+    "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume each input has exactly one solution, and you may not use the same element twice.",
+    "examples": [
+      { "input": "nums = [2,7,11,15], target = 9", "output": "[0,1]", "explanation": "nums[0] + nums[1] = 2 + 7 = 9" },
+      { "input": "nums = [3,2,4], target = 6", "output": "[1,2]" }
+    ],
+    "hints": [
+      "Think about what information you need to find the complement.",
+      "For each number x, you need to find target - x.",
+      "A hash map lets you look up values in O(1)."
+    ],
+    "approach": "Use a hash map to store each number and its index as we iterate. For each element, check if its complement (target - num) already exists in the map.",
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def twoSum(nums: list[int], target: int) -> list[int]:\n    seen = {}  # value -> index\n    for i, num in enumerate(nums):\n        complement = target - num\n        if complement in seen:\n            return [seen[complement], i]\n        seen[num] = i\n    return []",
+      "go": "func twoSum(nums []int, target int) []int {\n    seen := make(map[int]int) // value -> index\n    for i, num := range nums {\n        complement := target - num\n        if j, ok := seen[complement]; ok {\n            return []int{j, i}\n        }\n        seen[num] = i\n    }\n    return nil\n}",
+      "javascript": "function twoSum(nums, target) {\n    const seen = new Map(); // value -> index\n    for (let i = 0; i < nums.length; i++) {\n        const complement = target - nums[i];\n        if (seen.has(complement)) {\n            return [seen.get(complement), i];\n        }\n        seen.set(nums[i], i);\n    }\n    return [];\n}",
+      "java": "public int[] twoSum(int[] nums, int target) {\n    Map<Integer, Integer> seen = new HashMap<>();\n    for (int i = 0; i < nums.length; i++) {\n        int complement = target - nums[i];\n        if (seen.containsKey(complement)) {\n            return new int[]{seen.get(complement), i};\n        }\n        seen.put(nums[i], i);\n    }\n    return new int[]{};\n}"
+    }
+  },
+  {
+    "id": 2,
+    "number": "#20",
+    "title": "Valid Parentheses",
+    "difficulty": "Easy",
+    "category": "Stack",
+    "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. An input string is valid if open brackets are closed by the same type of brackets in the correct order.",
+    "examples": [
+      { "input": "s = \"()[]{}\"", "output": "true" },
+      { "input": "s = \"(]\"", "output": "false" },
+      { "input": "s = \"([)]\"", "output": "false" }
+    ],
+    "hints": [
+      "Use a stack to track opening brackets.",
+      "When you see a closing bracket, check if it matches the top of the stack.",
+      "At the end, the stack should be empty."
+    ],
+    "approach": "Push opening brackets onto a stack. When a closing bracket is encountered, pop from the stack and verify it matches. If stack is empty at the end, the string is valid.",
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def isValid(s: str) -> bool:\n    stack = []\n    pairs = {')': '(', '}': '{', ']': '['}\n    for ch in s:\n        if ch in '([{':\n            stack.append(ch)\n        elif not stack or stack[-1] != pairs[ch]:\n            return False\n        else:\n            stack.pop()\n    return len(stack) == 0",
+      "go": "func isValid(s string) bool {\n    stack := []rune{}\n    pairs := map[rune]rune{')': '(', '}': '{', ']': '['}\n    for _, ch := range s {\n        if ch == '(' || ch == '{' || ch == '[' {\n            stack = append(stack, ch)\n        } else {\n            if len(stack) == 0 || stack[len(stack)-1] != pairs[ch] {\n                return false\n            }\n            stack = stack[:len(stack)-1]\n        }\n    }\n    return len(stack) == 0\n}",
+      "javascript": "function isValid(s) {\n    const stack = [];\n    const pairs = { ')': '(', '}': '{', ']': '[' };\n    for (const ch of s) {\n        if ('([{'.includes(ch)) {\n            stack.push(ch);\n        } else {\n            if (stack.pop() !== pairs[ch]) return false;\n        }\n    }\n    return stack.length === 0;\n}",
+      "java": "public boolean isValid(String s) {\n    Deque<Character> stack = new ArrayDeque<>();\n    for (char ch : s.toCharArray()) {\n        if (\"([{\".indexOf(ch) >= 0) {\n            stack.push(ch);\n        } else {\n            if (stack.isEmpty()) return false;\n            char top = stack.pop();\n            if ((ch==')' && top!='(') ||\n                (ch=='}' && top!='{') ||\n                (ch==']' && top!='[')) return false;\n        }\n    }\n    return stack.isEmpty();\n}"
+    }
+  },
+  {
+    "id": 3,
+    "number": "#21",
+    "title": "Merge Two Sorted Lists",
+    "difficulty": "Easy",
+    "category": "Linked List",
+    "description": "You are given the heads of two sorted linked lists list1 and list2. Merge the two lists into one sorted list and return the head of the merged linked list.",
+    "examples": [
+      { "input": "list1 = [1,2,4], list2 = [1,3,4]", "output": "[1,1,2,3,4,4]" },
+      { "input": "list1 = [], list2 = [0]", "output": "[0]" }
+    ],
+    "hints": [
+      "Use a dummy head node to simplify edge cases.",
+      "Compare the current nodes of both lists and attach the smaller one.",
+      "After one list is exhausted, attach the remainder of the other."
+    ],
+    "approach": "Use a dummy head node. Compare the two list heads, attach the smaller node to the result, and advance that list's pointer. Append remaining nodes once one list is exhausted.",
+    "timeComplexity": "O(m + n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "class ListNode:\n    def __init__(self, val=0, next=None):\n        self.val = val\n        self.next = next\n\ndef mergeTwoLists(l1, l2):\n    dummy = ListNode(0)\n    cur = dummy\n    while l1 and l2:\n        if l1.val <= l2.val:\n            cur.next = l1\n            l1 = l1.next\n        else:\n            cur.next = l2\n            l2 = l2.next\n        cur = cur.next\n    cur.next = l1 or l2\n    return dummy.next",
+      "go": "func mergeTwoLists(l1 *ListNode, l2 *ListNode) *ListNode {\n    dummy := &ListNode{}\n    cur := dummy\n    for l1 != nil && l2 != nil {\n        if l1.Val <= l2.Val {\n            cur.Next = l1\n            l1 = l1.Next\n        } else {\n            cur.Next = l2\n            l2 = l2.Next\n        }\n        cur = cur.Next\n    }\n    if l1 != nil {\n        cur.Next = l1\n    } else {\n        cur.Next = l2\n    }\n    return dummy.Next\n}",
+      "javascript": "function mergeTwoLists(l1, l2) {\n    const dummy = { val: 0, next: null };\n    let cur = dummy;\n    while (l1 && l2) {\n        if (l1.val <= l2.val) {\n            cur.next = l1; l1 = l1.next;\n        } else {\n            cur.next = l2; l2 = l2.next;\n        }\n        cur = cur.next;\n    }\n    cur.next = l1 ?? l2;\n    return dummy.next;\n}",
+      "java": "public ListNode mergeTwoLists(ListNode l1, ListNode l2) {\n    ListNode dummy = new ListNode(0);\n    ListNode cur = dummy;\n    while (l1 != null && l2 != null) {\n        if (l1.val <= l2.val) {\n            cur.next = l1; l1 = l1.next;\n        } else {\n            cur.next = l2; l2 = l2.next;\n        }\n        cur = cur.next;\n    }\n    cur.next = (l1 != null) ? l1 : l2;\n    return dummy.next;\n}"
+    }
+  },
+  {
+    "id": 4,
+    "number": "#704",
+    "title": "Binary Search",
+    "difficulty": "Easy",
+    "category": "Binary Search",
+    "description": "Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, return its index. Otherwise, return -1. You must write an algorithm with O(log n) runtime complexity.",
+    "examples": [
+      { "input": "nums = [-1,0,3,5,9,12], target = 9", "output": "4" },
+      { "input": "nums = [-1,0,3,5,9,12], target = 2", "output": "-1" }
+    ],
+    "hints": [
+      "Maintain a left and right pointer.",
+      "Calculate mid = (left + right) // 2.",
+      "If nums[mid] == target, return mid. If smaller, move left. If larger, move right."
+    ],
+    "approach": "Classic binary search. Keep halving the search space by comparing the middle element with the target.",
+    "timeComplexity": "O(log n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def search(nums: list[int], target: int) -> int:\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1",
+      "go": "func search(nums []int, target int) int {\n    left, right := 0, len(nums)-1\n    for left <= right {\n        mid := (left + right) / 2\n        if nums[mid] == target {\n            return mid\n        } else if nums[mid] < target {\n            left = mid + 1\n        } else {\n            right = mid - 1\n        }\n    }\n    return -1\n}",
+      "javascript": "function search(nums, target) {\n    let left = 0, right = nums.length - 1;\n    while (left <= right) {\n        const mid = (left + right) >> 1;\n        if (nums[mid] === target) return mid;\n        else if (nums[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}",
+      "java": "public int search(int[] nums, int target) {\n    int left = 0, right = nums.length - 1;\n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        if (nums[mid] == target) return mid;\n        else if (nums[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}"
+    }
+  },
+  {
+    "id": 5,
+    "number": "#53",
+    "title": "Maximum Subarray",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "Given an integer array nums, find the subarray with the largest sum, and return its sum. A subarray is a contiguous non-empty sequence of elements within an array.",
+    "examples": [
+      { "input": "nums = [-2,1,-3,4,-1,2,1,-5,4]", "output": "6", "explanation": "Subarray [4,-1,2,1] has the largest sum = 6" },
+      { "input": "nums = [1]", "output": "1" }
+    ],
+    "hints": [
+      "Kadane's algorithm: track current sum and global max.",
+      "If current sum goes negative, reset it to 0 (start fresh).",
+      "At each step: currentSum = max(num, currentSum + num)"
+    ],
+    "approach": "Kadane's Algorithm: iterate through the array keeping track of the current running sum. If adding the current element makes things worse than starting fresh, reset. Track the global maximum throughout.",
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def maxSubArray(nums: list[int]) -> int:\n    cur_sum = max_sum = nums[0]\n    for num in nums[1:]:\n        cur_sum = max(num, cur_sum + num)\n        max_sum = max(max_sum, cur_sum)\n    return max_sum",
+      "go": "func maxSubArray(nums []int) int {\n    curSum, maxSum := nums[0], nums[0]\n    for _, num := range nums[1:] {\n        if curSum+num > num {\n            curSum = curSum + num\n        } else {\n            curSum = num\n        }\n        if curSum > maxSum {\n            maxSum = curSum\n        }\n    }\n    return maxSum\n}",
+      "javascript": "function maxSubArray(nums) {\n    let curSum = nums[0], maxSum = nums[0];\n    for (let i = 1; i < nums.length; i++) {\n        curSum = Math.max(nums[i], curSum + nums[i]);\n        maxSum = Math.max(maxSum, curSum);\n    }\n    return maxSum;\n}",
+      "java": "public int maxSubArray(int[] nums) {\n    int curSum = nums[0], maxSum = nums[0];\n    for (int i = 1; i < nums.length; i++) {\n        curSum = Math.max(nums[i], curSum + nums[i]);\n        maxSum = Math.max(maxSum, curSum);\n    }\n    return maxSum;\n}"
+    }
+  },
+  {
+    "id": 6,
+    "number": "#206",
+    "title": "Reverse Linked List",
+    "difficulty": "Easy",
+    "category": "Linked List",
+    "description": "Given the head of a singly linked list, reverse the list, and return the reversed list.",
+    "examples": [
+      { "input": "head = [1,2,3,4,5]", "output": "[5,4,3,2,1]" },
+      { "input": "head = [1,2]", "output": "[2,1]" }
+    ],
+    "hints": [
+      "You need three pointers: prev, curr, next.",
+      "At each step, save next, flip the arrow, then advance all three.",
+      "When curr is None, prev is the new head."
+    ],
+    "approach": "Iterative approach using three pointers. At each step, reverse the next pointer of the current node, then advance all pointers forward.",
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def reverseList(head):\n    prev, curr = None, head\n    while curr:\n        nxt = curr.next\n        curr.next = prev\n        prev = curr\n        curr = nxt\n    return prev",
+      "go": "func reverseList(head *ListNode) *ListNode {\n    var prev *ListNode\n    curr := head\n    for curr != nil {\n        nxt := curr.Next\n        curr.Next = prev\n        prev = curr\n        curr = nxt\n    }\n    return prev\n}",
+      "javascript": "function reverseList(head) {\n    let prev = null, curr = head;\n    while (curr) {\n        const nxt = curr.next;\n        curr.next = prev;\n        prev = curr;\n        curr = nxt;\n    }\n    return prev;\n}",
+      "java": "public ListNode reverseList(ListNode head) {\n    ListNode prev = null, curr = head;\n    while (curr != null) {\n        ListNode nxt = curr.next;\n        curr.next = prev;\n        prev = curr;\n        curr = nxt;\n    }\n    return prev;\n}"
+    }
+  },
+  {
+    "id": 7,
+    "number": "#102",
+    "title": "Binary Tree Level Order Traversal",
+    "difficulty": "Medium",
+    "category": "Tree / BFS",
+    "description": "Given the root of a binary tree, return the level order traversal of its nodes' values (i.e., from left to right, level by level).",
+    "examples": [
+      { "input": "root = [3,9,20,null,null,15,7]", "output": "[[3],[9,20],[15,7]]" },
+      { "input": "root = [1]", "output": "[[1]]" }
+    ],
+    "hints": [
+      "Use a queue (BFS) — process nodes level by level.",
+      "At the start of each level, the queue size = number of nodes in that level.",
+      "Process exactly queue.size() nodes, then move to the next level."
+    ],
+    "approach": "BFS using a queue. At each iteration, process all nodes at the current level (queue size at start of iteration), add their children to the queue, and record the level's values.",
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "from collections import deque\n\ndef levelOrder(root):\n    if not root:\n        return []\n    result, queue = [], deque([root])\n    while queue:\n        level = []\n        for _ in range(len(queue)):\n            node = queue.popleft()\n            level.append(node.val)\n            if node.left:  queue.append(node.left)\n            if node.right: queue.append(node.right)\n        result.append(level)\n    return result",
+      "go": "func levelOrder(root *TreeNode) [][]int {\n    if root == nil {\n        return nil\n    }\n    result := [][]int{}\n    queue := []*TreeNode{root}\n    for len(queue) > 0 {\n        size := len(queue)\n        level := []int{}\n        for i := 0; i < size; i++ {\n            node := queue[0]\n            queue = queue[1:]\n            level = append(level, node.Val)\n            if node.Left != nil  { queue = append(queue, node.Left) }\n            if node.Right != nil { queue = append(queue, node.Right) }\n        }\n        result = append(result, level)\n    }\n    return result\n}",
+      "javascript": "function levelOrder(root) {\n    if (!root) return [];\n    const result = [], queue = [root];\n    while (queue.length) {\n        const level = [], size = queue.length;\n        for (let i = 0; i < size; i++) {\n            const node = queue.shift();\n            level.push(node.val);\n            if (node.left)  queue.push(node.left);\n            if (node.right) queue.push(node.right);\n        }\n        result.push(level);\n    }\n    return result;\n}",
+      "java": "public List<List<Integer>> levelOrder(TreeNode root) {\n    List<List<Integer>> result = new ArrayList<>();\n    if (root == null) return result;\n    Queue<TreeNode> queue = new LinkedList<>();\n    queue.offer(root);\n    while (!queue.isEmpty()) {\n        int size = queue.size();\n        List<Integer> level = new ArrayList<>();\n        for (int i = 0; i < size; i++) {\n            TreeNode node = queue.poll();\n            level.add(node.val);\n            if (node.left != null)  queue.offer(node.left);\n            if (node.right != null) queue.offer(node.right);\n        }\n        result.add(level);\n    }\n    return result;\n}"
+    }
+  },
+  {
+    "id": 8,
+    "number": "#200",
+    "title": "Number of Islands",
+    "difficulty": "Medium",
+    "category": "Graph / DFS",
+    "description": "Given an m x n 2D binary grid which represents a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.",
+    "examples": [
+      { "input": "grid = [[\"1\",\"1\",\"0\"],[\"0\",\"1\",\"0\"],[\"0\",\"0\",\"1\"]]", "output": "2" }
+    ],
+    "hints": [
+      "Iterate through each cell. When you find a '1', it's a new island.",
+      "DFS/BFS from that cell to mark all connected '1's as visited.",
+      "Increment island count each time you start a new DFS."
+    ],
+    "approach": "Iterate through the grid. When a '1' is found, increment the count and DFS to mark all connected land cells as '0' (visited). This avoids double counting.",
+    "timeComplexity": "O(m × n)",
+    "spaceComplexity": "O(m × n)",
+    "solutions": {
+      "python": "def numIslands(grid: list[list[str]]) -> int:\n    if not grid:\n        return 0\n    rows, cols = len(grid), len(grid[0])\n\n    def dfs(r, c):\n        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] != '1':\n            return\n        grid[r][c] = '0'  # mark visited\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1)\n\n    count = 0\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == '1':\n                count += 1\n                dfs(r, c)\n    return count",
+      "go": "func numIslands(grid [][]byte) int {\n    rows, cols := len(grid), len(grid[0])\n    var dfs func(r, c int)\n    dfs = func(r, c int) {\n        if r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] != '1' {\n            return\n        }\n        grid[r][c] = '0'\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1)\n    }\n    count := 0\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            if grid[r][c] == '1' {\n                count++\n                dfs(r, c)\n            }\n        }\n    }\n    return count\n}",
+      "javascript": "function numIslands(grid) {\n    const rows = grid.length, cols = grid[0].length;\n    let count = 0;\n    function dfs(r, c) {\n        if (r<0||r>=rows||c<0||c>=cols||grid[r][c]!=='1') return;\n        grid[r][c] = '0';\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1);\n    }\n    for (let r = 0; r < rows; r++)\n        for (let c = 0; c < cols; c++)\n            if (grid[r][c] === '1') { count++; dfs(r,c); }\n    return count;\n}",
+      "java": "public int numIslands(char[][] grid) {\n    int count = 0;\n    for (int r = 0; r < grid.length; r++)\n        for (int c = 0; c < grid[0].length; c++)\n            if (grid[r][c] == '1') { dfs(grid,r,c); count++; }\n    return count;\n}\nvoid dfs(char[][] g, int r, int c) {\n    if (r<0||r>=g.length||c<0||c>=g[0].length||g[r][c]!='1') return;\n    g[r][c]='0';\n    dfs(g,r+1,c); dfs(g,r-1,c); dfs(g,r,c+1); dfs(g,r,c-1);\n}"
+    }
+  }
+]

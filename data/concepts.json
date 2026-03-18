@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "title": "Hash Map",
+    "category": "Data Structure",
+    "description": "A hash map (dict in Python, map in Go) stores key-value pairs with average O(1) lookup, insert, and delete. It uses a hash function to compute an index into an array of buckets.",
+    "diagram": "Key  →  hash(key) % size  →  bucket index\n\n  \"apple\" → 3 → [3]: (\"apple\", 5)\n  \"grape\" → 7 → [7]: (\"grape\", 12)\n  \"pear\"  → 3 → [3]: collision → chaining\n\nLookup:  O(1) avg,  O(n) worst\nInsert:  O(1) avg\nDelete:  O(1) avg",
+    "keyPoints": [
+      "Average O(1) for get/set/delete",
+      "Collisions handled by chaining or open addressing",
+      "Load factor triggers resize (typically at 0.75)",
+      "Keys must be hashable (immutable in Python)",
+      "Common pattern: counting frequencies, caching, grouping"
+    ],
+    "solutions": {
+      "python": "# Frequency count\nnums = [1, 2, 2, 3, 3, 3]\nfreq = {}\nfor n in nums:\n    freq[n] = freq.get(n, 0) + 1\n# freq = {1:1, 2:2, 3:3}\n\n# Using Counter\nfrom collections import Counter\nfreq = Counter(nums)\n\n# defaultdict\nfrom collections import defaultdict\ngraph = defaultdict(list)\ngraph['a'].append('b')",
+      "go": "// Basic map\nfreq := make(map[int]int)\nnums := []int{1, 2, 2, 3, 3, 3}\nfor _, n := range nums {\n    freq[n]++\n}\n\n// Check existence\nif val, ok := freq[2]; ok {\n    fmt.Println(\"found:\", val)\n}\n\n// Delete\ndelete(freq, 2)\n\n// Map of slices (adjacency list)\ngraph := make(map[string][]string)\ngraph[\"a\"] = append(graph[\"a\"], \"b\")",
+      "javascript": "// Object as map\nconst freq = {};\nconst nums = [1,2,2,3,3,3];\nfor (const n of nums) freq[n] = (freq[n] || 0) + 1;\n\n// Map (better for non-string keys)\nconst map = new Map();\nmap.set('key', 'value');\nmap.get('key');    // 'value'\nmap.has('key');    // true\nmap.delete('key');\n\n// GroupBy pattern\nconst grouped = nums.reduce((acc, n) => {\n    (acc[n] ??= []).push(n); return acc;\n}, {});",
+      "java": "// HashMap\nMap<Integer, Integer> freq = new HashMap<>();\nint[] nums = {1,2,2,3,3,3};\nfor (int n : nums)\n    freq.merge(n, 1, Integer::sum);\n\n// getOrDefault\nint count = freq.getOrDefault(2, 0);\n\n// computeIfAbsent for list values\nMap<String, List<Integer>> groups = new HashMap<>();\ngroups.computeIfAbsent(\"key\", k -> new ArrayList<>()).add(1);"
+    }
+  },
+  {
+    "id": 2,
+    "title": "Binary Search",
+    "category": "Algorithm",
+    "description": "Binary search finds a target in a sorted array in O(log n) time by repeatedly halving the search space. Key insight: if the middle element isn't the target, you can eliminate half the array.",
+    "diagram": "Array: [-1, 0, 3, 5, 9, 12]  target = 9\n         0   1  2  3  4   5\n\nStep 1:  L=0, R=5  mid=2  nums[2]=3 < 9  → L=3\nStep 2:  L=3, R=5  mid=4  nums[4]=9 = 9  → return 4 ✓\n\nInvariant: target is always in [L, R]\nLoop condition: L <= R",
+    "keyPoints": [
+      "Array MUST be sorted (or have a sorted property)",
+      "Use mid = left + (right - left) // 2 to avoid overflow",
+      "Three cases: found, go left (right = mid-1), go right (left = mid+1)",
+      "Template: while left <= right (inclusive bounds)",
+      "Common trick: binary search on the answer space, not just an array"
+    ],
+    "solutions": {
+      "python": "def binary_search(nums, target):\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n\n# Find leftmost position (lower bound)\ndef lower_bound(nums, target):\n    left, right = 0, len(nums)\n    while left < right:\n        mid = (left + right) // 2\n        if nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid\n    return left",
+      "go": "func binarySearch(nums []int, target int) int {\n    left, right := 0, len(nums)-1\n    for left <= right {\n        mid := left + (right-left)/2\n        if nums[mid] == target {\n            return mid\n        } else if nums[mid] < target {\n            left = mid + 1\n        } else {\n            right = mid - 1\n        }\n    }\n    return -1\n}\n\n// sort.Search (lower bound)\nimport \"sort\"\npos := sort.SearchInts(nums, target)",
+      "javascript": "function binarySearch(nums, target) {\n    let left = 0, right = nums.length - 1;\n    while (left <= right) {\n        const mid = (left + right) >>> 1; // unsigned right shift = floor\n        if (nums[mid] === target) return mid;\n        else if (nums[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}",
+      "java": "int binarySearch(int[] nums, int target) {\n    int left = 0, right = nums.length - 1;\n    while (left <= right) {\n        int mid = left + (right - left) / 2;\n        if (nums[mid] == target) return mid;\n        else if (nums[mid] < target) left = mid + 1;\n        else right = mid - 1;\n    }\n    return -1;\n}\n// Built-in: Arrays.binarySearch(nums, target)"
+    }
+  },
+  {
+    "id": 3,
+    "title": "Sliding Window",
+    "category": "Algorithm",
+    "description": "Sliding window maintains a window (subarray/substring) using two pointers and slides it across the input. Used for problems asking for optimal contiguous subarray/substring with some constraint.",
+    "diagram": "Find max sum subarray of size k=3:\n[2, 1, 5, 1, 3, 2]\n\n[2  1  5] 1  3  2   sum=8\n 2 [1  5  1] 3  2   sum=7\n 2  1 [5  1  3] 2   sum=9  ← max\n 2  1  5 [1  3  2]  sum=6\n\nWindow slides: remove left, add right → O(n)",
+    "keyPoints": [
+      "Fixed window: move both pointers together",
+      "Variable window: expand right, shrink left when constraint violated",
+      "Use for: max/min subarray, longest substring, anagram detection",
+      "Track window state with a counter/map/sum",
+      "Time: O(n) — each element enters and exits window once"
+    ],
+    "solutions": {
+      "python": "# Fixed window — max sum of size k\ndef max_sum_fixed(nums, k):\n    window_sum = sum(nums[:k])\n    best = window_sum\n    for i in range(k, len(nums)):\n        window_sum += nums[i] - nums[i - k]\n        best = max(best, window_sum)\n    return best\n\n# Variable window — longest substring without repeating\ndef length_of_longest_substring(s):\n    seen = set()\n    left = best = 0\n    for right, ch in enumerate(s):\n        while ch in seen:\n            seen.remove(s[left])\n            left += 1\n        seen.add(ch)\n        best = max(best, right - left + 1)\n    return best",
+      "go": "// Longest substring without repeating characters\nfunc lengthOfLongestSubstring(s string) int {\n    seen := make(map[byte]int) // char -> last index\n    best, left := 0, 0\n    for right := 0; right < len(s); right++ {\n        if idx, ok := seen[s[right]]; ok && idx >= left {\n            left = idx + 1\n        }\n        seen[s[right]] = right\n        if right-left+1 > best {\n            best = right - left + 1\n        }\n    }\n    return best\n}",
+      "javascript": "// Longest substring without repeating characters\nfunction lengthOfLongestSubstring(s) {\n    const seen = new Map();\n    let left = 0, best = 0;\n    for (let right = 0; right < s.length; right++) {\n        if (seen.has(s[right]) && seen.get(s[right]) >= left)\n            left = seen.get(s[right]) + 1;\n        seen.set(s[right], right);\n        best = Math.max(best, right - left + 1);\n    }\n    return best;\n}",
+      "java": "public int lengthOfLongestSubstring(String s) {\n    Map<Character, Integer> seen = new HashMap<>();\n    int left = 0, best = 0;\n    for (int right = 0; right < s.length(); right++) {\n        char ch = s.charAt(right);\n        if (seen.containsKey(ch) && seen.get(ch) >= left)\n            left = seen.get(ch) + 1;\n        seen.put(ch, right);\n        best = Math.max(best, right - left + 1);\n    }\n    return best;\n}"
+    }
+  },
+  {
+    "id": 4,
+    "title": "DFS & BFS",
+    "category": "Graph / Tree",
+    "description": "DFS (Depth-First Search) explores as far as possible before backtracking — uses a stack (or recursion). BFS (Breadth-First Search) explores level by level — uses a queue. Both visit all nodes in O(V+E).",
+    "diagram": "Graph:\n  1 → 2 → 4\n  1 → 3 → 5\n\nDFS (stack): 1 → 2 → 4 → 3 → 5  (go deep first)\nBFS (queue): 1 → 2 → 3 → 4 → 5  (level by level)\n\nWhen to use:\n  DFS → path existence, cycles, topological sort\n  BFS → shortest path (unweighted), level order",
+    "keyPoints": [
+      "DFS: use recursion or explicit stack",
+      "BFS: always use a queue (deque)",
+      "Always track visited nodes to avoid infinite loops",
+      "BFS guarantees shortest path in unweighted graphs",
+      "DFS space: O(height), BFS space: O(width)"
+    ],
+    "solutions": {
+      "python": "from collections import deque\n\n# DFS (recursive)\ndef dfs(graph, node, visited=None):\n    if visited is None: visited = set()\n    visited.add(node)\n    for neighbor in graph[node]:\n        if neighbor not in visited:\n            dfs(graph, neighbor, visited)\n    return visited\n\n# BFS\ndef bfs(graph, start):\n    visited = {start}\n    queue = deque([start])\n    order = []\n    while queue:\n        node = queue.popleft()\n        order.append(node)\n        for neighbor in graph[node]:\n            if neighbor not in visited:\n                visited.add(neighbor)\n                queue.append(neighbor)\n    return order",
+      "go": "// BFS\nfunc bfs(graph map[int][]int, start int) []int {\n    visited := map[int]bool{start: true}\n    queue := []int{start}\n    var order []int\n    for len(queue) > 0 {\n        node := queue[0]\n        queue = queue[1:]\n        order = append(order, node)\n        for _, nb := range graph[node] {\n            if !visited[nb] {\n                visited[nb] = true\n                queue = append(queue, nb)\n            }\n        }\n    }\n    return order\n}\n\n// DFS (iterative)\nfunc dfs(graph map[int][]int, start int) []int {\n    visited := map[int]bool{}\n    stack := []int{start}\n    var order []int\n    for len(stack) > 0 {\n        node := stack[len(stack)-1]\n        stack = stack[:len(stack)-1]\n        if visited[node] { continue }\n        visited[node] = true\n        order = append(order, node)\n        for _, nb := range graph[node] {\n            stack = append(stack, nb)\n        }\n    }\n    return order\n}",
+      "javascript": "// BFS\nfunction bfs(graph, start) {\n    const visited = new Set([start]);\n    const queue = [start];\n    const order = [];\n    while (queue.length) {\n        const node = queue.shift();\n        order.push(node);\n        for (const nb of graph[node] || []) {\n            if (!visited.has(nb)) {\n                visited.add(nb);\n                queue.push(nb);\n            }\n        }\n    }\n    return order;\n}\n\n// DFS (recursive)\nfunction dfs(graph, node, visited = new Set()) {\n    visited.add(node);\n    for (const nb of graph[node] || [])\n        if (!visited.has(nb)) dfs(graph, nb, visited);\n    return visited;\n}",
+      "java": "// BFS\nList<Integer> bfs(Map<Integer,List<Integer>> graph, int start) {\n    Set<Integer> visited = new HashSet<>();\n    Queue<Integer> queue = new LinkedList<>();\n    List<Integer> order = new ArrayList<>();\n    visited.add(start); queue.offer(start);\n    while (!queue.isEmpty()) {\n        int node = queue.poll();\n        order.add(node);\n        for (int nb : graph.getOrDefault(node, List.of()))\n            if (visited.add(nb)) queue.offer(nb);\n    }\n    return order;\n}"
+    }
+  },
+  {
+    "id": 5,
+    "title": "Two Pointers",
+    "category": "Algorithm",
+    "description": "Two pointers uses two indices that move through the data structure, often from both ends toward the middle or at different speeds. Reduces many O(n²) brute force problems to O(n).",
+    "diagram": "Opposite direction (sorted array sum):\nTarget = 9:  [1, 3, 5, 7, 9]\n              L           R   sum=10 > 9 → R--\n              L        R      sum=8  < 9 → L++\n              L     R         sum=8  < 9 → L++\n                 L  R         sum=10 > 9 → R--\n                 LR           L==R → stop\n\nSame direction (fast/slow — cycle detection):\n  slow moves 1 step, fast moves 2 steps",
+    "keyPoints": [
+      "Opposite ends: sort first, then converge (pair sum, palindrome check)",
+      "Same direction: one slow + one fast pointer (remove duplicates, cycle detection)",
+      "Requires sorted array for most opposite-direction patterns",
+      "Floyd's cycle detection: fast/slow pointers meet if there's a cycle",
+      "Time: O(n), Space: O(1)"
+    ],
+    "solutions": {
+      "python": "# Two Sum in sorted array\ndef two_sum_sorted(nums, target):\n    left, right = 0, len(nums) - 1\n    while left < right:\n        s = nums[left] + nums[right]\n        if s == target: return [left, right]\n        elif s < target: left += 1\n        else: right -= 1\n    return []\n\n# Remove duplicates in-place\ndef remove_duplicates(nums):\n    k = 1\n    for i in range(1, len(nums)):\n        if nums[i] != nums[i-1]:\n            nums[k] = nums[i]\n            k += 1\n    return k\n\n# Detect cycle (Floyd's)\ndef has_cycle(head):\n    slow = fast = head\n    while fast and fast.next:\n        slow = slow.next\n        fast = fast.next.next\n        if slow == fast: return True\n    return False",
+      "go": "// Two sum in sorted array\nfunc twoSumSorted(nums []int, target int) []int {\n    left, right := 0, len(nums)-1\n    for left < right {\n        s := nums[left] + nums[right]\n        if s == target { return []int{left, right} }\n        if s < target  { left++ } else { right-- }\n    }\n    return nil\n}\n\n// Detect cycle\nfunc hasCycle(head *ListNode) bool {\n    slow, fast := head, head\n    for fast != nil && fast.Next != nil {\n        slow = slow.Next\n        fast = fast.Next.Next\n        if slow == fast { return true }\n    }\n    return false\n}",
+      "javascript": "// Two sum in sorted array\nfunction twoSumSorted(nums, target) {\n    let left = 0, right = nums.length - 1;\n    while (left < right) {\n        const s = nums[left] + nums[right];\n        if (s === target) return [left, right];\n        else if (s < target) left++;\n        else right--;\n    }\n    return [];\n}\n\n// Palindrome check\nfunction isPalindrome(s) {\n    let l = 0, r = s.length - 1;\n    while (l < r) {\n        if (s[l++] !== s[r--]) return false;\n    }\n    return true;\n}",
+      "java": "// Two sum in sorted array\nint[] twoSumSorted(int[] nums, int target) {\n    int left = 0, right = nums.length - 1;\n    while (left < right) {\n        int s = nums[left] + nums[right];\n        if (s == target) return new int[]{left, right};\n        else if (s < target) left++;\n        else right--;\n    }\n    return new int[]{};\n}"
+    }
+  }
+]

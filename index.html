@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0f13">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DSA Flash">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <title>DSA Flash</title>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="app-header">
+    <div class="header-left">
+      <span class="app-logo">⚡ DSA Flash</span>
+    </div>
+    <div class="header-right">
+      <span id="card-counter">1 / 1</span>
+    </div>
+  </header>
+
+  <!-- Main content area -->
+  <main id="feed"></main>
+
+  <!-- Bottom Nav -->
+  <nav id="bottom-nav">
+    <button class="nav-btn active" data-mode="questions" onclick="switchMode('questions')">
+      <span class="nav-icon">🧩</span>
+      <span class="nav-label">Questions</span>
+    </button>
+    <button class="nav-btn" data-mode="concepts" onclick="switchMode('concepts')">
+      <span class="nav-icon">📚</span>
+      <span class="nav-label">Concepts</span>
+    </button>
+  </nav>
+
+  <!-- Templates -->
+  <template id="question-card-tpl">
+    <article class="card question-card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="badge-difficulty"></span>
+            <span class="badge-category"></span>
+            <span class="badge-number"></span>
+          </div>
+          <h2 class="card-title"></h2>
+          <p class="card-description"></p>
+          <div class="examples-section">
+            <h4>Examples</h4>
+            <div class="examples-list"></div>
+          </div>
+          <div class="hints-section" style="display:none">
+            <h4>Hints</h4>
+            <ul class="hints-list"></ul>
+          </div>
+          <button class="btn-hints" onclick="toggleHints(this)">Show Hints</button>
+        </div>
+
+        <div class="solution-area" style="display:none">
+          <div class="lang-tabs"></div>
+          <div class="complexity-row">
+            <span class="complexity-badge time"></span>
+            <span class="complexity-badge space"></span>
+          </div>
+          <div class="approach-text"></div>
+          <pre><code class="solution-code"></code></pre>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-solution" onclick="toggleSolution(this)">Show Solution</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="concept-card-tpl">
+    <article class="card concept-card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="badge-category"></span>
+          </div>
+          <h2 class="card-title"></h2>
+          <p class="card-description"></p>
+          <div class="visual-section">
+            <pre class="visual-diagram"></pre>
+          </div>
+          <div class="key-points">
+            <h4>Key Points</h4>
+            <ul class="points-list"></ul>
+          </div>
+        </div>
+
+        <div class="solution-area" style="display:none">
+          <div class="lang-tabs"></div>
+          <pre><code class="solution-code"></code></pre>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn-solution" onclick="toggleSolution(this)">Show Code Example</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
