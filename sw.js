@@ -1,11 +1,10 @@
 const CACHE = 'dsa-flash-v1';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/app.js',
-  '/data/questions.json',
-  '/data/concepts.json'
+  './index.html',
+  './style.css',
+  './app.js',
+  './data/questions.json',
+  './data/concepts.json'
 ];
 
 self.addEventListener('install', e => {

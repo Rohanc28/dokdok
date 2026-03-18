@@ -12,7 +12,7 @@ const DOK_BATCH = 6;
 // ─── Init ────────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
   }
   setCardHeight();
   window.addEventListener('resize', setCardHeight);
