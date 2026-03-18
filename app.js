@@ -43,6 +43,13 @@ function initDesktopNav() {
   // Attach to document so it fires regardless of which child has hover/focus.
   // passive:false lets us call preventDefault to stop the page from jumping.
   document.addEventListener('wheel', (e) => {
+    // If scrolling over the code block, let it scroll independently.
+    const pre = e.target.closest('.solution-area pre');
+    if (pre) {
+      const canScrollUp   = pre.scrollTop > 0;
+      const canScrollDown = pre.scrollTop + pre.clientHeight < pre.scrollHeight - 1;
+      if ((e.deltaY < 0 && canScrollUp) || (e.deltaY > 0 && canScrollDown)) return;
+    }
     // If a card-inner still has scrollable room, let it scroll first.
     const inner = e.target.closest('.card-inner');
     if (inner) {
