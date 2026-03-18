@@ -98,5 +98,62 @@
       "javascript": "// Two sum in sorted array\nfunction twoSumSorted(nums, target) {\n    let left = 0, right = nums.length - 1;\n    while (left < right) {\n        const s = nums[left] + nums[right];\n        if (s === target) return [left, right];\n        else if (s < target) left++;\n        else right--;\n    }\n    return [];\n}\n\n// Palindrome check\nfunction isPalindrome(s) {\n    let l = 0, r = s.length - 1;\n    while (l < r) {\n        if (s[l++] !== s[r--]) return false;\n    }\n    return true;\n}",
       "java": "// Two sum in sorted array\nint[] twoSumSorted(int[] nums, int target) {\n    int left = 0, right = nums.length - 1;\n    while (left < right) {\n        int s = nums[left] + nums[right];\n        if (s == target) return new int[]{left, right};\n        else if (s < target) left++;\n        else right--;\n    }\n    return new int[]{};\n}"
     }
+  },
+  {
+    "id": 6,
+    "title": "Sets",
+    "category": "Data Structure",
+    "description": "A set stores unique elements with average O(1) add, remove, and lookup. No duplicates, no guaranteed order (except LinkedHashSet / sorted variants). Python has set, Go uses map[T]struct{}, Java has HashSet/TreeSet.",
+    "diagram": "Set operations:\n\n  A = {1, 2, 3, 4}    B = {3, 4, 5, 6}\n\n  Union        A | B  = {1,2,3,4,5,6}\n  Intersection A & B  = {3,4}\n  Difference   A - B  = {1,2}\n  Symmetric    A ^ B  = {1,2,5,6}\n\nLookup:  O(1) avg\nAdd:     O(1) avg\nRemove:  O(1) avg",
+    "keyPoints": [
+      "O(1) average for add / remove / contains",
+      "Go has no built-in set — use map[T]struct{} (zero memory value)",
+      "Python set elements must be hashable (no lists as elements)",
+      "Java HashSet = unordered, TreeSet = sorted O(log n)",
+      "Common use: deduplication, visited tracking, O(1) membership test"
+    ],
+    "solutions": {
+      "python": "# Create & basic ops\ns = {1, 2, 3}\ns.add(4)          # {1,2,3,4}\ns.discard(2)      # no error if missing\n2 in s            # False\n\n# From list — deduplicate\nunique = list(set([1,1,2,3,3]))\n\n# Set operations\na = {1, 2, 3, 4}\nb = {3, 4, 5, 6}\na | b   # union        {1,2,3,4,5,6}\na & b   # intersection {3,4}\na - b   # difference   {1,2}\na ^ b   # symmetric    {1,2,5,6}\n\n# Iterate\nfor x in s:\n    print(x)",
+      "go": "// Go has no built-in set — use map[K]struct{}\n// struct{} takes zero bytes (unlike map[K]bool)\n\nvisited := make(map[string]struct{})\n\n// Add\nvisited[\"node1\"] = struct{}{}\n\n// Check membership\nif _, ok := visited[\"node1\"]; ok {\n    fmt.Println(\"already visited\")\n}\n\n// Remove\ndelete(visited, \"node1\")\n\n// Iterate\nfor key := range visited {\n    fmt.Println(key)\n}\n\n// Helper type alias pattern\ntype Set[T comparable] map[T]struct{}\nfunc (s Set[T]) Add(v T)            { s[v] = struct{}{} }\nfunc (s Set[T]) Has(v T) bool       { _, ok := s[v]; return ok }\nfunc (s Set[T]) Del(v T)            { delete(s, v) }",
+      "java": "// HashSet — unordered, O(1)\nSet<Integer> set = new HashSet<>();\nset.add(1); set.add(2); set.add(3);\nset.remove(2);\nset.contains(1);   // true\n\n// From list\nSet<Integer> unique = new HashSet<>(List.of(1,1,2,3,3));\n\n// TreeSet — sorted, O(log n)\nSet<Integer> sorted = new TreeSet<>(set);\n// sorted.first(), sorted.last(), sorted.floor(x)\n\n// LinkedHashSet — insertion order\nSet<String> ordered = new LinkedHashSet<>();\n\n// Set operations\nSet<Integer> a = new HashSet<>(Set.of(1,2,3,4));\nSet<Integer> b = new HashSet<>(Set.of(3,4,5,6));\na.retainAll(b);  // intersection (modifies a!)\n// Use copies to avoid mutation:\nSet<Integer> inter = new HashSet<>(a);\ninter.retainAll(b);"
+    }
+  },
+  {
+    "id": 7,
+    "title": "Rune & String Types",
+    "category": "Go Specific",
+    "description": "In Go, strings are immutable byte slices (UTF-8 encoded). A rune is an alias for int32 representing a Unicode code point. Iterating with range gives runes (correct for Unicode); indexing gives bytes. Python has no separate char type — strings are sequences of Unicode chars. Java uses char (UTF-16) and Character.",
+    "diagram": "Go string internals:\n  s := \"hello\"\n  s[0]         → byte  104  ('h')\n  []rune(s)[0] → rune  104  ('h')\n\n  s := \"café\"\n  len(s)         → 5  (bytes, 'é' = 2 bytes)\n  len([]rune(s)) → 4  (characters)\n\n  range iterates runes:\n  for i, r := range \"café\" { ... }\n  // i=0 'c', i=1 'a', i=2 'f', i=3 'é'",
+    "keyPoints": [
+      "Go: rune = int32, byte = uint8. Use rune for Unicode-safe char ops",
+      "Go: len(s) = byte count, len([]rune(s)) = character count",
+      "Go: range over string yields (byte index, rune) pairs",
+      "Python: str is Unicode by default, no separate char type. ord('a')=97, chr(97)='a'",
+      "Java: char is UTF-16 (2 bytes), Character has utility methods"
+    ],
+    "solutions": {
+      "python": "s = \"hello\"\n\n# No char type — single char is a length-1 string\nch = s[0]          # 'h'\nord('h')           # 104  (Unicode code point)\nchr(104)           # 'h'\n\n# String → list of chars\nchars = list(s)    # ['h','e','l','l','o']\n''.join(chars)     # 'hello'\n\n# Check char type\n'a'.isalpha()      # True\n'3'.isdigit()      # True\n'a'.isupper()      # False\n'A'.lower()        # 'a'\n\n# Iterate\nfor ch in \"café\":\n    print(ch)      # c a f é  (Unicode-safe)",
+      "go": "s := \"hello\"\n\n// byte vs rune\nvar b byte = s[0]      // byte(104) = 'h'\nvar r rune = 'h'       // rune(104), alias for int32\n\n// rune ↔ string\nfmt.Println(string(r))          // \"h\"\nfmt.Println([]rune(\"café\"))     // [99 97 102 233]\n\n// Unicode-safe iteration\nfor i, r := range \"café\" {\n    fmt.Printf(\"%d: %c\\n\", i, r)\n}\n\n// Length gotcha\ns2 := \"café\"\nfmt.Println(len(s2))          // 5 (bytes!)\nfmt.Println(len([]rune(s2)))  // 4 (chars)\n\n// Mutable char manipulation\nrunes := []rune(s2)\nrunes[0] = 'C'\nresult := string(runes)       // \"Café\"\n\n// unicode package\nimport \"unicode\"\nunicode.IsLetter('é')   // true\nunicode.ToUpper('a')    // 'A'",
+      "java": "// char and Character\nchar ch = 'h';              // UTF-16, 2 bytes\nint cp = (int) ch;          // 104 — code point\nchar back = (char) 104;     // 'h'\n\n// Character utility methods\nCharacter.isLetter('a');    // true\nCharacter.isDigit('3');     // true\nCharacter.toUpperCase('a'); // 'A'\nCharacter.toLowerCase('A'); // 'a'\n\n// String ↔ char array\nchar[] arr = \"hello\".toCharArray();\nString s   = new String(arr);\n\n// String → list of chars (iterate)\nfor (char c : \"hello\".toCharArray()) {\n    System.out.println(c);\n}\n\n// StringBuilder for char manipulation\nStringBuilder sb = new StringBuilder(\"hello\");\nsb.setCharAt(0, 'H');\nsb.toString();  // \"Hello\""
+    }
+  },
+  {
+    "id": 8,
+    "title": "Bit Manipulation",
+    "category": "Algorithm",
+    "description": "Bit manipulation operates directly on integer bits using bitwise operators. Essential for low-level optimization, flag masking, and many LeetCode problems. Works identically in Python, Go, and Java.",
+    "diagram": "Operators (integer level):\n  a & b   AND   — 1 only if both 1\n  a | b   OR    — 1 if either is 1\n  a ^ b   XOR   — 1 if bits differ\n  ~a      NOT   — flip all bits\n  a << n  Left  — multiply by 2^n\n  a >> n  Right — divide by 2^n\n\nCommon masks (for bit i):\n  mask = 1 << i\n  Get i-th:    (n >> i) & 1\n  Set i-th:    n | mask\n  Clear i-th:  n & ~mask\n  Toggle i-th: n ^ mask",
+    "keyPoints": [
+      "x & (x-1)  removes the lowest set bit — use to count set bits",
+      "x & (-x) isolates the lowest set bit",
+      "x ^ x = 0  and  x ^ 0 = x — XOR to find unpaired element",
+      "Left shift << n  =  multiply by 2^n",
+      "Right shift >> n  =  divide by 2^n (arithmetic in Java/Go, logical in Python)"
+    ],
+    "solutions": {
+      "python": "n = 0b1011   # 11 in binary\n\n# Operators\nprint(n & 0b1010)   # AND  → 0b1010 = 10\nprint(n | 0b0100)   # OR   → 0b1111 = 15\nprint(n ^ 0b1001)   # XOR  → 0b0010 = 2\nprint(~n)           # NOT  → -12 (two's complement)\nprint(n << 1)       # Left shift  → 22\nprint(n >> 1)       # Right shift → 5\n\ni = 2  # operate on bit 2\nmask = 1 << i\n\n# Get i-th bit\n(n >> i) & 1          # 0 or 1\n\n# Set i-th bit (force to 1)\nn | mask\n\n# Clear i-th bit (force to 0)\nn & ~mask\n\n# Toggle i-th bit (flip)\nn ^ mask\n\n# Count set bits\nbin(n).count('1')     # Pythonic\nint.bit_count(n)      # Python 3.10+\n\n# Check power of 2\nn > 0 and (n & (n-1)) == 0\n\n# Classic XOR trick: find single unpaired number\nnums = [1, 2, 2, 3, 3]\nresult = 0\nfor x in nums: result ^= x\n# result == 1",
+      "go": "n := 0b1011   // 11\n\n// Operators\nn & 0b1010    // AND  → 10\nn | 0b0100    // OR   → 15\nn ^ 0b1001    // XOR  → 2\n^n            // NOT  (Go uses ^ as unary NOT, not ~)\nn << 1        // Left shift  → 22\nn >> 1        // Right shift → 5\n\ni := 2\nmask := 1 << i\n\n// Get i-th bit\n(n >> i) & 1\n\n// Set i-th bit\nn | mask\n\n// Clear i-th bit\nn &^ mask     // Go's AND NOT operator\n\n// Toggle i-th bit\nn ^ mask\n\n// Count set bits\nimport \"math/bits\"\nbits.OnesCount(uint(n))\n\n// Check power of 2\nn > 0 && (n & (n-1)) == 0\n\n// XOR trick: find unpaired element\nnums := []int{1, 2, 2, 3, 3}\nresult := 0\nfor _, x := range nums { result ^= x }\n// result == 1",
+      "java": "int n = 0b1011;   // 11\n\n// Operators\nn & 0b1010    // AND  → 10\nn | 0b0100    // OR   → 15\nn ^ 0b1001    // XOR  → 2\n~n            // NOT  → -12\nn << 1        // Left shift  → 22\nn >> 1        // Arithmetic right shift → 5\nn >>> 1       // Logical right shift (fills 0, use for unsigned)\n\nint i = 2;\nint mask = 1 << i;\n\n// Get i-th bit\n(n >> i) & 1;\n\n// Set i-th bit\nn | mask;\n\n// Clear i-th bit\nn & ~mask;\n\n// Toggle i-th bit\nn ^ mask;\n\n// Count set bits\nInteger.bitCount(n);\n\n// Check power of 2\nn > 0 && (n & (n - 1)) == 0;\n\n// Highest/lowest set bit\nInteger.highestOneBit(n);\nInteger.numberOfTrailingZeros(n); // position of lowest set bit\n\n// XOR trick\nint[] nums = {1, 2, 2, 3, 3};\nint result = 0;\nfor (int x : nums) result ^= x;\n// result == 1"
+    }
   }
 ]
