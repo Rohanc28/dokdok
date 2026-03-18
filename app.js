@@ -303,7 +303,7 @@ window.toggleSolution = function(btn) {
   const isQuestion = card.classList.contains('question-card');
   btn.textContent = visible
     ? (isQuestion ? 'Show Solution' : 'Show Code Example')
-    : 'Hide Solution';
+    : (isQuestion ? 'Hide Solution' : 'Hide Code Example');
 
   if (!visible) {
     // Wait one frame for the area to paint, then scroll card-inner
