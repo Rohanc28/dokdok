@@ -25,40 +25,43 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 // ─── Desktop scroll & keyboard navigation ────────────────────────────────────
 function initDesktopNav() {
-  const feed = document.getElementById('feed');
   let cooldown = false;
 
-  function scrollFeed(dir) {
+  function stepFeed(dir) {
     if (cooldown) return;
     cooldown = true;
-    const cardH = parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue('--card-h')
-    );
-    feed.scrollBy({ top: dir * cardH, behavior: 'smooth' });
-    // Lock for ~700 ms so one wheel notch = one card
-    setTimeout(() => { cooldown = false; }, 700);
+    const feed  = document.getElementById('feed');
+    // feed.clientHeight is the true height of the fixed feed container —
+    // no CSS variable needed, always correct.
+    const cardH = feed.clientHeight;
+    // Snap to exact card boundary to avoid drift
+    const current = Math.round(feed.scrollTop / cardH);
+    feed.scrollTo({ top: (current + dir) * cardH, behavior: 'smooth' });
+    setTimeout(() => { cooldown = false; }, 750);
   }
 
-  // Wheel: let card-inner scroll normally when it has room;
-  // once it hits its limit, navigate to the next/prev card.
-  feed.addEventListener('wheel', (e) => {
+  // Attach to document so it fires regardless of which child has hover/focus.
+  // passive:false lets us call preventDefault to stop the page from jumping.
+  document.addEventListener('wheel', (e) => {
+    // If a card-inner still has scrollable room, let it scroll first.
     const inner = e.target.closest('.card-inner');
     if (inner) {
-      const atTop    = inner.scrollTop <= 0;
-      const atBottom = inner.scrollTop + inner.clientHeight >= inner.scrollHeight - 1;
-      if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) return;
+      const canScrollUp   = inner.scrollTop > 0;
+      const canScrollDown = inner.scrollTop + inner.clientHeight < inner.scrollHeight - 1;
+      if ((e.deltaY < 0 && canScrollUp) || (e.deltaY > 0 && canScrollDown)) return;
     }
     e.preventDefault();
-    scrollFeed(Math.sign(e.deltaY));
+    stepFeed(e.deltaY > 0 ? 1 : -1);
   }, { passive: false });
 
-  // Arrow / Page keys — always navigate cards
   document.addEventListener('keydown', (e) => {
     const down = ['ArrowDown', 'PageDown', ' '].includes(e.key);
     const up   = ['ArrowUp',   'PageUp'       ].includes(e.key);
     if (!down && !up) return;
+    // Don't hijack keys when user is typing in an input
+    if (['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
     e.preventDefault();
-    scrollFeed(down ? 1 : -1);
+    stepFeed(down ? 1 : -1);
   });
 }
 
@@ -310,10 +313,9 @@ window.toggleSolution = function(btn) {
 // Programmatic card navigation — works even when card-inner is scrolled
 window.navigateCard = function(btn, dir) {
   const feed  = document.getElementById('feed');
-  const cardH = parseFloat(
-    getComputedStyle(document.documentElement).getPropertyValue('--card-h')
-  );
-  feed.scrollBy({ top: dir * cardH, behavior: 'smooth' });
+  const cardH = feed.clientHeight;
+  const current = Math.round(feed.scrollTop / cardH);
+  feed.scrollTo({ top: (current + dir) * cardH, behavior: 'smooth' });
 };
 
 window.toggleHints = function(btn) {
