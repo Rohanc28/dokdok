@@ -61,14 +61,20 @@
           <button class="btn-hints" onclick="toggleHints(this)">Show Hints</button>
         </div>
 
-        <div class="solution-area" style="display:none">
-          <div class="lang-tabs"></div>
-          <div class="complexity-row">
-            <span class="complexity-badge time"></span>
-            <span class="complexity-badge space"></span>
+        <div class="solution-area">
+          <div class="solution-close-bar">
+            <span>Solution</span>
+            <button class="btn-close-solution" onclick="closeSolution(this)">✕ Close</button>
           </div>
-          <div class="approach-text"></div>
-          <pre><code class="solution-code"></code></pre>
+          <div class="solution-content">
+            <div class="lang-tabs"></div>
+            <div class="complexity-row">
+              <span class="complexity-badge time"></span>
+              <span class="complexity-badge space"></span>
+            </div>
+            <div class="approach-text"></div>
+            <pre><code class="solution-code"></code></pre>
+          </div>
         </div>
 
         <div class="card-actions">
@@ -101,9 +107,15 @@
           </div>
         </div>
 
-        <div class="solution-area" style="display:none">
-          <div class="lang-tabs"></div>
-          <pre><code class="solution-code"></code></pre>
+        <div class="solution-area">
+          <div class="solution-close-bar">
+            <span>Code Example</span>
+            <button class="btn-close-solution" onclick="closeSolution(this)">✕ Close</button>
+          </div>
+          <div class="solution-content">
+            <div class="lang-tabs"></div>
+            <pre><code class="solution-code"></code></pre>
+          </div>
         </div>
 
         <div class="card-actions">

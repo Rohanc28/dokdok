@@ -298,10 +298,63 @@ html, body {
 }
 
 /* ─── Solution Area ──────────────────────────────────────────────────────── */
+/* Hidden state: nothing */
 .solution-area {
+  display: none;
+}
+
+/* Open state: full-card overlay so it's never squeezed or clipped */
+.solution-area.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  inset: 0;               /* fill the entire .card */
+  background: var(--bg);
+  z-index: 5;             /* below .card-nav (z-index:10) */
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Sticky close bar at the top of the solution overlay */
+.solution-close-bar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.solution-close-bar span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.btn-close-solution {
+  background: var(--surface2);
+  border: none;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* Inner wrapper scrolls, lang-tabs stay readable */
+.solution-content {
+  flex: 1;
+  min-height: 0;
   background: var(--surface);
-  border: 1px solid var(--border);
   border-radius: 14px;
+  margin: 10px 12px 12px;
   overflow: hidden;
 }
 
