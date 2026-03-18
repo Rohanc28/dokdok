@@ -243,12 +243,11 @@ function buildConceptCard(el, c) {
 // ─── Solution Area (shared) ───────────────────────────────────────────────────
 function buildSolutionArea(el, item) {
   const langs      = Object.keys(item.solutions);
-  const area       = el.querySelector('.solution-area');
-  const tabsEl     = area.querySelector('.lang-tabs');
-  const codeEl     = area.querySelector('.solution-code');
-  const approachEl = area.querySelector('.approach-text');
-  const timeEl     = area.querySelector('.complexity-badge.time');
-  const spaceEl    = area.querySelector('.complexity-badge.space');
+  const tabsEl     = el.querySelector('.lang-tabs');
+  const codeEl     = el.querySelector('.solution-code');
+  const approachEl = el.querySelector('.approach-text');
+  const timeEl     = el.querySelector('.complexity-badge.time');
+  const spaceEl    = el.querySelector('.complexity-badge.space');
 
   if (timeEl && item.timeComplexity) {
     timeEl.textContent  = `Time: ${item.timeComplexity}`;
@@ -285,25 +284,30 @@ function buildSolutionArea(el, item) {
 
 // ─── Toggle Handlers ──────────────────────────────────────────────────────────
 window.toggleSolution = function(btn) {
-  const card = btn.closest('.card');
-  const area = card.querySelector('.solution-area');
-  const isOpen = area.classList.contains('open');
+  const card      = btn.closest('.card');
+  const area      = card.querySelector('.solution-area');
+  const cardInner = card.querySelector('.card-inner');
+  const visible   = area.style.display !== 'none';
 
-  area.classList.toggle('open', !isOpen);
+  area.style.display = visible ? 'none' : 'block';
 
   const isQuestion = card.classList.contains('question-card');
-  btn.textContent = isOpen
+  btn.textContent = visible
     ? (isQuestion ? 'Show Solution' : 'Show Code Example')
     : 'Hide Solution';
-};
 
-window.closeSolution = function(btn) {
-  const card = btn.closest('.card');
-  const area = card.querySelector('.solution-area');
-  area.classList.remove('open');
-  const isQuestion = card.classList.contains('question-card');
-  card.querySelector('.btn-solution').textContent =
-    isQuestion ? 'Show Solution' : 'Show Code Example';
+  if (!visible) {
+    // Wait one frame for the area to paint, then scroll card-inner
+    // so the language tabs + code are visible.
+    requestAnimationFrame(() => {
+      const areaRect  = area.getBoundingClientRect();
+      const innerRect = cardInner.getBoundingClientRect();
+      cardInner.scrollTo({
+        top: cardInner.scrollTop + (areaRect.top - innerRect.top) - 8,
+        behavior: 'smooth'
+      });
+    });
+  }
 };
 
 // Programmatic card navigation — works even when card-inner is scrolled
