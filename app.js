@@ -18,13 +18,20 @@ window.addEventListener('DOMContentLoaded', async () => {
   window.addEventListener('resize', setCardHeight);
   await loadData();
   renderFeed();
+  // Re-measure after first render in case layout shifted during load
+  setCardHeight();
 });
 
-// Set --card-h from feed's actual pixel height so cards always
-// fill exactly one screen regardless of device/browser-chrome.
+// Set --card-h = window.innerHeight minus the actual rendered heights of
+// header and nav. This is reliable on every device/browser because
+// window.innerHeight is always correct and offsetHeight reads after layout.
 function setCardHeight() {
-  const feed = document.getElementById('feed');
-  document.documentElement.style.setProperty('--card-h', feed.clientHeight + 'px');
+  const header = document.getElementById('app-header');
+  const nav    = document.getElementById('bottom-nav');
+  const h = window.innerHeight - header.offsetHeight - nav.offsetHeight;
+  if (h > 0) {
+    document.documentElement.style.setProperty('--card-h', h + 'px');
+  }
 }
 
 async function loadData() {

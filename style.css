@@ -68,9 +68,9 @@ html, body {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   width: 100%;
-  /* --card-h is set by JS from feed.clientHeight so it's always exact
-     regardless of device, browser chrome, or safe-area insets. */
-  height: var(--card-h, 100svh);
+  /* --card-h is set by JS (window.innerHeight - header - nav).
+     Fallback covers the instant before JS runs. */
+  height: var(--card-h, calc(100vh - var(--header-h) - var(--nav-h)));
   flex-shrink: 0;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
