@@ -16,6 +16,7 @@
       "A hash map lets you look up values in O(1)."
     ],
     "approach": "Use a hash map to store each number and its index as we iterate. For each element, check if its complement (target - num) already exists in the map.",
+    "tags": ["Hash Map"],
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
     "solutions": {
@@ -42,6 +43,7 @@
       "When you see a closing bracket, check if it matches the top of the stack.",
       "At the end, the stack should be empty."
     ],
+    "tags": ["Stack", "Hash Map"],
     "approach": "Push opening brackets onto a stack. When a closing bracket is encountered, pop from the stack and verify it matches. If stack is empty at the end, the string is valid.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
@@ -68,6 +70,7 @@
       "Compare the current nodes of both lists and attach the smaller one.",
       "After one list is exhausted, attach the remainder of the other."
     ],
+    "tags": ["Linked List"],
     "approach": "Use a dummy head node. Compare the two list heads, attach the smaller node to the result, and advance that list's pointer. Append remaining nodes once one list is exhausted.",
     "timeComplexity": "O(m + n)",
     "spaceComplexity": "O(1)",
@@ -94,6 +97,7 @@
       "Calculate mid = (left + right) // 2.",
       "If nums[mid] == target, return mid. If smaller, move left. If larger, move right."
     ],
+    "tags": ["Array", "Two Pointers"],
     "approach": "Classic binary search. Keep halving the search space by comparing the middle element with the target.",
     "timeComplexity": "O(log n)",
     "spaceComplexity": "O(1)",
@@ -120,6 +124,7 @@
       "If current sum goes negative, reset it to 0 (start fresh).",
       "At each step: currentSum = max(num, currentSum + num)"
     ],
+    "tags": ["Array", "Dynamic Programming"],
     "approach": "Kadane's Algorithm: iterate through the array keeping track of the current running sum. If adding the current element makes things worse than starting fresh, reset. Track the global maximum throughout.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
@@ -146,6 +151,7 @@
       "At each step, save next, flip the arrow, then advance all three.",
       "When curr is None, prev is the new head."
     ],
+    "tags": ["Linked List"],
     "approach": "Iterative approach using three pointers. At each step, reverse the next pointer of the current node, then advance all pointers forward.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
@@ -172,6 +178,7 @@
       "At the start of each level, the queue size = number of nodes in that level.",
       "Process exactly queue.size() nodes, then move to the next level."
     ],
+    "tags": ["Queue", "Binary Tree", "BFS"],
     "approach": "BFS using a queue. At each iteration, process all nodes at the current level (queue size at start of iteration), add their children to the queue, and record the level's values.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
@@ -197,6 +204,7 @@
       "DFS/BFS from that cell to mark all connected '1's as visited.",
       "Increment island count each time you start a new DFS."
     ],
+    "tags": ["Matrix", "DFS", "BFS"],
     "approach": "Iterate through the grid. When a '1' is found, increment the count and DFS to mark all connected land cells as '0' (visited). This avoids double counting.",
     "timeComplexity": "O(m × n)",
     "spaceComplexity": "O(m × n)",

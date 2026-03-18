@@ -176,6 +176,33 @@ html, body {
   line-height: 1.5;
 }
 
+/* ─── DS Tags (inside hints) ─────────────────────────────────────────────── */
+.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.tags-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--muted);
+}
+
+.tag-pill {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: #1a2a1a;
+  color: #86efac;
+  border: 1px solid #166534;
+}
+
 /* ─── Key Points ─────────────────────────────────────────────────────────── */
 .points-list {
   padding-left: 18px;

@@ -79,8 +79,7 @@ function buildQuestionCard(el, q) {
   diffBadge.textContent = q.difficulty;
   diffBadge.className = `badge-difficulty ${q.difficulty.toLowerCase()}`;
 
-  el.querySelector('.badge-category').textContent = q.category;
-  el.querySelector('.badge-number').textContent   = q.number;
+  el.querySelector('.badge-number').textContent = q.number;
   el.querySelector('.card-title').textContent      = q.title;
   el.querySelector('.card-description').textContent = q.description;
 
@@ -104,6 +103,21 @@ function buildQuestionCard(el, q) {
     li.textContent = h;
     hintsList.appendChild(li);
   });
+
+  // DS tags inside hints section
+  const tagsRow = el.querySelector('.tags-row');
+  if (q.tags && q.tags.length) {
+    const label = document.createElement('span');
+    label.className = 'tags-label';
+    label.textContent = 'Uses:';
+    tagsRow.appendChild(label);
+    q.tags.forEach(tag => {
+      const pill = document.createElement('span');
+      pill.className = 'tag-pill';
+      pill.textContent = tag;
+      tagsRow.appendChild(pill);
+    });
+  }
 
   // Solution area
   buildSolutionArea(el, q);
