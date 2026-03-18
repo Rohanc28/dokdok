@@ -16,12 +16,7 @@
 
   <!-- Header -->
   <header id="app-header">
-    <div class="header-left">
-      <span class="app-logo"><span class="logo-d1">D</span>ok <span class="logo-d2">D</span>ok</span>
-    </div>
-    <div class="header-right">
-      <span id="card-counter">1 / 1</span>
-    </div>
+    <span class="app-logo"><span class="logo-d1">D</span>ok <span class="logo-d2">D</span>ok</span>
   </header>
 
   <!-- Main content area -->
@@ -29,9 +24,13 @@
 
   <!-- Bottom Nav -->
   <nav id="bottom-nav">
-    <button class="nav-btn active" data-mode="questions" onclick="switchMode('questions')">
+    <button class="nav-btn" data-mode="questions" onclick="switchMode('questions')">
       <span class="nav-icon">🧩</span>
       <span class="nav-label">Questions</span>
+    </button>
+    <button class="nav-btn dok-btn active" data-mode="dok" onclick="switchMode('dok')">
+      <span class="nav-icon">🐦</span>
+      <span class="nav-label">Dok</span>
     </button>
     <button class="nav-btn" data-mode="concepts" onclick="switchMode('concepts')">
       <span class="nav-icon">📚</span>

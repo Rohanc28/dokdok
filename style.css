@@ -38,7 +38,6 @@ html, body {
   border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
-  justify-content: space-between;
   z-index: 100;
 }
 
@@ -48,16 +47,8 @@ html, body {
   letter-spacing: -0.3px;
 }
 
-.logo-d1 { color: #7c6af7; }   /* purple */
-.logo-d2 { color: #22d3ee; }   /* cyan   */
-
-#card-counter {
-  font-size: 13px;
-  color: var(--muted);
-  background: var(--surface2);
-  padding: 3px 10px;
-  border-radius: 20px;
-}
+.logo-d1 { color: #7c6af7; }
+.logo-d2 { color: #22d3ee; }
 
 /* ─── Feed ──────────────────────────────────────────────────────────────── */
 #feed {
@@ -77,13 +68,17 @@ html, body {
   scroll-snap-align: start;
   scroll-snap-stop: always;
   width: 100%;
-  /* Fixed height = viewport minus header and nav.
-     This is the key fix: the snap container never sees a height change
-     when the solution expands, so there's no rubber-banding. */
-  height: calc(100dvh - var(--header-h) - var(--nav-h));
+  /* --card-h is set by JS from feed.clientHeight so it's always exact
+     regardless of device, browser chrome, or safe-area insets. */
+  height: var(--card-h, 100svh);
   flex-shrink: 0;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
+}
+
+.dok-sentinel {
+  height: 1px;
+  flex-shrink: 0;
 }
 
 .card-inner {
@@ -379,6 +374,16 @@ html, body {
 
 .nav-btn.active {
   color: var(--accent2);
+}
+
+/* Dok bird tab — slightly bigger, stands out as the default */
+.dok-btn .nav-icon {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.dok-btn.active {
+  color: #22d3ee;
 }
 
 .nav-icon  { font-size: 20px; }

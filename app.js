@@ -1,19 +1,31 @@
 'use strict';
 
 // ─── State ───────────────────────────────────────────────────────────────────
-let currentMode = 'questions';
-let questions = [];
-let concepts  = [];
+let currentMode = 'dok';
+let questions   = [];
+let concepts    = [];
+
+// Endless-scroll pool for dok mode
+let dokPool = [];
+const DOK_BATCH = 6;
 
 // ─── Init ────────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', async () => {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   }
+  setCardHeight();
+  window.addEventListener('resize', setCardHeight);
   await loadData();
   renderFeed();
-  observeCards();
 });
+
+// Set --card-h from feed's actual pixel height so cards always
+// fill exactly one screen regardless of device/browser-chrome.
+function setCardHeight() {
+  const feed = document.getElementById('feed');
+  document.documentElement.style.setProperty('--card-h', feed.clientHeight + 'px');
+}
 
 async function loadData() {
   try {
@@ -32,11 +44,9 @@ async function loadData() {
 window.switchMode = function(mode) {
   if (mode === currentMode) return;
   currentMode = mode;
-
   document.querySelectorAll('.nav-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.mode === mode);
   });
-
   renderFeed();
 };
 
@@ -45,43 +55,84 @@ function renderFeed() {
   const feed = document.getElementById('feed');
   feed.innerHTML = '';
 
-  const items = currentMode === 'questions' ? questions : concepts;
-  const tplId  = currentMode === 'questions' ? 'question-card-tpl' : 'concept-card-tpl';
+  if (currentMode === 'dok') {
+    dokPool = [];           // reset pool on each entry into dok
+    appendDokCards(DOK_BATCH);
+    setupDokSentinel(feed);
+  } else {
+    const items  = currentMode === 'questions' ? questions : concepts;
+    const tplId  = currentMode === 'questions' ? 'question-card-tpl' : 'concept-card-tpl';
+    items.forEach(item => feed.appendChild(buildCard(tplId, item)));
+  }
 
-  items.forEach(item => {
-    const card = buildCard(tplId, item);
-    feed.appendChild(card);
-  });
-
-  // Scroll back to top on mode switch
   feed.scrollTo({ top: 0, behavior: 'instant' });
-  updateCounter(1, items.length);
 }
 
+// ─── Dok endless scroll ───────────────────────────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function nextDokItems(count) {
+  const items = [];
+  while (items.length < count) {
+    if (dokPool.length === 0) dokPool = shuffle(questions.map((_, i) => i));
+    items.push(questions[dokPool.shift()]);
+  }
+  return items;
+}
+
+function appendDokCards(count) {
+  const feed = document.getElementById('feed');
+  // Remove old sentinel if present
+  const old = feed.querySelector('.dok-sentinel');
+  if (old) old.remove();
+
+  nextDokItems(count).forEach(q =>
+    feed.appendChild(buildCard('question-card-tpl', q))
+  );
+}
+
+function setupDokSentinel(feed) {
+  const sentinel = document.createElement('div');
+  sentinel.className = 'dok-sentinel';
+  feed.appendChild(sentinel);
+
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && currentMode === 'dok') {
+      appendDokCards(DOK_BATCH);
+      setupDokSentinel(feed); // re-attach at new end
+      observer.disconnect();
+    }
+  }, { root: feed, threshold: 0.1 });
+
+  observer.observe(sentinel);
+}
+
+// ─── Card builders ────────────────────────────────────────────────────────────
 function buildCard(tplId, item) {
   const tpl  = document.getElementById(tplId);
   const frag = tpl.content.cloneNode(true);
   const el   = frag.querySelector('.card');
-
-  if (tplId === 'question-card-tpl') {
-    buildQuestionCard(el, item);
-  } else {
-    buildConceptCard(el, item);
-  }
-
+  if (tplId === 'question-card-tpl') buildQuestionCard(el, item);
+  else buildConceptCard(el, item);
   return el;
 }
 
 // ─── Question Card ────────────────────────────────────────────────────────────
 function buildQuestionCard(el, q) {
-  // Meta badges
   const diffBadge = el.querySelector('.badge-difficulty');
   diffBadge.textContent = q.difficulty;
   diffBadge.className = `badge-difficulty ${q.difficulty.toLowerCase()}`;
 
-  el.querySelector('.badge-number').textContent = q.number;
-  el.querySelector('.card-title').textContent      = q.title;
-  el.querySelector('.card-description').textContent = q.description;
+  el.querySelector('.badge-number').textContent      = q.number;
+  el.querySelector('.card-title').textContent        = q.title;
+  el.querySelector('.card-description').textContent  = q.description;
 
   // Examples
   const exList = el.querySelector('.examples-list');
@@ -104,7 +155,7 @@ function buildQuestionCard(el, q) {
     hintsList.appendChild(li);
   });
 
-  // DS tags inside hints section
+  // DS tags
   const tagsRow = el.querySelector('.tags-row');
   if (q.tags && q.tags.length) {
     const label = document.createElement('span');
@@ -119,16 +170,15 @@ function buildQuestionCard(el, q) {
     });
   }
 
-  // Solution area
   buildSolutionArea(el, q);
 }
 
 // ─── Concept Card ─────────────────────────────────────────────────────────────
 function buildConceptCard(el, c) {
-  el.querySelector('.badge-category').textContent    = c.category;
-  el.querySelector('.card-title').textContent        = c.title;
-  el.querySelector('.card-description').textContent  = c.description;
-  el.querySelector('.visual-diagram').textContent    = c.diagram;
+  el.querySelector('.badge-category').textContent   = c.category;
+  el.querySelector('.card-title').textContent       = c.title;
+  el.querySelector('.card-description').textContent = c.description;
+  el.querySelector('.visual-diagram').textContent   = c.diagram;
 
   const pointsList = el.querySelector('.points-list');
   c.keyPoints.forEach(p => {
@@ -142,20 +192,17 @@ function buildConceptCard(el, c) {
 
 // ─── Solution Area (shared) ───────────────────────────────────────────────────
 function buildSolutionArea(el, item) {
-  const langs     = Object.keys(item.solutions);
-  const tabsEl    = el.querySelector('.lang-tabs');
-  const codeEl    = el.querySelector('.solution-code');
-  const approachEl= el.querySelector('.approach-text');
-  const timeEl    = el.querySelector('.complexity-badge.time');
-  const spaceEl   = el.querySelector('.complexity-badge.space');
+  const langs      = Object.keys(item.solutions);
+  const tabsEl     = el.querySelector('.lang-tabs');
+  const codeEl     = el.querySelector('.solution-code');
+  const approachEl = el.querySelector('.approach-text');
+  const timeEl     = el.querySelector('.complexity-badge.time');
+  const spaceEl    = el.querySelector('.complexity-badge.space');
 
-  // Complexity (questions only)
   if (timeEl && item.timeComplexity) {
     timeEl.textContent  = `Time: ${item.timeComplexity}`;
     spaceEl.textContent = `Space: ${item.spaceComplexity}`;
   }
-
-  // Approach (questions only)
   if (approachEl && item.approach) {
     approachEl.textContent = item.approach;
   }
@@ -164,20 +211,15 @@ function buildSolutionArea(el, item) {
 
   function renderCode(lang) {
     activeLang = lang;
-    const code = item.solutions[lang];
     codeEl.className = `solution-code language-${hlLang(lang)}`;
-    codeEl.textContent = code;
-    // hljs marks elements with data-highlighted after first run and skips them —
-    // remove it so switching languages always re-highlights correctly.
+    codeEl.textContent = item.solutions[lang];
     codeEl.removeAttribute('data-highlighted');
     hljs.highlightElement(codeEl);
-
-    tabsEl.querySelectorAll('.lang-tab').forEach(t => {
-      t.classList.toggle('active', t.dataset.lang === lang);
-    });
+    tabsEl.querySelectorAll('.lang-tab').forEach(t =>
+      t.classList.toggle('active', t.dataset.lang === lang)
+    );
   }
 
-  // Build tabs
   langs.forEach(lang => {
     const btn = document.createElement('button');
     btn.className = 'lang-tab' + (lang === activeLang ? ' active' : '');
@@ -187,7 +229,6 @@ function buildSolutionArea(el, item) {
     tabsEl.appendChild(btn);
   });
 
-  // Initial render (deferred so highlight.js is ready)
   setTimeout(() => renderCode(activeLang), 0);
 }
 
@@ -197,8 +238,9 @@ window.toggleSolution = function(btn) {
   const area    = card.querySelector('.solution-area');
   const visible = area.style.display !== 'none';
   area.style.display = visible ? 'none' : 'block';
+  const isQuestion = card.classList.contains('question-card');
   btn.textContent = visible
-    ? (currentMode === 'questions' ? 'Show Solution' : 'Show Code Example')
+    ? (isQuestion ? 'Show Solution' : 'Show Code Example')
     : 'Hide Solution';
 };
 
@@ -209,32 +251,6 @@ window.toggleHints = function(btn) {
   section.style.display = visible ? 'none' : 'block';
   btn.textContent = visible ? 'Show Hints' : 'Hide Hints';
 };
-
-// ─── Card Counter (Intersection Observer) ────────────────────────────────────
-function observeCards() {
-  const feed    = document.getElementById('feed');
-  const counter = document.getElementById('card-counter');
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const cards = Array.from(feed.querySelectorAll('.card'));
-        const idx   = cards.indexOf(entry.target) + 1;
-        updateCounter(idx, cards.length);
-      }
-    });
-  }, { root: feed, threshold: 0.5 });
-
-  // Re-observe when mode changes (feed is re-rendered)
-  const feedMutationObs = new MutationObserver(() => {
-    feed.querySelectorAll('.card').forEach(c => observer.observe(c));
-  });
-  feedMutationObs.observe(feed, { childList: true });
-}
-
-function updateCounter(current, total) {
-  document.getElementById('card-counter').textContent = `${current} / ${total}`;
-}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function escHtml(str) {
