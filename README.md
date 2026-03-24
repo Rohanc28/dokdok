@@ -1,4 +1,3 @@
-# DOK DOK
 
 Progressive web app for drilling DSA problems and concepts. Card-swipe feed with topic filters, multiple themes, offline support via service worker, and a Python scraper to populate the question bank. Simplified Flashcard app for Data Structures & Algorithms revision. Swipe through questions and concepts in a reel feed — built as a PWA so it installs on your phone and works offline.
 
