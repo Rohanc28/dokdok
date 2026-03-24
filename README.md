@@ -1,16 +1,69 @@
-Flashcards [Live on Vercel](https://dokdok-two.vercel.app/) 
-### Future features:
-1. Progress tracking — mark questions as solved (stored in localStorage). A checkmark badge + filter to hide solved ones would make it
-  actually useful as a study tool.
-2. PWA / offline support [Added]— the original had sw.js but the React version doesn't. Without it, the app is just a webpage on mobile. Adding
- a Vite PWA plugin makes it installable + works offline.
-3. Difficulty filter in Questions mode — the concepts mode has topic chips, but questions has no filter. Easy/Medium/Hard filter chips
-would be useful.
+# DOK DOK
 
-4. Virtualized list — right now Questions and Concepts modes render all cards into the DOM at once. With 27+ questions it's fine, but as
- data grows this will lag. A virtual scroll (only render visible ± 2 cards) keeps it smooth.
-5. Smooth mode transitions — switching modes currently snaps instantly. A subtle fade would feel more polished.
-6. Tags as filters — clicking a tag pill (e.g. "Hash Map") could filter to questions with that tag.
-### Maybe:
-7. Dark mode — the design lends itself well to it.
-8. Streak / stats — a simple solved-count displayed in the header.
+A TikTok-style flashcard app for Data Structures & Algorithms revision. Swipe through questions and concepts in a reel feed — built as a PWA so it installs on your phone and works offline.
+
+**[Live on Vercel](https://dokdok-two.vercel.app/)**
+
+## Features
+
+- **Dok mode** — endless shuffle of random questions, new cards load as you scroll
+- **Questions mode** — all questions in order, filterable by difficulty (Easy / Medium / Hard)
+- **Concepts mode** — DSA concept cards filterable by topic (Trees, Graphs, Sort, Maps, Other)
+- Toggle solutions with syntax-highlighted code (Python, Go, JS, Java)
+- Toggle hints + data structure tags per question
+- Installable PWA — works offline after first load
+- Mobile swipe navigation + desktop scroll/keyboard support
+
+## Stack
+
+- React 18 + Vite
+- `react-syntax-highlighter` for code blocks
+- `vite-plugin-pwa` + Workbox for service worker & offline caching
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+To expose on your local network (for mobile testing):
+
+```bash
+npm run dev -- --host
+```
+
+## Project Structure
+
+```
+src/
+  App.jsx                   # Root — data fetching, mode state
+  index.css                 # All styles
+  components/
+    Header.jsx
+    BottomNav.jsx
+    Feed.jsx                # Scroll-snap feed, navigation logic, dok endless scroll
+    QuestionCard.jsx
+    ConceptCard.jsx
+    SolutionArea.jsx        # Syntax highlighting, language tabs, complexity
+    QuestionFilterBar.jsx   # Easy / Medium / Hard filter
+    ConceptFilterBar.jsx    # Topic filter
+public/
+  data/
+    questions.json
+    concepts.json
+  manifest.json
+```
+
+## Deployment
+
+Deployed on Vercel — pushes to `main` auto-deploy. Pushes to `test` get a preview URL.
+
+## Roadmap
+
+1. **Progress tracking** — mark questions as solved (localStorage), filter to hide solved
+2. **Virtualized list** — only render visible ± 2 cards for performance as question bank grows
+3. **Smooth mode transitions** — subtle fade when switching modes
+4. **Tags as filters** — click a tag pill to filter questions by data structure
+5. **Dark mode**
+6. **Streak / stats** — solved count in header
