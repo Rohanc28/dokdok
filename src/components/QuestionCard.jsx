@@ -49,19 +49,31 @@ const QuestionCard = forwardRef(function QuestionCard({ item: q, feedRef }, ref)
           <h2 className="card-title">{q.title}</h2>
           <p className="card-description">{q.description}</p>
 
-          <div className="examples-section">
-            <h4>Examples</h4>
-            <div className="examples-list">
-              {q.examples?.map((ex, i) => (
-                <div key={i} className="example-block">
-                  <span className="ex-label">Example {i + 1}</span>
-                  <div><strong>Input:</strong> {ex.input}</div>
-                  <div><strong>Output:</strong> {ex.output}</div>
-                  {ex.explanation && <div><strong>Why:</strong> {ex.explanation}</div>}
-                </div>
-              ))}
+          {q.solutionText && (() => {
+            const wild = q.solutionText.split('\n\n── In the Wild ──\n')[1]
+            return wild ? (
+              <div className="wild-section">
+                <span className="wild-label">── In the Wild ──</span>
+                <p className="wild-text">{wild}</p>
+              </div>
+            ) : null
+          })()}
+
+          {q.examples?.length > 0 && (
+            <div className="examples-section">
+              <h4>Examples</h4>
+              <div className="examples-list">
+                {q.examples.map((ex, i) => (
+                  <div key={i} className="example-block">
+                    <span className="ex-label">Example {i + 1}</span>
+                    <div><strong>Input:</strong> {ex.input}</div>
+                    <div><strong>Output:</strong> {ex.output}</div>
+                    {ex.explanation && <div><strong>Why:</strong> {ex.explanation}</div>}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {showHints && (
             <div className="hints-section">
@@ -86,6 +98,11 @@ const QuestionCard = forwardRef(function QuestionCard({ item: q, feedRef }, ref)
         </div>
 
         {showSolution && q.solutions && <SolutionArea item={q} />}
+        {showSolution && q.solutionText && !q.solutions && (
+          <div className="solution-area solution-text-area">
+            <pre className="solution-text">{q.solutionText.split('\n\n── In the Wild ──\n')[0]}</pre>
+          </div>
+        )}
 
         <div className="card-actions">
           <button className="btn-solution" onClick={toggleSolution}>

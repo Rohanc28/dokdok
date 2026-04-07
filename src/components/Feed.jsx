@@ -6,23 +6,20 @@ import QuestionFilterBar from './QuestionFilterBar'
 
 const TOPICS = [
   { label: 'All' },
-  { label: 'Trees',         pattern: /tree|trie|avl|red.black|b-tree|segment/i },
-  { label: 'Graphs',        pattern: /graph|bfs|dfs|topolog|dijkstra|bellman|floyd|spanning|union.find|dsu|cycle/i },
-  { label: 'Sort',          pattern: /sort/i },
-  { label: 'Maps',          pattern: /map|maps oper|hash maps/i },
-  { label: 'System Design', pattern: /system design/i, matchCategory: true },
-  { label: 'Other',         pattern: null },
+  { label: 'Trees',  pattern: /tree|trie|avl|red.black|b-tree|segment/i },
+  { label: 'Graphs', pattern: /graph|bfs|dfs|topolog|dijkstra|bellman|floyd|spanning|union.find|dsu|cycle/i },
+  { label: 'Sort',   pattern: /sort/i },
+  { label: 'Maps',   pattern: /map|maps oper|hash maps/i },
+  { label: 'Other',  pattern: null },
 ]
 
 function getTopicFilter(label, topics) {
   if (label === 'All') return () => true
   const topic = topics.find(t => t.label === label)
   if (!topic || !topic.pattern) {
-    const pats    = topics.filter(t => t.pattern).map(t => t.pattern)
-    const catPats = topics.filter(t => t.pattern && t.matchCategory).map(t => t.pattern)
-    return c => !pats.some(p => p.test(c.title)) && !catPats.some(p => p.test(c.category || ''))
+    const pats = topics.filter(t => t.pattern).map(t => t.pattern)
+    return c => !pats.some(p => p.test(c.title))
   }
-  if (topic.matchCategory) return c => topic.pattern.test(c.category || '')
   return c => topic.pattern.test(c.title)
 }
 
@@ -107,7 +104,11 @@ const Feed = forwardRef(function Feed({ mode, questions, concepts, onStep }, fee
 
   // Desktop wheel navigation
   useEffect(() => {
-    let cooldown = false
+    let locked    = false
+    let accDelta  = 0
+    let stopTimer = null
+    const THRESHOLD = 80
+
     function onWheel(e) {
       // Never navigate cards while scrolling inside an open solution area
       if (e.target.closest('.solution-area')) return
@@ -118,13 +119,23 @@ const Feed = forwardRef(function Feed({ mode, questions, concepts, onStep }, fee
         if ((e.deltaY < 0 && canUp) || (e.deltaY > 0 && canDown)) return
       }
       e.preventDefault()
-      if (cooldown) return
-      cooldown = true
-      onStep(e.deltaY > 0 ? 1 : -1)
-      setTimeout(() => { cooldown = false }, 750)
+
+      // Release lock only after wheel events fully stop (covers touchpad momentum)
+      clearTimeout(stopTimer)
+      stopTimer = setTimeout(() => { locked = false; accDelta = 0 }, 200)
+
+      if (locked) return
+
+      accDelta += e.deltaY
+      if (Math.abs(accDelta) >= THRESHOLD) {
+        locked = true
+        const dir = accDelta > 0 ? 1 : -1
+        accDelta = 0
+        onStep(dir)
+      }
     }
     document.addEventListener('wheel', onWheel, { passive: false })
-    return () => document.removeEventListener('wheel', onWheel)
+    return () => { document.removeEventListener('wheel', onWheel); clearTimeout(stopTimer) }
   }, [onStep])
 
   // Keyboard navigation

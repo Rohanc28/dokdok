@@ -57,11 +57,6 @@ const ConceptCard = forwardRef(function ConceptCard({ item: c, feedRef }, ref) {
         </div>
 
         {showSolution && c.solutions && <SolutionArea item={c} />}
-        {showSolution && c.solutionText && !c.solutions && (
-          <div className="solution-area solution-text-area">
-            <pre className="solution-text">{c.solutionText}</pre>
-          </div>
-        )}
 
         <div className="card-actions">
           <button className="btn-solution" onClick={toggleSolution}>

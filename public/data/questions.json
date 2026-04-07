@@ -236,7 +236,7 @@
       }
     ],
     "hints": [
-      "Use a queue (BFS) \u00e2\u20ac\u201d process nodes level by level.",
+      "Use a queue (BFS) â€” process nodes level by level.",
       "At the start of each level, the queue size = number of nodes in that level.",
       "Process exactly queue.size() nodes, then move to the next level."
     ],
@@ -279,8 +279,8 @@
       "BFS"
     ],
     "approach": "Iterate through the grid. When a '1' is found, increment the count and DFS to mark all connected land cells as '0' (visited). This avoids double counting.",
-    "timeComplexity": "O(m \u00c3\u2014 n)",
-    "spaceComplexity": "O(m \u00c3\u2014 n)",
+    "timeComplexity": "O(m Ã— n)",
+    "spaceComplexity": "O(m Ã— n)",
     "solutions": {
       "python": "def numIslands(grid: list[list[str]]) -> int:\n    if not grid:\n        return 0\n    rows, cols = len(grid), len(grid[0])\n\n    def dfs(r, c):\n        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] != '1':\n            return\n        grid[r][c] = '0'  # mark visited\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1)\n\n    count = 0\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == '1':\n                count += 1\n                dfs(r, c)\n    return count",
       "go": "func numIslands(grid [][]byte) int {\n    rows, cols := len(grid), len(grid[0])\n    var dfs func(r, c int)\n    dfs = func(r, c int) {\n        if r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] != '1' {\n            return\n        }\n        grid[r][c] = '0'\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1)\n    }\n    count := 0\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            if grid[r][c] == '1' {\n                count++\n                dfs(r, c)\n            }\n        }\n    }\n    return count\n}",
@@ -313,12 +313,12 @@
     "tags": [
       "Bit Manipulation"
     ],
-    "approach": "Use n & (n-1) to clear the lowest set bit each iteration. Count iterations until n reaches 0. This is O(k) where k is the number of set bits \u00e2\u20ac\u201d faster than checking all 32 bits.",
-    "timeComplexity": "O(k) \u00e2\u20ac\u201d k set bits",
+    "approach": "Use n & (n-1) to clear the lowest set bit each iteration. Count iterations until n reaches 0. This is O(k) where k is the number of set bits â€” faster than checking all 32 bits.",
+    "timeComplexity": "O(k) â€” k set bits",
     "spaceComplexity": "O(1)",
     "solutions": {
       "python": "def hammingWeight(n: int) -> int:\n    count = 0\n    while n:\n        n &= n - 1  # clears lowest set bit\n        count += 1\n    return count\n\n# One-liner\n# return bin(n).count('1')",
-      "go": "func hammingWeight(n uint32) int {\n    count := 0\n    for n != 0 {\n        n &= n - 1  // clears lowest set bit\n        count++\n    }\n    return count\n}\n\n// Built-in alternative:\n// import \"math/bits\" \u00e2\u2020\u2019 bits.OnesCount32(n)",
+      "go": "func hammingWeight(n uint32) int {\n    count := 0\n    for n != 0 {\n        n &= n - 1  // clears lowest set bit\n        count++\n    }\n    return count\n}\n\n// Built-in alternative:\n// import \"math/bits\" â†’ bits.OnesCount32(n)",
       "java": "public int hammingWeight(int n) {\n    int count = 0;\n    while (n != 0) {\n        n &= n - 1;  // clears lowest set bit\n        count++;\n    }\n    return count;\n}\n\n// Built-in: Integer.bitCount(n)"
     }
   },
@@ -341,14 +341,14 @@
     ],
     "hints": [
       "dp[i] = dp[i >> 1] + (i & 1)",
-      "i >> 1 is i with the last bit removed \u00e2\u20ac\u201d you already computed its count.",
+      "i >> 1 is i with the last bit removed â€” you already computed its count.",
       "The last bit (i & 1) is either 0 or 1, just add it."
     ],
     "tags": [
       "Bit Manipulation",
       "Dynamic Programming"
     ],
-    "approach": "DP: for each i, shift right by 1 (drop last bit) \u00e2\u20ac\u201d already computed \u00e2\u20ac\u201d then add the last bit (i & 1). This builds the answer in O(n) using prior results.",
+    "approach": "DP: for each i, shift right by 1 (drop last bit) â€” already computed â€” then add the last bit (i & 1). This builds the answer in O(n) using prior results.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
     "solutions": {
@@ -377,13 +377,13 @@
     "hints": [
       "Extract the last bit of n with (n & 1), put it into result.",
       "Shift result left and n right by 1 each iteration.",
-      "Repeat 32 times \u00e2\u20ac\u201d one per bit."
+      "Repeat 32 times â€” one per bit."
     ],
     "tags": [
       "Bit Manipulation"
     ],
     "approach": "Loop 32 times. Each iteration: shift result left by 1, OR in the lowest bit of n (n & 1), then shift n right by 1. After 32 iterations result holds the reversed bits.",
-    "timeComplexity": "O(1) \u00e2\u20ac\u201d always 32 iterations",
+    "timeComplexity": "O(1) â€” always 32 iterations",
     "spaceComplexity": "O(1)",
     "solutions": {
       "python": "def reverseBits(n: int) -> int:\n    result = 0\n    for _ in range(32):\n        result = (result << 1) | (n & 1)\n        n >>= 1\n    return result",
@@ -417,7 +417,7 @@
       "Bit Manipulation",
       "Array"
     ],
-    "approach": "Gauss formula: expected sum of [0..n] is n*(n+1)/2. Subtract the actual array sum to get the missing number. XOR alternative: XOR all indices and all values \u00e2\u20ac\u201d everything cancels except the missing index.",
+    "approach": "Gauss formula: expected sum of [0..n] is n*(n+1)/2. Subtract the actual array sum to get the missing number. XOR alternative: XOR all indices and all values â€” everything cancels except the missing index.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
     "solutions": {
@@ -452,7 +452,7 @@
       "Bit Manipulation"
     ],
     "approach": "XOR gives sum without carry; AND<<1 gives the carry. Add carry into the partial sum by repeating until carry is 0. In Python, mask to 32 bits to handle Python's arbitrary-precision integers.",
-    "timeComplexity": "O(1) \u00e2\u20ac\u201d at most 32 iterations",
+    "timeComplexity": "O(1) â€” at most 32 iterations",
     "spaceComplexity": "O(1)",
     "solutions": {
       "python": "def getSum(a: int, b: int) -> int:\n    mask    = 0xFFFFFFFF\n    max_int = 0x7FFFFFFF\n    while b & mask:\n        carry = ((a & b) << 1) & mask\n        a = (a ^ b) & mask\n        b = carry\n    # If high bit set, convert back to negative\n    return a if a <= max_int else ~(a ^ mask)",
@@ -478,7 +478,7 @@
       }
     ],
     "hints": [
-      "90\u00c2\u00b0 clockwise = transpose then reverse each row.",
+      "90Â° clockwise = transpose then reverse each row.",
       "Transpose: swap matrix[i][j] with matrix[j][i] for j > i.",
       "Then reverse each row in-place."
     ],
@@ -486,8 +486,8 @@
       "Matrix",
       "Array"
     ],
-    "approach": "Two-step in-place: (1) Transpose the matrix by swapping matrix[i][j] with matrix[j][i]. (2) Reverse each row. This is equivalent to a 90\u00c2\u00b0 clockwise rotation.",
-    "timeComplexity": "O(n\u00c2\u00b2)",
+    "approach": "Two-step in-place: (1) Transpose the matrix by swapping matrix[i][j] with matrix[j][i]. (2) Reverse each row. This is equivalent to a 90Â° clockwise rotation.",
+    "timeComplexity": "O(nÂ²)",
     "spaceComplexity": "O(1)",
     "solutions": {
       "python": "def rotate(matrix: list[list[int]]) -> None:\n    n = len(matrix)\n    # Step 1: Transpose\n    for i in range(n):\n        for j in range(i + 1, n):\n            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]\n    # Step 2: Reverse each row\n    for row in matrix:\n        row.reverse()",
@@ -521,8 +521,8 @@
       "Matrix",
       "Array"
     ],
-    "approach": "Maintain four boundary pointers (top, bottom, left, right). Traverse each layer: go right \u00e2\u2020\u2019 down \u00e2\u2020\u2019 left \u00e2\u2020\u2019 up, then shrink all four boundaries inward. Guard the left/up passes to avoid re-visiting cells in non-square matrices.",
-    "timeComplexity": "O(m \u00c3\u2014 n)",
+    "approach": "Maintain four boundary pointers (top, bottom, left, right). Traverse each layer: go right â†’ down â†’ left â†’ up, then shrink all four boundaries inward. Guard the left/up passes to avoid re-visiting cells in non-square matrices.",
+    "timeComplexity": "O(m Ã— n)",
     "spaceComplexity": "O(1) extra",
     "solutions": {
       "python": "def spiralOrder(matrix: list[list[int]]) -> list[int]:\n    result = []\n    top, bottom = 0, len(matrix) - 1\n    left, right  = 0, len(matrix[0]) - 1\n    while top <= bottom and left <= right:\n        for c in range(left, right + 1):   result.append(matrix[top][c])\n        top += 1\n        for r in range(top, bottom + 1):   result.append(matrix[r][right])\n        right -= 1\n        if top <= bottom:\n            for c in range(right, left - 1, -1): result.append(matrix[bottom][c])\n            bottom -= 1\n        if left <= right:\n            for r in range(bottom, top - 1, -1): result.append(matrix[r][left])\n            left += 1\n    return result",
@@ -558,7 +558,7 @@
       "Hash Set"
     ],
     "approach": "Two-pass approach: first collect all (row, col) positions of zeros into sets. Second pass: if row or col is in the sets, set to 0. O(1) space upgrade: use matrix[0][c] and matrix[r][0] as flags, being careful to handle the first row/column separately.",
-    "timeComplexity": "O(m \u00c3\u2014 n)",
+    "timeComplexity": "O(m Ã— n)",
     "spaceComplexity": "O(m + n)",
     "solutions": {
       "python": "def setZeroes(matrix: list[list[int]]) -> None:\n    rows, cols = len(matrix), len(matrix[0])\n    zero_rows, zero_cols = set(), set()\n\n    for r in range(rows):\n        for c in range(cols):\n            if matrix[r][c] == 0:\n                zero_rows.add(r)\n                zero_cols.add(c)\n\n    for r in range(rows):\n        for c in range(cols):\n            if r in zero_rows or c in zero_cols:\n                matrix[r][c] = 0",
@@ -774,9 +774,9 @@
       }
     ],
     "hints": [
-      "Use BFS where the state is (node, last_edge_color) \u00e2\u20ac\u201d you must alternate colors at each step.",
+      "Use BFS where the state is (node, last_edge_color) â€” you must alternate colors at each step.",
       "Start node 0 with both RED and BLUE as possible first-edge colors simultaneously.",
-      "Track visited (node, color) pairs to avoid cycles \u00e2\u20ac\u201d the same node can be visited twice, once per color."
+      "Track visited (node, color) pairs to avoid cycles â€” the same node can be visited twice, once per color."
     ],
     "tags": [
       "Breadth-First Search",
@@ -812,8 +812,8 @@
       }
     ],
     "hints": [
-      "A special binary string always starts with 1 and ends with 0 \u00e2\u20ac\u201d treat 1 as '(' and 0 as ')': it's a valid parenthesization.",
-      "Find all top-level special substrings by tracking balance (1 \u00e2\u2020\u2019 +1, 0 \u00e2\u2020\u2019 -1); each time balance hits 0 you've found one.",
+      "A special binary string always starts with 1 and ends with 0 â€” treat 1 as '(' and 0 as ')': it's a valid parenthesization.",
+      "Find all top-level special substrings by tracking balance (1 â†’ +1, 0 â†’ -1); each time balance hits 0 you've found one.",
       "Recursively sort inner content of each special substring, then sort the resulting strings in reverse lexicographic order and concatenate."
     ],
     "tags": [
@@ -821,8 +821,8 @@
       "Divide and Conquer",
       "Sorting"
     ],
-    "approach": "Map 1\u00e2\u2020\u2019'(' and 0\u00e2\u2020\u2019')'. Scan for top-level special substrings (balance returns to 0). For each, strip the outer '1'\u00e2\u20ac\u00a6'0', recursively sort the interior, then wrap back. Sort the collected substrings in descending order and join \u00e2\u20ac\u201d greedy: putting the lexicographically largest substring first always wins.",
-    "timeComplexity": "O(n\u00c2\u00b2 log n) worst case",
+    "approach": "Map 1â†’'(' and 0â†’')'. Scan for top-level special substrings (balance returns to 0). For each, strip the outer '1'â€¦'0', recursively sort the interior, then wrap back. Sort the collected substrings in descending order and join â€” greedy: putting the lexicographically largest substring first always wins.",
+    "timeComplexity": "O(nÂ² log n) worst case",
     "spaceComplexity": "O(n) recursion stack",
     "solutions": {
       "python": "def makeLargestSpecial(s: str) -> str:\n    count = 0\n    start = 0\n    specials = []\n    for i, ch in enumerate(s):\n        count += 1 if ch == '1' else -1\n        if count == 0:\n            inner = makeLargestSpecial(s[start + 1:i])\n            specials.append('1' + inner + '0')\n            start = i + 1\n    specials.sort(reverse=True)\n    return ''.join(specials)",
@@ -878,17 +878,17 @@
     "title": "Maximum Difference by Remapping a Digit",
     "difficulty": "Easy",
     "category": "Greedy",
-    "description": "You are given an integer num. Bob will remap one of the 10 possible digits (0\u00e2\u20ac\u201c9) to another digit. When Bob remaps digit d1 to d2, all occurrences of d1 in num become d2. The resulting value may have leading zeros, which are ignored when converting back to an integer.\n\nReturn the difference between the maximum and minimum values Bob can make by remapping exactly one digit in num.",
+    "description": "You are given an integer num. Bob will remap one of the 10 possible digits (0â€“9) to another digit. When Bob remaps digit d1 to d2, all occurrences of d1 in num become d2. The resulting value may have leading zeros, which are ignored when converting back to an integer.\n\nReturn the difference between the maximum and minimum values Bob can make by remapping exactly one digit in num.",
     "examples": [
       {
         "input": "num = 11891",
         "output": "99009",
-        "explanation": "Max: remap 1\u00e2\u2020\u20199 \u00e2\u2020\u2019 99899. Min: remap 1\u00e2\u2020\u20190 \u00e2\u2020\u2019 890. Diff = 99899 - 890 = 99009."
+        "explanation": "Max: remap 1â†’9 â†’ 99899. Min: remap 1â†’0 â†’ 890. Diff = 99899 - 890 = 99009."
       },
       {
         "input": "num = 90",
         "output": "99",
-        "explanation": "Max: remap 0\u00e2\u2020\u20199 \u00e2\u2020\u2019 99. Min: remap 9\u00e2\u2020\u20190 \u00e2\u2020\u2019 0. Diff = 99 - 0 = 99."
+        "explanation": "Max: remap 0â†’9 â†’ 99. Min: remap 9â†’0 â†’ 0. Diff = 99 - 0 = 99."
       }
     ],
     "hints": [
@@ -900,7 +900,7 @@
       "Math",
       "Greedy"
     ],
-    "approach": "Greedy string manipulation. Max value: scan left-to-right for the first digit \u00e2\u2030\u00a0 '9', replace all of them with '9'. Min value: replace every occurrence of the leading digit with '0'. Subtract min from max.",
+    "approach": "Greedy string manipulation. Max value: scan left-to-right for the first digit â‰  '9', replace all of them with '9'. Min value: replace every occurrence of the leading digit with '0'. Subtract min from max.",
     "timeComplexity": "O(d) where d = number of digits",
     "spaceComplexity": "O(d)",
     "solutions": {
@@ -920,7 +920,7 @@
       {
         "input": "start = 1, finish = 6000, limit = 4, s = \"124\"",
         "output": "5",
-        "explanation": "Powerful numbers: 124, 1124, 2124, 3124, 4124. All end with '124' and have digits \u00e2\u2030\u00a4 4."
+        "explanation": "Powerful numbers: 124, 1124, 2124, 3124, 4124. All end with '124' and have digits â‰¤ 4."
       },
       {
         "input": "start = 15, finish = 215, limit = 6, s = \"10\"",
@@ -943,8 +943,8 @@
       "String",
       "Dynamic Programming"
     ],
-    "approach": "Digit DP with tight constraint. count(n) accumulates: (1) all powerful numbers with fewer digits than n by direct formula (first prefix digit 1..limit, rest 0..limit); (2) for the exact length of n, walk digit-by-digit keeping a tight flag \u00e2\u20ac\u201d free branches contribute (limit+1)^remaining each, the tight path checks if the suffix fits.",
-    "timeComplexity": "O(d\u00c2\u00b2) where d = digits of finish",
+    "approach": "Digit DP with tight constraint. count(n) accumulates: (1) all powerful numbers with fewer digits than n by direct formula (first prefix digit 1..limit, rest 0..limit); (2) for the exact length of n, walk digit-by-digit keeping a tight flag â€” free branches contribute (limit+1)^remaining each, the tight path checks if the suffix fits.",
+    "timeComplexity": "O(dÂ²) where d = digits of finish",
     "spaceComplexity": "O(d)",
     "solutions": {
       "python": "def numberOfPowerfulInt(start: int, finish: int, limit: int, s: str) -> int:\n    if any(int(c) > limit for c in s):\n        return 0\n\n    def count(n: int) -> int:\n        t = str(n)\n        n_len, s_len = len(t), len(s)\n        if n_len < s_len:\n            return 0\n        total = 0\n        # All powerful numbers with L digits where s_len <= L < n_len\n        for L in range(s_len, n_len):\n            pre = L - s_len\n            if pre == 0:\n                if s[0] != '0':\n                    total += 1\n            else:\n                total += limit * (limit + 1) ** (pre - 1)\n        # Exactly n_len digits\n        pre = n_len - s_len\n        if pre == 0:\n            total += 1 if t >= s else 0\n        else:\n            tight = True\n            for i in range(pre):\n                lo = 1 if i == 0 else 0\n                d = int(t[i])\n                free_upper = d if d <= limit else limit + 1\n                total += max(0, free_upper - lo) * (limit + 1) ** (pre - i - 1)\n                if d > limit:\n                    tight = False\n                    break\n            if tight and t[pre:] >= s:\n                total += 1\n        return total\n\n    return count(finish) - count(start - 1)",
@@ -963,7 +963,7 @@
       {
         "input": "nums = [1,3,5,2], cost = [2,3,1,14]",
         "output": "8",
-        "explanation": "Make all equal to 2: cost = 2\u00c3\u20141 + 3\u00c3\u20141 + 1\u00c3\u20143 + 14\u00c3\u20140 = 8."
+        "explanation": "Make all equal to 2: cost = 2Ã—1 + 3Ã—1 + 1Ã—3 + 14Ã—0 = 8."
       },
       {
         "input": "nums = [2,2,2,2,2], cost = [4,2,8,1,3]",
@@ -972,9 +972,9 @@
       }
     ],
     "hints": [
-      "The total cost function f(v) = \u00ce\u00a3 cost[i] \u00c3\u2014 |nums[i] - v| is convex \u00e2\u20ac\u201d it decreases then increases.",
+      "The total cost function f(v) = Î£ cost[i] Ã— |nums[i] - v| is convex â€” it decreases then increases.",
       "Binary search on v: if f(mid) > f(mid+1), the minimum is to the right; otherwise to the left or at mid.",
-      "Alternatively, find the weighted median: sort by value, accumulate cost until cumulative cost \u00e2\u2030\u00a5 total/2."
+      "Alternatively, find the weighted median: sort by value, accumulate cost until cumulative cost â‰¥ total/2."
     ],
     "tags": [
       "Array",
@@ -1020,7 +1020,7 @@
       "Array",
       "Hash Table"
     ],
-    "approach": "Build a hash set from nums. Then check multiples of k in order (k, 2k, 3k, \u00e2\u20ac\u00a6) and return the first that is absent. The loop runs at most n+1 times since at most n multiples can be present.",
+    "approach": "Build a hash set from nums. Then check multiples of k in order (k, 2k, 3k, â€¦) and return the first that is absent. The loop runs at most n+1 times since at most n multiples can be present.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
     "solutions": {
@@ -1077,7 +1077,7 @@
     "title": "Reorder List",
     "difficulty": "Medium",
     "category": "Linked List",
-    "description": "You are given the head of a singly linked list. The list can be represented as L0 \u00e2\u2020\u2019 L1 \u00e2\u2020\u2019 \u00e2\u20ac\u00a6 \u00e2\u2020\u2019 Ln-1 \u00e2\u2020\u2019 Ln. Reorder it to: L0 \u00e2\u2020\u2019 Ln \u00e2\u2020\u2019 L1 \u00e2\u2020\u2019 Ln-1 \u00e2\u2020\u2019 L2 \u00e2\u2020\u2019 Ln-2 \u00e2\u2020\u2019 \u00e2\u20ac\u00a6 You may not modify the values in the list's nodes. Only nodes themselves may be changed.",
+    "description": "You are given the head of a singly linked list. The list can be represented as L0 â†’ L1 â†’ â€¦ â†’ Ln-1 â†’ Ln. Reorder it to: L0 â†’ Ln â†’ L1 â†’ Ln-1 â†’ L2 â†’ Ln-2 â†’ â€¦ You may not modify the values in the list's nodes. Only nodes themselves may be changed.",
     "examples": [
       {
         "input": "head = [1,2,3,4]",
@@ -1136,7 +1136,7 @@
       "Linked List",
       "Two Pointers"
     ],
-    "approach": "One-pass two-pointer. Use a dummy node before head. Advance fast n+1 steps from dummy. Then move both slow and fast together until fast is null. slow.next is the target \u00e2\u20ac\u201d set slow.next = slow.next.next.",
+    "approach": "One-pass two-pointer. Use a dummy node before head. Advance fast n+1 steps from dummy. Then move both slow and fast together until fast is null. slow.next is the target â€” set slow.next = slow.next.next.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
     "solutions": {
@@ -1169,7 +1169,7 @@
     "hints": [
       "A min-heap of size k lets you always extract the smallest current node in O(log k).",
       "Alternatively, use divide and conquer: merge pairs of lists repeatedly until one remains.",
-      "Naive repeated merge of all lists gives O(kN) \u00e2\u20ac\u201d aim for O(N log k)."
+      "Naive repeated merge of all lists gives O(kN) â€” aim for O(N log k)."
     ],
     "tags": [
       "Linked List",
@@ -1208,7 +1208,7 @@
     ],
     "hints": [
       "Swap the left and right children of each node.",
-      "Recurse into both subtrees \u00e2\u20ac\u201d order doesn't matter since swaps are independent.",
+      "Recurse into both subtrees â€” order doesn't matter since swaps are independent.",
       "Works iteratively with a queue (BFS) or stack (DFS) as well."
     ],
     "tags": [
@@ -1291,7 +1291,7 @@
       "Binary Tree",
       "Depth-First Search"
     ],
-    "approach": "Recursive DFS: two trees are the same iff their roots have equal values and their left and right subtrees are recursively the same. Three base cases: both null \u00e2\u2020\u2019 true, one null \u00e2\u2020\u2019 false, values differ \u00e2\u2020\u2019 false.",
+    "approach": "Recursive DFS: two trees are the same iff their roots have equal values and their left and right subtrees are recursively the same. Three base cases: both null â†’ true, one null â†’ false, values differ â†’ false.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(h) recursion stack",
     "solutions": {
@@ -1689,7 +1689,7 @@
       "Water = min(height[left], height[right]) * (right - left).",
       "Move the pointer with the smaller height inward."
     ],
-    "approach": "Start with pointers at both ends. Calculate area, update max. Move the pointer with the smaller height inward \u2014 only moving the taller one could never increase the area.",
+    "approach": "Start with pointers at both ends. Calculate area, update max. Move the pointer with the smaller height inward — only moving the taller one could never increase the area.",
     "tags": [
       "Array",
       "Two Pointers"
@@ -1916,7 +1916,7 @@
       "If both p and q are smaller than current node, go left.",
       "If both are larger, go right. Otherwise, current node is the LCA."
     ],
-    "approach": "Leverage BST ordering. If both p and q are less than current node, recurse left. If both are greater, recurse right. Otherwise the current node is the split point \u2014 the LCA.",
+    "approach": "Leverage BST ordering. If both p and q are less than current node, recurse left. If both are greater, recurse right. Otherwise the current node is the split point — the LCA.",
     "tags": [
       "Tree",
       "BST"
@@ -1988,7 +1988,7 @@
       "Count nodes visited; the kth node is the answer.",
       "Can be done iteratively with a stack."
     ],
-    "approach": "In-order traversal (left \u2192 node \u2192 right) visits BST nodes in ascending order. Count down k; when k reaches 0, return the current node's value.",
+    "approach": "In-order traversal (left → node → right) visits BST nodes in ascending order. Count down k; when k reaches 0, return the current node's value.",
     "tags": [
       "Tree",
       "BST",
@@ -2402,7 +2402,7 @@
       "Use DFS with three states: unvisited, visiting (in current path), visited.",
       "A cycle is detected if you revisit a node currently in the path."
     ],
-    "approach": "Build adjacency list. DFS with cycle detection using three states: 0=unvisited, 1=visiting, 2=done. If we reach a node marked visiting, there's a cycle \u2014 return false.",
+    "approach": "Build adjacency list. DFS with cycle detection using three states: 0=unvisited, 1=visiting, 2=done. If we reach a node marked visiting, there's a cycle — return false.",
     "tags": [
       "Graph",
       "DFS",
@@ -3008,5 +3008,493 @@
       "go": "func canJump(nums []int) bool {\n    maxReach := 0\n    for i, jump := range nums {\n        if i > maxReach { return false }\n        if i+jump > maxReach { maxReach = i + jump }\n    }\n    return true\n}",
       "java": "public boolean canJump(int[] nums) {\n    int maxReach = 0;\n    for (int i = 0; i < nums.length; i++) {\n        if (i > maxReach) return false;\n        maxReach = Math.max(maxReach, i + nums[i]);\n    }\n    return true;\n}"
     }
+  },
+  {
+    "id": 1001,
+    "number": "#SD01",
+    "title": "Why does your app show old data even after a successful save?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "You write to the database. The write succeeds. But the user still sees stale data. Why?",
+    "examples": [],
+    "hints": [
+      "Do writes also invalidate or update the cache?",
+      "Is your TTL short enough for your consistency requirements?",
+      "Are you using write-through or cache-aside intentionally?",
+      "Do you have a thundering herd mitigation (e.g., mutex lock on cache miss)?"
+    ],
+    "approach": "Cache invalidation — you wrote to DB but the cache still holds the old value.",
+    "tags": [
+      "cache",
+      "redis",
+      "consistency",
+      "stale-reads"
+    ],
+    "solutionText": "Most systems put a cache (like Redis) in front of the database to reduce read load. When you write data, the DB gets updated — but unless you explicitly evict or update the cache entry, every read still hits the old cached value. This is called a stale cache problem.\n\nCommon strategies to fix it:\n\n1. Cache-Aside (Lazy Invalidation): On write, delete the cache key. Next read will miss, fetch fresh from DB, and repopulate cache. Simple but has a thundering herd risk.\n\n2. Write-Through: On every write, update both DB and cache together. Consistent, but adds write latency.\n\n3. Write-Behind (Write-Back): Write to cache immediately, flush to DB asynchronously. Fast writes, but risk data loss on crash.\n\n4. TTL (Time-to-Live): Set an expiry on cache keys. Stale data is bounded to TTL window. Simple but not real-time.\n\n── In the Wild ──\nThis is why Twitter users sometimes see old follower counts after someone follows them. The read path hits a cache that hasn't been invalidated yet."
+  },
+  {
+    "id": 1002,
+    "number": "#SD02",
+    "title": "Why did GitHub go down because of ONE network cable?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "GitHub had a major outage in 2018 from a single network switch failure. How does a single hardware fault take down a distributed system?",
+    "examples": [],
+    "hints": [
+      "Does your leader election require quorum (majority of nodes)?",
+      "Do you have fencing tokens to prevent stale leaders from writing?",
+      "Can your system detect and alert on split-brain conditions?",
+      "Have you tested network partition scenarios in staging?"
+    ],
+    "approach": "Network partition caused two data centers to think they were each the primary — split-brain.",
+    "tags": [
+      "availability",
+      "split-brain",
+      "replication",
+      "leader-election",
+      "CAP-theorem"
+    ],
+    "solutionText": "In 2018, GitHub experienced an 11-hour partial outage after a 43-second network interruption between their US East and US West data centers.\n\nHere's what happened step by step:\n\n1. A single faulty network device caused both DCs to lose sight of each other.\n2. Each DC assumed the other was dead and elected itself as primary (split-brain).\n3. Both primaries started accepting writes independently.\n4. When the network recovered, they had diverged — two conflicting versions of the same data.\n5. GitHub had to replay missed writes and verify data integrity manually — that's where 11 hours went.\n\nThe root cause: their MySQL replication setup used Orchestrator for leader election, which promoted a follower in the other DC. When the partition healed, they had two leaders.\n\nFix: Use fencing tokens, STONITH (Shoot The Other Node In The Head), or consensus protocols like Raft/Paxos that require a quorum to elect a leader — preventing split-brain by design.\n\n── In the Wild ──\nGitHub's 2018 incident report is public. The lesson became foundational to how distributed databases (like CockroachDB, TiDB) were designed — always require quorum for leader promotion."
+  },
+  {
+    "id": 1003,
+    "number": "#SD03",
+    "title": "Why did adding an index bring production DOWN at 2am?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "A developer adds an index to a large table to speed up queries. The site goes down within minutes. What happened?",
+    "examples": [],
+    "hints": [
+      "Are you using CREATE INDEX CONCURRENTLY (Postgres) or ALGORITHM=INPLACE (MySQL)?",
+      "Have you checked table size before running DDL in prod?",
+      "Do you have a migration plan that avoids table-level locks?",
+      "Is your migration tool (e.g., Flyway, Liquibase) lock-aware?"
+    ],
+    "approach": "CREATE INDEX acquires a lock on the table. On a 500M-row table, that's minutes of blocked writes.",
+    "tags": [
+      "database",
+      "indexes",
+      "migrations",
+      "postgres",
+      "mysql",
+      "DDL"
+    ],
+    "solutionText": "Building an index on a large table is not instant — the database must scan every row to construct the index structure (typically a B-tree). In most databases (MySQL, Postgres < 9.0), this operation takes an exclusive write lock on the table for the entire duration.\n\nWhat that means in production:\n- Every INSERT, UPDATE, DELETE is blocked.\n- Queue of writes builds up.\n- Application starts timing out.\n- Users see errors.\n\nOn a 500M row table at 2am (low traffic window), index creation might take 10-20 minutes — locking writes the entire time.\n\nFixes:\n1. Postgres: `CREATE INDEX CONCURRENTLY` — builds index without holding a write lock. Takes longer but doesn't block. Has a cost: if it fails mid-way, you get an invalid index.\n2. MySQL (InnoDB): Online DDL is supported in MySQL 5.6+ for many operations — check `ALGORITHM=INPLACE`.\n3. Use pt-online-schema-change (Percona Toolkit) to perform schema changes safely on live tables.\n4. Always test DDL on a staging DB with production-scale data first.\n\n── In the Wild ──\nThis exact scenario has caused outages at Shopify, Stripe, and countless startups. Stripe published a detailed post on how they do safe Postgres migrations at scale."
+  },
+  {
+    "id": 1004,
+    "number": "#SD04",
+    "title": "Why is two-phase commit (2PC) basically banned in high-scale systems?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "Two-phase commit guarantees distributed atomicity. So why don't Google, Amazon, or Netflix use it?",
+    "examples": [],
+    "hints": [
+      "Are you using distributed transactions? Can they be replaced with Sagas?",
+      "Do you have compensating actions for each step in your transaction flow?",
+      "Is your message queue delivery guaranteed (at-least-once)?",
+      "Are your consumers idempotent?"
+    ],
+    "approach": "2PC blocks on coordinator failure — a single node can freeze your entire transaction for minutes.",
+    "tags": [
+      "distributed-systems",
+      "2PC",
+      "sagas",
+      "transactions",
+      "consistency"
+    ],
+    "solutionText": "Two-Phase Commit (2PC) works in two rounds:\n- Phase 1 (Prepare): Coordinator asks all participants 'Can you commit?' — all must say Yes.\n- Phase 2 (Commit): If all say Yes, coordinator tells everyone to commit. If anyone says No, abort.\n\nThe problem: if the coordinator crashes AFTER Phase 1 but BEFORE sending Phase 2, all participants are left holding locks in the 'prepared' state. They cannot proceed or roll back on their own — they're waiting for the coordinator to recover. This is called the blocking problem.\n\nIn high-scale systems:\n- Locks held = rows/tables frozen for potentially minutes.\n- Under load, this cascades — latency spikes, connection pool exhaustion, cascading failures.\n- Coordinator availability becomes a single point of failure.\n\nAlternatives used at scale:\n1. Saga Pattern: Break transaction into local steps, each with a compensating rollback action. No distributed locks. Used heavily in microservices.\n2. Eventual Consistency + Idempotent Retries: Accept temporary inconsistency, use outbox pattern + message queues to guarantee eventual convergence.\n3. Google Spanner: Uses 2PC but with TrueTime and Paxos-backed coordinators to reduce blocking window dramatically — still 2PC under the hood, just engineered carefully.\n\n── In the Wild ──\nAmazon's DynamoDB, Kafka's transactional API, and most microservice architectures avoid 2PC entirely. Uber's money movement uses Sagas with careful compensation logic."
+  },
+  {
+    "id": 1005,
+    "number": "#SD05",
+    "title": "How does Netflix never go down even when AWS has an outage?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "Netflix runs entirely on AWS. AWS has regional outages. Netflix (mostly) stays up. How?",
+    "examples": [],
+    "hints": [
+      "Are you deployed in more than one region?",
+      "Do you have circuit breakers on all external service calls?",
+      "Can your system degrade gracefully when a dependency is down?",
+      "Are your services truly stateless?"
+    ],
+    "approach": "Active-active multi-region deployment + chaos engineering + graceful degradation.",
+    "tags": [
+      "availability",
+      "multi-region",
+      "chaos-engineering",
+      "circuit-breaker",
+      "resilience"
+    ],
+    "solutionText": "Netflix's architecture is built on the assumption that everything will fail. Their approach:\n\n1. Multi-Region Active-Active: Netflix runs simultaneously in multiple AWS regions (us-east-1, eu-west-1, etc.). Traffic is load-balanced across regions. If one region dies, traffic routes to others automatically via Route 53 health checks.\n\n2. Cell-Based Architecture: Each region is divided into independent 'cells'. A failure in one cell doesn't cascade to others.\n\n3. Chaos Engineering (Chaos Monkey): Netflix intentionally kills random instances in production during business hours. This forces engineers to build resilient services — not just hope they are.\n\n4. Graceful Degradation: If the recommendation service is down, Netflix still shows content — just with a generic list instead of personalized picks. The system degrades, not fails.\n\n5. Hystrix / Resilience4j: Circuit breakers stop cascading failures. If Service A calls Service B and B is slow, A opens the circuit and returns fallback data instead of hanging.\n\n6. Stateless Services: Every service is stateless — any instance can serve any request. Session data lives in Redis/Cassandra, not on the service.\n\n── In the Wild ──\nDuring the AWS us-east-1 outage in 2011, Netflix was one of the few major sites that stayed partially operational. Most competitors went dark. Netflix wrote a public post-mortem."
+  },
+  {
+    "id": 1006,
+    "number": "#SD06",
+    "title": "You paid twice. The payment succeeded twice. Why?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "A user clicks 'Pay'. The request times out. They click again. Both charges go through. How do you prevent this?",
+    "examples": [],
+    "hints": [
+      "Do all your payment/order endpoints accept and honor idempotency keys?",
+      "Are idempotency keys stored server-side with TTL?",
+      "Is your background job processing idempotent?",
+      "Do you use ON CONFLICT / upserts instead of blind inserts?"
+    ],
+    "approach": "Idempotency keys — every payment request needs a unique, server-side deduplication ID.",
+    "tags": [
+      "consistency",
+      "idempotency",
+      "payments",
+      "reliability",
+      "retries"
+    ],
+    "solutionText": "Network requests can fail in two ways:\n1. The request never reached the server.\n2. The server processed it but the response was lost in transit.\n\nIn case 2, retrying the request causes a duplicate action — a double charge, a double order, a double email.\n\nThe fix: Idempotency Keys\n\nThe client generates a unique idempotency key (UUID) for each logical operation and sends it as a header (e.g., `Idempotency-Key: uuid-abc-123`). The server:\n1. Checks if this key has been seen before.\n2. If yes, return the stored result of the previous request — don't process again.\n3. If no, process and store the result mapped to this key.\n\nStripe's entire payments API is built on this pattern. Every POST to create a charge requires an idempotency key.\n\nImplementation tips:\n- Store idempotency keys in Redis with a TTL (e.g., 24 hours).\n- The stored result should include the full response so retries get an identical answer.\n- Keys must be scoped per customer to avoid cross-user collisions.\n- Make your processing logic truly idempotent — inserting with ON CONFLICT DO NOTHING, not blind INSERTs.\n\n── In the Wild ──\nStripe, PayPal, and Braintree all expose idempotency keys in their APIs. The pattern is also used heavily in AWS SDK calls and Kubernetes controllers (reconciliation loops are idempotent by design)."
+  },
+  {
+    "id": 1007,
+    "number": "#SD07",
+    "title": "Why does your app survive 100 users but crash at 10,000?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "The app works fine in staging. First viral moment hits. Everything crashes. What's the bottleneck and how do you find it?",
+    "examples": [],
+    "hints": [
+      "Are you using a DB connection pooler?",
+      "Have you profiled queries for N+1 patterns?",
+      "Is your app horizontally scalable (stateless, behind a load balancer)?",
+      "Have you load tested at 5x expected peak traffic?"
+    ],
+    "approach": "The bottleneck is almost always: DB connections, a single unsharded table, or a missing cache.",
+    "tags": [
+      "scalability",
+      "performance",
+      "database",
+      "caching",
+      "load-balancing"
+    ],
+    "solutionText": "Most apps that die under load share the same failure pattern:\n\n1. DB Connection Pool Exhaustion: Every API request opens a DB connection. With 10,000 concurrent users, you're trying to open 10,000 connections. Postgres max connections default is 100. Fix: Use a connection pooler (PgBouncer for Postgres). Connections are reused across requests.\n\n2. N+1 Query Problem: You load 100 users, then for each user you make a DB call to get their profile photo. 100 users = 101 queries. At scale this destroys your DB. Fix: Use JOIN or batch fetch.\n\n3. No Horizontal Scaling: All traffic hits one server. Fix: Put a load balancer (Nginx, ALB) in front and run multiple stateless app instances.\n\n4. Missing Cache for Hot Paths: The 'homepage' query hits the DB 10,000 times/second. It's the same result for every user. Fix: Cache it in Redis with a short TTL.\n\n5. Synchronous External Calls: Every request calls an external API (email, SMS, enrichment). If that API is slow, your entire request is slow. Fix: Use async queues (Celery, BullMQ, Kafka) for non-critical work.\n\nHow to find bottlenecks: Add APM (Datadog, New Relic, or free: Prometheus + Grafana). Load test with k6 or Locust before you go viral — not after.\n\n── In the Wild ──\nTwitter's 'Fail Whale' era (2008-2009) was caused by exactly this — monolithic Ruby on Rails, single DB, no caching. They eventually moved to a service-oriented architecture and Cassandra."
+  },
+  {
+    "id": 1008,
+    "number": "#SD08",
+    "title": "Why did deleting a Kafka topic cause a 6-hour production incident?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "An engineer deletes a Kafka topic to 'clean up'. Downstream services go into an error loop for 6 hours. Why?",
+    "examples": [],
+    "hints": [
+      "Is auto.create.topics.enable disabled in production?",
+      "Do you have a dead letter queue for failed message processing?",
+      "Are topic deletions gated behind a change management process?",
+      "Do consumers handle missing topics gracefully (alert, not crash-loop)?"
+    ],
+    "approach": "Consumers crash on missing topic, auto-recovery re-creates topic at wrong offset, messages are lost or replayed incorrectly.",
+    "tags": [
+      "kafka",
+      "messaging",
+      "reliability",
+      "event-driven",
+      "incident"
+    ],
+    "solutionText": "Kafka's design makes topic deletion dangerous if not coordinated:\n\n1. Consumers hold offsets per topic-partition. When the topic is deleted, those offsets become invalid.\n2. If the topic is auto-recreated (default broker setting: `auto.create.topics.enable=true`), it starts at offset 0 — consumers may replay millions of old messages OR skip everything depending on their `auto.offset.reset` config.\n3. Producers writing to a deleted topic may silently drop messages or throw errors depending on their configuration.\n\nThe cascade:\n- Order service stops consuming payment events.\n- Payment events queue up (or are dropped).\n- Orders are neither confirmed nor cancelled.\n- Support tickets spike. Manual reconciliation needed.\n\nBest practices:\n- Disable `auto.create.topics.enable` in production.\n- Never delete topics without coordinating with all consumer teams first.\n- Use consumer group offset management (`kafka-consumer-groups.sh --reset-offsets`) carefully.\n- In critical flows, use the Outbox Pattern + dead letter queues so messages are never truly lost.\n\n── In the Wild ──\nThis type of incident has affected multiple fintech companies. Confluent (Kafka's commercial arm) has published incident analyses around topic deletion and offset management."
+  },
+  {
+    "id": 1009,
+    "number": "#SD09",
+    "title": "Why does one server get 90% of traffic while others sit idle?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "You have 5 servers behind a load balancer. Logs show server-1 handling 10x the requests. Why?",
+    "examples": [],
+    "hints": [
+      "What LB algorithm are you using and is it appropriate for your workload?",
+      "Is session affinity (sticky sessions) enabled? Is it necessary?",
+      "Are you storing sessions in Redis so any server can handle any request?",
+      "Is per-server request distribution monitored in your dashboards?"
+    ],
+    "approach": "Sticky sessions or a bad LB algorithm is pinning users to one server instead of distributing evenly.",
+    "tags": [
+      "load-balancing",
+      "scalability",
+      "availability",
+      "nginx",
+      "ALB"
+    ],
+    "solutionText": "Load balancers distribute traffic using algorithms. The wrong one causes hotspots:\n\n1. Round Robin: Request 1 → Server 1, Request 2 → Server 2, etc. Even distribution but ignores server load. A slow server still gets requests.\n\n2. Least Connections: Send to the server with fewest active connections. Better for variable request duration.\n\n3. IP Hash: Same client IP always goes to the same server (sticky sessions). Great for stateful apps, terrible for skewed IP distribution (e.g., all users behind a corporate NAT IP).\n\n4. Weighted Round Robin: Assign weights based on server capacity. Powerful, but needs tuning.\n\nHotspot cause #1: IP Hash with corporate NAT — thousands of users share one IP, all going to server-1.\nHotspot cause #2: Session affinity set globally instead of selectively.\nHotspot cause #3: Health check failures causing the LB to remove servers from rotation silently.\n\nFix: Use least connections for most workloads. If you need session affinity, store session state externally (Redis) and drop sticky sessions entirely. Monitor LB request distribution, not just server CPU.\n\n── In the Wild ──\nThis is a common cause of partial outages in corporate SaaS products. One AWS AZ serves traffic fine, others are idle, because of misconfigured session affinity in the ALB."
+  },
+  {
+    "id": 1010,
+    "number": "#SD10",
+    "title": "Why did your database 'choose' to lose your data during a network hiccup?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "You use a distributed database. A network partition happens. Your DB refused writes. Why did it refuse instead of just writing?",
+    "examples": [],
+    "hints": [
+      "Do you know if your database is CP or AP?",
+      "Have you audited which endpoints require strong consistency vs. eventual?",
+      "Are you using QUORUM reads where consistency matters?",
+      "Do you have conflict resolution logic for AP systems?"
+    ],
+    "approach": "Your DB is CP — it chose Consistency over Availability. During a partition, it would rather reject than risk divergence.",
+    "tags": [
+      "CAP-theorem",
+      "consistency",
+      "availability",
+      "distributed-systems",
+      "cassandra",
+      "dynamo"
+    ],
+    "solutionText": "The CAP Theorem states a distributed system can only guarantee 2 of 3:\n- Consistency (C): Every read returns the most recent write.\n- Availability (A): Every request gets a response (not necessarily latest data).\n- Partition Tolerance (P): System works even if nodes can't communicate.\n\nPartitions are inevitable in real networks, so you must choose C or A:\n\nCP Systems (e.g., HBase, Zookeeper, etcd):\n- Refuse writes when quorum can't be reached.\n- Data is always consistent but may be unavailable during partition.\n- Use when: banking, inventory, anything where stale = wrong.\n\nAP Systems (e.g., Cassandra, DynamoDB with eventual consistency, CouchDB):\n- Accept writes even during partition. Nodes may diverge.\n- Reconcile conflicts after partition heals (last-write-wins, vector clocks, CRDTs).\n- Use when: shopping carts, social feeds, analytics.\n\nPractical note: Most real systems don't live at extremes. Cassandra lets you tune consistency per query (ONE, QUORUM, ALL). DynamoDB lets you opt into strongly consistent reads at higher cost.\n\nThe mistake: Choosing AP because 'availability sounds better' for a payments system, then realizing stale reads mean double-spending.\n\n── In the Wild ──\nAmazon's Dynamo paper (2007) was the foundational AP design. Google's Bigtable/Spanner went CP. The choice reflects exactly the CAP tradeoff in production at massive scale."
+  },
+  {
+    "id": 1011,
+    "number": "#SD11",
+    "title": "Why did a single bot take down your entire API?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "One client sends 50,000 requests/minute. Your API is down for all users. No rate limiting was in place. How do you design it now?",
+    "examples": [],
+    "hints": [
+      "Is rate limiting applied at the edge (not just in the app)?",
+      "Are limits per API key, per IP, or both?",
+      "Do you return 429 with Retry-After header on limit breach?",
+      "Is your rate limit store (Redis) separate from your app's Redis?"
+    ],
+    "approach": "Token bucket or sliding window rate limiter in Redis, applied per API key / IP, before hitting your app servers.",
+    "tags": [
+      "rate-limiting",
+      "API",
+      "scalability",
+      "redis",
+      "token-bucket"
+    ],
+    "solutionText": "Rate limiting protects your system from abuse, scraping, and accidental runaway clients. Key algorithms:\n\n1. Fixed Window Counter: Count requests per minute in a fixed window. Simple, but vulnerable to burst at window boundary (e.g., 100 req in last second of minute 1 + 100 req in first second of minute 2 = 200 req in 2 seconds).\n\n2. Sliding Window Log: Track timestamps of each request. Count how many in the last 60 seconds. Accurate but memory-heavy.\n\n3. Sliding Window Counter: Hybrid. Combine current window count + weighted previous window. Good balance.\n\n4. Token Bucket: Each client has a bucket of tokens. Tokens refill at a fixed rate. Each request consumes a token. Allows short bursts (bucket depth), then throttles. Used by AWS API Gateway, Stripe.\n\n5. Leaky Bucket: Requests go into a queue (the bucket), processed at a fixed rate. Smooths burst traffic. Used in traffic shaping.\n\nImplementation in Redis:\n- Use INCR + EXPIRE for fixed window.\n- Use Sorted Sets (ZADD + ZRANGEBYSCORE + ZREMRANGEBYSCORE) for sliding window log.\n- Lua scripts for atomicity.\n\nApply rate limiting at the edge (API Gateway, Nginx) before requests hit your app — so your app servers don't even see the load.\n\n── In the Wild ──\nStripe rate limits to 100 req/sec per API key by default. GitHub API: 5000 req/hour authenticated, 60 unauthenticated. Twitter v1 API kills caused massive third-party app failures in 2023."
+  },
+  {
+    "id": 1012,
+    "number": "#SD12",
+    "title": "Why can't you just add more database servers when you run out of space?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "Your PostgreSQL table has 2 billion rows. Queries are slow. Can you just add a read replica? Add more RAM? When do you actually need sharding?",
+    "examples": [],
+    "hints": [
+      "Have you exhausted vertical scaling and read replicas before sharding?",
+      "Is your sharding key chosen to avoid hotspots?",
+      "Do you have a migration plan for re-sharding if data grows unevenly?",
+      "Are cross-shard queries eliminated from your hot paths?"
+    ],
+    "approach": "Replicas solve read load. Sharding solves write load and storage limits. Sharding is painful — delay it as long as possible.",
+    "tags": [
+      "sharding",
+      "database",
+      "scalability",
+      "postgres",
+      "mysql",
+      "horizontal-scaling"
+    ],
+    "solutionText": "Scaling a DB has a progression:\n\n1. Vertical Scaling (Scale Up): Bigger machine, more RAM, faster SSD. Works until you hit machine limits or cost ceiling.\n\n2. Read Replicas: Route read traffic to replica, writes to primary. Solves read-heavy workloads. Doesn't help if writes are the bottleneck.\n\n3. Caching: Redis/Memcached in front of DB. Reduces DB read load dramatically for hot data. Often delays sharding by years.\n\n4. Horizontal Sharding: Split data across multiple DB instances (shards). Each shard owns a range of data (e.g., user IDs 1-1M on shard 1, 1M-2M on shard 2).\n\nSharding strategies:\n- Range-based: Easy to implement. Risk: hot shards if data isn't uniformly distributed.\n- Hash-based: Distribute evenly using hash(key) % num_shards. Breaks range queries.\n- Directory-based: Lookup table maps keys to shards. Flexible but lookup table becomes a bottleneck.\n\nSharding costs:\n- Cross-shard JOINs are impossible — you have to denormalize.\n- Transactions across shards require distributed coordination (2PC or Sagas).\n- Schema migrations must be applied to all shards.\n- Re-sharding (rebalancing) is operationally painful.\n\nAlternatives: Use Citus (Postgres extension for sharding), CockroachDB, or PlanetScale which handle sharding transparently.\n\n── In the Wild ──\nPinterest sharded MySQL when they hit 10B rows in 2012 and wrote a detailed engineering blog post about the process. Discord moved to Cassandra to avoid sharding MySQL entirely."
+  },
+  {
+    "id": 1013,
+    "number": "#SD13",
+    "title": "How do 1000 microservices know where to find each other?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "You have 50 microservices. Each scales up and down dynamically. How does Service A find the current IP:port of Service B?",
+    "examples": [],
+    "hints": [
+      "Are services using stable DNS names or hardcoded IPs?",
+      "Is health checking integrated with your service registry?",
+      "Do you have circuit breakers on inter-service calls?",
+      "Are failing/unhealthy pods automatically removed from traffic rotation?"
+    ],
+    "approach": "Service registry (Consul, Kubernetes DNS, Eureka) — services register themselves, others discover via registry.",
+    "tags": [
+      "microservices",
+      "service-discovery",
+      "kubernetes",
+      "consul",
+      "service-mesh"
+    ],
+    "solutionText": "In a static world, you hardcode IPs. In a dynamic world (containers, autoscaling), IPs change constantly. Service discovery solves this.\n\nTwo models:\n\n1. Client-Side Discovery:\n- Services register with a registry (e.g., Consul, Eureka, etcd).\n- When Service A needs to call Service B, it queries the registry for B's current instances.\n- A then picks one and calls it directly (with client-side load balancing via Ribbon, etc.).\n- Pro: No extra hop. Con: Every service needs discovery client logic.\n\n2. Server-Side Discovery (common in Kubernetes):\n- Services register with the orchestrator (K8s).\n- Caller sends request to a stable DNS name (e.g., `payment-service.prod.svc.cluster.local`).\n- K8s kube-proxy or a service mesh (Istio, Linkerd) handles routing to healthy pods.\n- Pro: Services don't need discovery logic. Con: Extra hop through proxy.\n\nIn Kubernetes:\n- A `Service` object creates a stable virtual IP (ClusterIP) and DNS name.\n- kube-proxy routes traffic to pods matching the selector.\n- Pods come and go — the Service IP stays constant.\n\nService mesh (Istio):\n- Adds mTLS between services, observability, retries, circuit breaking.\n- Each pod gets a sidecar proxy (Envoy) that handles all inter-service traffic.\n\n── In the Wild ──\nNetflix built Eureka (open-sourced) for service discovery. Kubernetes eliminated the need for external discovery registries for most companies — K8s DNS is now the de facto standard."
+  },
+  {
+    "id": 1014,
+    "number": "#SD14",
+    "title": "Why does your website load in 50ms in the US but 3 seconds in India?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "Your server is in us-east-1. Users in India complain of 3-second load times. Your US users see 50ms. What's the fix?",
+    "examples": [],
+    "hints": [
+      "Are all static assets served through a CDN?",
+      "Are cache-control headers set correctly (max-age, s-maxage)?",
+      "Is your CDN cache invalidation strategy defined for deployments?",
+      "Is your API origin protected (CDN only, not publicly exposed)?"
+    ],
+    "approach": "CDN (Content Delivery Network) — cache static assets at edge nodes geographically close to users.",
+    "tags": [
+      "CDN",
+      "performance",
+      "latency",
+      "cloudflare",
+      "edge",
+      "caching"
+    ],
+    "solutionText": "The speed of light is not negotiable. A round trip from Mumbai to Virginia (us-east-1) is physically ~280ms minimum — before any processing. With TCP handshakes, TLS negotiation, and actual response: easily 1-3 seconds.\n\nA CDN fixes this by putting copies of your content on servers (edge nodes / PoPs — Points of Presence) physically close to users.\n\nHow it works:\n1. User in Mumbai requests `cdn.yourapp.com/logo.png`.\n2. DNS resolves to nearest CDN edge (e.g., Mumbai PoP).\n3. Edge checks if it has the file cached → HIT: serve instantly (<20ms). MISS: fetch from your origin server, cache it, serve it.\n4. Next Mumbai user gets it from edge cache.\n\nWhat to cache on CDN:\n- Static assets: JS, CSS, images, fonts, videos.\n- Public API responses that don't change per user.\n- HTML for non-personalized pages.\n\nWhat NOT to cache:\n- Authenticated/personalized responses.\n- Checkout flows.\n- Write operations.\n\nCDN providers: Cloudflare (free tier is excellent), AWS CloudFront, Fastly (used by GitHub), Akamai.\n\nBonus: CDNs also provide DDoS protection by absorbing traffic at the edge before it reaches your origin.\n\n── In the Wild ──\nCloudflare serves ~20% of the internet's traffic from their edge network. GitHub uses Fastly. Most global SaaS products would be unusable in Asia/Africa/South America without CDN."
+  },
+  {
+    "id": 1015,
+    "number": "#SD15",
+    "title": "Your system is down. You have no idea why. How did you get here?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "Prod is on fire. No alerts fired. No dashboards show anything wrong. Users are reporting errors. You're flying blind. What's missing?",
+    "examples": [],
+    "hints": [
+      "Do you have p95/p99 latency tracked per endpoint?",
+      "Are logs structured (JSON) with correlation IDs?",
+      "Do you have distributed tracing across service boundaries?",
+      "Are alerts based on user-facing symptoms (error rate, latency) not just infra metrics?"
+    ],
+    "approach": "You have no observability — no metrics, no structured logs, no distributed traces. The three pillars.",
+    "tags": [
+      "observability",
+      "monitoring",
+      "logging",
+      "tracing",
+      "SRE",
+      "prometheus",
+      "grafana"
+    ],
+    "solutionText": "Observability is your ability to understand what's happening inside your system from the outside. It has three pillars:\n\n1. Metrics (the numbers):\n- Aggregate numerical measurements over time: request rate, error rate, latency (p50/p95/p99), CPU, memory.\n- Tools: Prometheus (scrape) + Grafana (visualize), Datadog, CloudWatch.\n- Key: Track the RED method — Rate, Errors, Duration for every service.\n\n2. Logs (the events):\n- Structured logs (JSON) with correlation IDs so you can trace a single request across all services.\n- Ship to: Elasticsearch (ELK stack), Loki + Grafana, Datadog Logs.\n- Anti-pattern: `print('something went wrong')` — tells you nothing useful.\n\n3. Traces (the journey):\n- Distributed tracing shows a single request's path through all microservices with timing at each step.\n- Identify which service added 2 seconds of latency.\n- Tools: Jaeger, Zipkin, Datadog APM, AWS X-Ray. Standard: OpenTelemetry.\n\nAlerts that matter:\n- Alert on symptoms, not causes: 'Error rate > 1%' not 'CPU > 80%'.\n- Use SLOs (Service Level Objectives): 'p99 latency < 200ms' — alert when breached.\n- Avoid alert fatigue: if alerts fire daily and are ignored, they're useless.\n\nCorrelation ID pattern: Generate a UUID at the API gateway for each request. Pass it as a header to all downstream services. Log it everywhere. Now you can trace one user's broken request across 10 services.\n\n── In the Wild ──\nGoogle's SRE book introduced the concepts of SLOs, SLIs, and error budgets which are now industry standard. The OpenTelemetry project (CNCF) is becoming the standard observability SDK across languages."
+  },
+  {
+    "id": 1016,
+    "number": "#SD16",
+    "title": "Why did changing your API break every client at once?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "You rename a field in your API response. Your mobile app crashes. Web app breaks. Third-party integrations fail. How do you make API changes safely?",
+    "examples": [],
+    "hints": [
+      "Are breaking API changes versioned?",
+      "Is there a deprecation notice period before removing fields?",
+      "Do you have contract tests (Pact or similar) between services?",
+      "Is your API documented with an OpenAPI spec?"
+    ],
+    "approach": "API versioning + backward-compatible changes + deprecation period. Never remove fields without notice.",
+    "tags": [
+      "API-design",
+      "versioning",
+      "backward-compatibility",
+      "REST",
+      "openapi"
+    ],
+    "solutionText": "APIs are contracts. Breaking the contract breaks every client. Rules for safe API evolution:\n\nBackward-compatible changes (safe):\n- Adding new optional fields to responses.\n- Adding new optional request parameters.\n- Adding new endpoints.\n- Adding new enum values (careful with exhaustive switches in clients).\n\nBreaking changes (dangerous):\n- Renaming or removing fields.\n- Changing field types (string → int).\n- Changing endpoint URLs.\n- Changing authentication method.\n- Making optional fields required.\n\nVersioning strategies:\n1. URL versioning: `/api/v1/users`, `/api/v2/users`. Most common. Easy to route. Explicit.\n2. Header versioning: `Accept: application/vnd.myapi.v2+json`. Clean URLs, but harder to test in browser.\n3. Query param: `?version=2`. Simple, widely supported.\n\nDeployment strategy:\n1. Never delete — deprecate first. Mark fields as deprecated in docs, add response headers.\n2. Run v1 and v2 in parallel for a deprecation window (e.g., 6 months).\n3. Notify clients via email/changelog before removing.\n4. Use contract testing (Pact) to verify clients and server agree on schema.\n\nTip: Use an API schema (OpenAPI/Swagger spec) as your single source of truth. Generate client SDKs from it to reduce manual contract drift.\n\n── In the Wild ──\nStripe has maintained backward compatibility for 12+ years. They never remove API fields — they add new ones. Twitter's forced API version upgrade in 2023 destroyed the third-party app ecosystem overnight."
+  },
+  {
+    "id": 1017,
+    "number": "#SD17",
+    "title": "Why do you need a queue? Why not just call the other service directly?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "Service A needs to notify Service B after every user signup. Why use Kafka/RabbitMQ instead of a direct HTTP call?",
+    "examples": [],
+    "hints": [
+      "Are non-critical async operations (emails, notifications) decoupled via queue?",
+      "Do you have a Dead Letter Queue for failed messages?",
+      "Is message schema versioned so producers and consumers can evolve independently?",
+      "Is queue depth monitored and alerting set up for abnormal growth?"
+    ],
+    "approach": "Decoupling, durability, and backpressure. If B is down, A still works. Messages wait in the queue.",
+    "tags": [
+      "kafka",
+      "rabbitmq",
+      "message-queue",
+      "async",
+      "decoupling",
+      "event-driven"
+    ],
+    "solutionText": "Direct HTTP call (synchronous) problems:\n- If B is down, A's request fails. You either lose the event or need retry logic in A.\n- If B is slow, A is slow (tight coupling of latency).\n- A needs to know B's address (coupling of location).\n- Can't fan-out: if C and D also need signup events, A needs to call all three.\n\nMessage Queue (asynchronous) benefits:\n\n1. Durability: Messages are persisted. If B crashes, messages wait in the queue. B catches up when it recovers.\n\n2. Decoupling: A doesn't know or care about B. A just publishes to a topic. Any number of consumers can subscribe.\n\n3. Backpressure: B can consume at its own rate. If B is slow, queue grows — you see it in metrics and scale B independently.\n\n4. Retry with DLQ: Failed message processing goes to a Dead Letter Queue. You investigate and replay, not lose.\n\n5. Fan-out: One signup event → email service, analytics service, CRM service all consume independently.\n\nWhen NOT to use a queue:\n- When B's response is needed before A can continue (payment confirmation).\n- When you need strict ordering with transactional guarantees (use DB + Saga instead).\n\nKafka vs RabbitMQ:\n- Kafka: Log-based, messages retained for days/weeks, consumers maintain their own offset. Replay possible. High throughput.\n- RabbitMQ: Traditional message broker, push-based, messages deleted on ack. Simpler for task queues.\n\n── In the Wild ──\nUber's dispatch system, LinkedIn's activity feed, and Netflix's event pipeline all rely on Kafka. A simple startup alternative: use Postgres as a queue (Outbox pattern) before introducing Kafka complexity."
+  },
+  {
+    "id": 1018,
+    "number": "#SD18",
+    "title": "Why can reading someone else's data be as simple as changing a number in the URL?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "GET /api/orders/12345 returns your order. GET /api/orders/12344 returns someone else's. Why does this happen and how do you stop it?",
+    "examples": [],
+    "hints": [
+      "Do all resource endpoints verify the requesting user owns or has access to the resource?",
+      "Are you using UUIDs instead of sequential integers for public-facing IDs?",
+      "Do you have automated tests that verify cross-user resource access returns 403?",
+      "Is authorization logic centralized (not duplicated per endpoint)?"
+    ],
+    "approach": "IDOR — Insecure Direct Object Reference. Missing authorization check. Always verify the requesting user owns the resource.",
+    "tags": [
+      "security",
+      "IDOR",
+      "authorization",
+      "OWASP",
+      "API-security"
+    ],
+    "solutionText": "IDOR (Insecure Direct Object Reference) is in the OWASP Top 10 — one of the most common and impactful vulnerabilities.\n\nThe bug:\n```\nGET /api/orders/12345\nAuthorization: Bearer <valid token>\n```\nServer fetches order 12345 from DB and returns it — without checking if the authenticated user actually owns order 12345.\n\nThe attack: attacker increments the ID, enumerates orders, reads all customers' data.\n\nFixes:\n\n1. Always check ownership server-side:\n```sql\nSELECT * FROM orders WHERE id = 12345 AND user_id = current_user_id\n```\nIf no result → 404 or 403. Never return a resource without verifying the requesting user is authorized.\n\n2. Use non-sequential IDs: UUIDs (v4) instead of auto-increment integers. Not a security fix on its own, but removes enumeration as an easy attack. An attacker can still test UUIDs from a leaked list.\n\n3. Role-based access control (RBAC): Define explicit permissions. 'User role can only access resources they own. Admin role can access all.'\n\n4. Indirect references: Instead of exposing database IDs, map to user-scoped tokens. Less practical for APIs.\n\nCritical: Authentication (who are you?) ≠ Authorization (what are you allowed to do?). Most IDOR bugs happen because auth (JWT verification) was implemented but authz (ownership check) was skipped.\n\n── In the Wild ──\nIDOR vulnerabilities have been found in Facebook (2013), Instagram, Uber, and hundreds of startups. Bug bounty hunters look for this first. It's trivially exploitable and often pays $1000-$10,000 bounties."
+  },
+  {
+    "id": 1019,
+    "number": "#SD19",
+    "title": "Why does adding a single cache server invalidate 80% of your cached data?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "You have 4 Redis nodes. You add a 5th. Suddenly 80% of cache keys map to different nodes — massive cache miss storm. How do you prevent this?",
+    "examples": [],
+    "hints": [
+      "Is your cache cluster using consistent hashing (not modulo N)?",
+      "Have you tested adding/removing a cache node and measured cache miss rate?",
+      "Are virtual nodes enabled to ensure even data distribution?",
+      "Is your rebalancing process automated and monitored?"
+    ],
+    "approach": "Consistent hashing — only ~1/N of keys remaps when adding/removing a node, instead of all of them.",
+    "tags": [
+      "consistent-hashing",
+      "distributed-systems",
+      "caching",
+      "redis",
+      "cassandra",
+      "dynamo"
+    ],
+    "solutionText": "Naive sharding: key assignment = hash(key) % N (number of nodes).\n- 4 nodes: key 'user:123' → hash % 4 → node 2\n- 5 nodes: key 'user:123' → hash % 5 → node 3 (different!)\n- Adding one node remaps most keys to different nodes. Everything is a cache miss.\n\nConsistent Hashing solution:\n\n1. Imagine a hash ring from 0 to 2^32.\n2. Place each node at a position on the ring based on hash(node_id).\n3. For each key: hash(key) → position → walk clockwise to nearest node.\n4. Adding a new node: only keys between the new node and its predecessor need to move. ~1/N of keys.\n5. Removing a node: only its keys move to the next node. ~1/N of keys.\n\nVirtual nodes: Instead of 1 point per node on the ring, use 100-200 virtual points per node. This ensures even distribution even with few nodes and different node capacities.\n\nUsed by: Amazon DynamoDB, Apache Cassandra, Memcached (with ketama algorithm), Riak, and most distributed caches.\n\nBonus concept: Rendezvous hashing (HRW) — alternative to consistent hashing with similar properties, simpler implementation.\n\n── In the Wild ──\nCassandra uses consistent hashing + virtual nodes (vnodes) as its core data distribution mechanism. The original Dynamo paper (Amazon, 2007) introduced consistent hashing at scale to the industry."
+  },
+  {
+    "id": 1020,
+    "number": "#SD20",
+    "title": "Why is your read query fast but writing to the same table is destroying performance?",
+    "difficulty": "SysDes",
+    "category": "System Design",
+    "description": "You have an index on user_id. Reads are instant. But INSERT performance has degraded 10x since the table grew. Why?",
+    "examples": [],
+    "hints": [
+      "Have you audited indexes for usage with pg_stat_user_indexes or similar?",
+      "Are there unused indexes that can be dropped?",
+      "Are you using partial indexes for common filtered queries?",
+      "Is AUTOVACUUM (Postgres) or equivalent running regularly to reclaim dead index entries?"
+    ],
+    "approach": "Every index you add speeds up reads but slows down writes — each INSERT must update all indexes on the table.",
+    "tags": [
+      "database",
+      "indexes",
+      "performance",
+      "postgres",
+      "write-performance",
+      "B-tree"
+    ],
+    "solutionText": "An index is a separate data structure (typically a B-tree) that the database maintains in addition to the main table. It allows O(log n) lookups instead of O(n) full scans.\n\nBut maintaining an index has a write cost:\n- On every INSERT: the new row's values must be inserted into every applicable index.\n- On every UPDATE: changed columns must be updated in their indexes.\n- On every DELETE: the row must be removed from all indexes.\n\nIf you have 8 indexes on a heavily written table, every INSERT does 9 writes (1 row + 8 index updates). With millions of inserts/hour, this becomes significant.\n\nAdditionally:\n- B-tree rebalancing during high insert rates causes page splits and fragmentation.\n- Index bloat: dead rows from UPDATEs leave stale index entries (especially in Postgres — VACUUM reclaims them).\n- Covering indexes grow large and take more disk I/O to update.\n\nBalancing strategies:\n1. Audit your indexes. Many tables accumulate unused indexes from old queries that no longer run.\n2. Use `pg_stat_user_indexes` (Postgres) to find indexes with 0 scans.\n3. Drop unused indexes. This is a free write performance win.\n4. Partial indexes: Index only the rows you actually query. `CREATE INDEX ON orders(status) WHERE status = 'pending'` — far smaller than a full index.\n5. For heavy write workloads: consider write-optimized storage (LSM trees) — Cassandra, RocksDB, InfluxDB use these instead of B-trees.\n\n── In the Wild ──\nCloudflare published a post on dropping unused Postgres indexes that gave them a significant write throughput improvement. Index auditing is one of the fastest free DB performance wins."
   }
 ]
