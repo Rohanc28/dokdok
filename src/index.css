@@ -558,6 +558,23 @@ html, body, #root {
   font-size: 12px !important;
 }
 
+/* ─── System Design text solution ───────────────────────────────────────── */
+.solution-text {
+  margin: 0 !important;
+  padding: 14px !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 360px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px !important;
+  line-height: 1.8 !important;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overscroll-behavior: contain;
+  background: transparent !important;
+}
+
 /* ─── Bottom nav ─────────────────────────────────────────────────────────── */
 .bottom-nav {
   position: fixed;
