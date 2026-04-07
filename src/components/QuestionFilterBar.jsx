@@ -1,4 +1,4 @@
-const DIFFICULTIES = ['All', 'Easy', 'Medium', 'Hard']
+const DIFFICULTIES = ['All', 'Easy', 'Medium', 'Hard', 'SysDes']
 
 export default function QuestionFilterBar({ active, onSelect }) {
   return (
