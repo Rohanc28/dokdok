@@ -7,8 +7,15 @@
     "category": "Array",
     "description": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target. You may assume each input has exactly one solution, and you may not use the same element twice.",
     "examples": [
-      { "input": "nums = [2,7,11,15], target = 9", "output": "[0,1]", "explanation": "nums[0] + nums[1] = 2 + 7 = 9" },
-      { "input": "nums = [3,2,4], target = 6", "output": "[1,2]" }
+      {
+        "input": "nums = [2,7,11,15], target = 9",
+        "output": "[0,1]",
+        "explanation": "nums[0] + nums[1] = 2 + 7 = 9"
+      },
+      {
+        "input": "nums = [3,2,4], target = 6",
+        "output": "[1,2]"
+      }
     ],
     "hints": [
       "Think about what information you need to find the complement.",
@@ -16,7 +23,9 @@
       "A hash map lets you look up values in O(1)."
     ],
     "approach": "Use a hash map to store each number and its index as we iterate. For each element, check if its complement (target - num) already exists in the map.",
-    "tags": ["Hash Map"],
+    "tags": [
+      "Hash Map"
+    ],
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
     "solutions": {
@@ -34,16 +43,28 @@
     "category": "Stack",
     "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid. An input string is valid if open brackets are closed by the same type of brackets in the correct order.",
     "examples": [
-      { "input": "s = \"()[]{}\"", "output": "true" },
-      { "input": "s = \"(]\"", "output": "false" },
-      { "input": "s = \"([)]\"", "output": "false" }
+      {
+        "input": "s = \"()[]{}\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"(]\"",
+        "output": "false"
+      },
+      {
+        "input": "s = \"([)]\"",
+        "output": "false"
+      }
     ],
     "hints": [
       "Use a stack to track opening brackets.",
       "When you see a closing bracket, check if it matches the top of the stack.",
       "At the end, the stack should be empty."
     ],
-    "tags": ["Stack", "Hash Map"],
+    "tags": [
+      "Stack",
+      "Hash Map"
+    ],
     "approach": "Push opening brackets onto a stack. When a closing bracket is encountered, pop from the stack and verify it matches. If stack is empty at the end, the string is valid.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
@@ -62,15 +83,23 @@
     "category": "Linked List",
     "description": "You are given the heads of two sorted linked lists list1 and list2. Merge the two lists into one sorted list and return the head of the merged linked list.",
     "examples": [
-      { "input": "list1 = [1,2,4], list2 = [1,3,4]", "output": "[1,1,2,3,4,4]" },
-      { "input": "list1 = [], list2 = [0]", "output": "[0]" }
+      {
+        "input": "list1 = [1,2,4], list2 = [1,3,4]",
+        "output": "[1,1,2,3,4,4]"
+      },
+      {
+        "input": "list1 = [], list2 = [0]",
+        "output": "[0]"
+      }
     ],
     "hints": [
       "Use a dummy head node to simplify edge cases.",
       "Compare the current nodes of both lists and attach the smaller one.",
       "After one list is exhausted, attach the remainder of the other."
     ],
-    "tags": ["Linked List"],
+    "tags": [
+      "Linked List"
+    ],
     "approach": "Use a dummy head node. Compare the two list heads, attach the smaller node to the result, and advance that list's pointer. Append remaining nodes once one list is exhausted.",
     "timeComplexity": "O(m + n)",
     "spaceComplexity": "O(1)",
@@ -89,15 +118,24 @@
     "category": "Binary Search",
     "description": "Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, return its index. Otherwise, return -1. You must write an algorithm with O(log n) runtime complexity.",
     "examples": [
-      { "input": "nums = [-1,0,3,5,9,12], target = 9", "output": "4" },
-      { "input": "nums = [-1,0,3,5,9,12], target = 2", "output": "-1" }
+      {
+        "input": "nums = [-1,0,3,5,9,12], target = 9",
+        "output": "4"
+      },
+      {
+        "input": "nums = [-1,0,3,5,9,12], target = 2",
+        "output": "-1"
+      }
     ],
     "hints": [
       "Maintain a left and right pointer.",
       "Calculate mid = (left + right) // 2.",
       "If nums[mid] == target, return mid. If smaller, move left. If larger, move right."
     ],
-    "tags": ["Array", "Two Pointers"],
+    "tags": [
+      "Array",
+      "Two Pointers"
+    ],
     "approach": "Classic binary search. Keep halving the search space by comparing the middle element with the target.",
     "timeComplexity": "O(log n)",
     "spaceComplexity": "O(1)",
@@ -116,15 +154,25 @@
     "category": "Dynamic Programming",
     "description": "Given an integer array nums, find the subarray with the largest sum, and return its sum. A subarray is a contiguous non-empty sequence of elements within an array.",
     "examples": [
-      { "input": "nums = [-2,1,-3,4,-1,2,1,-5,4]", "output": "6", "explanation": "Subarray [4,-1,2,1] has the largest sum = 6" },
-      { "input": "nums = [1]", "output": "1" }
+      {
+        "input": "nums = [-2,1,-3,4,-1,2,1,-5,4]",
+        "output": "6",
+        "explanation": "Subarray [4,-1,2,1] has the largest sum = 6"
+      },
+      {
+        "input": "nums = [1]",
+        "output": "1"
+      }
     ],
     "hints": [
       "Kadane's algorithm: track current sum and global max.",
       "If current sum goes negative, reset it to 0 (start fresh).",
       "At each step: currentSum = max(num, currentSum + num)"
     ],
-    "tags": ["Array", "Dynamic Programming"],
+    "tags": [
+      "Array",
+      "Dynamic Programming"
+    ],
     "approach": "Kadane's Algorithm: iterate through the array keeping track of the current running sum. If adding the current element makes things worse than starting fresh, reset. Track the global maximum throughout.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
@@ -143,15 +191,23 @@
     "category": "Linked List",
     "description": "Given the head of a singly linked list, reverse the list, and return the reversed list.",
     "examples": [
-      { "input": "head = [1,2,3,4,5]", "output": "[5,4,3,2,1]" },
-      { "input": "head = [1,2]", "output": "[2,1]" }
+      {
+        "input": "head = [1,2,3,4,5]",
+        "output": "[5,4,3,2,1]"
+      },
+      {
+        "input": "head = [1,2]",
+        "output": "[2,1]"
+      }
     ],
     "hints": [
       "You need three pointers: prev, curr, next.",
       "At each step, save next, flip the arrow, then advance all three.",
       "When curr is None, prev is the new head."
     ],
-    "tags": ["Linked List"],
+    "tags": [
+      "Linked List"
+    ],
     "approach": "Iterative approach using three pointers. At each step, reverse the next pointer of the current node, then advance all pointers forward.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
@@ -170,15 +226,25 @@
     "category": "Tree / BFS",
     "description": "Given the root of a binary tree, return the level order traversal of its nodes' values (i.e., from left to right, level by level).",
     "examples": [
-      { "input": "root = [3,9,20,null,null,15,7]", "output": "[[3],[9,20],[15,7]]" },
-      { "input": "root = [1]", "output": "[[1]]" }
+      {
+        "input": "root = [3,9,20,null,null,15,7]",
+        "output": "[[3],[9,20],[15,7]]"
+      },
+      {
+        "input": "root = [1]",
+        "output": "[[1]]"
+      }
     ],
     "hints": [
-      "Use a queue (BFS) — process nodes level by level.",
+      "Use a queue (BFS) \u00e2\u20ac\u201d process nodes level by level.",
       "At the start of each level, the queue size = number of nodes in that level.",
       "Process exactly queue.size() nodes, then move to the next level."
     ],
-    "tags": ["Queue", "Binary Tree", "BFS"],
+    "tags": [
+      "Queue",
+      "Binary Tree",
+      "BFS"
+    ],
     "approach": "BFS using a queue. At each iteration, process all nodes at the current level (queue size at start of iteration), add their children to the queue, and record the level's values.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
@@ -197,17 +263,24 @@
     "category": "Graph / DFS",
     "description": "Given an m x n 2D binary grid which represents a map of '1's (land) and '0's (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.",
     "examples": [
-      { "input": "grid = [[\"1\",\"1\",\"0\"],[\"0\",\"1\",\"0\"],[\"0\",\"0\",\"1\"]]", "output": "2" }
+      {
+        "input": "grid = [[\"1\",\"1\",\"0\"],[\"0\",\"1\",\"0\"],[\"0\",\"0\",\"1\"]]",
+        "output": "2"
+      }
     ],
     "hints": [
       "Iterate through each cell. When you find a '1', it's a new island.",
       "DFS/BFS from that cell to mark all connected '1's as visited.",
       "Increment island count each time you start a new DFS."
     ],
-    "tags": ["Matrix", "DFS", "BFS"],
+    "tags": [
+      "Matrix",
+      "DFS",
+      "BFS"
+    ],
     "approach": "Iterate through the grid. When a '1' is found, increment the count and DFS to mark all connected land cells as '0' (visited). This avoids double counting.",
-    "timeComplexity": "O(m × n)",
-    "spaceComplexity": "O(m × n)",
+    "timeComplexity": "O(m \u00c3\u2014 n)",
+    "spaceComplexity": "O(m \u00c3\u2014 n)",
     "solutions": {
       "python": "def numIslands(grid: list[list[str]]) -> int:\n    if not grid:\n        return 0\n    rows, cols = len(grid), len(grid[0])\n\n    def dfs(r, c):\n        if r < 0 or r >= rows or c < 0 or c >= cols or grid[r][c] != '1':\n            return\n        grid[r][c] = '0'  # mark visited\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1)\n\n    count = 0\n    for r in range(rows):\n        for c in range(cols):\n            if grid[r][c] == '1':\n                count += 1\n                dfs(r, c)\n    return count",
       "go": "func numIslands(grid [][]byte) int {\n    rows, cols := len(grid), len(grid[0])\n    var dfs func(r, c int)\n    dfs = func(r, c int) {\n        if r < 0 || r >= rows || c < 0 || c >= cols || grid[r][c] != '1' {\n            return\n        }\n        grid[r][c] = '0'\n        dfs(r+1,c); dfs(r-1,c); dfs(r,c+1); dfs(r,c-1)\n    }\n    count := 0\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            if grid[r][c] == '1' {\n                count++\n                dfs(r, c)\n            }\n        }\n    }\n    return count\n}",
@@ -223,21 +296,29 @@
     "category": "Bit Manipulation",
     "description": "Given a positive integer n, write a function that returns the number of set bits in its binary representation (also known as the Hamming weight).",
     "examples": [
-      { "input": "n = 11 (binary: 00000000000000000000000000001011)", "output": "3" },
-      { "input": "n = 128 (binary: 00000000000000000000000010000000)", "output": "1" }
+      {
+        "input": "n = 11 (binary: 00000000000000000000000000001011)",
+        "output": "3"
+      },
+      {
+        "input": "n = 128 (binary: 00000000000000000000000010000000)",
+        "output": "1"
+      }
     ],
     "hints": [
       "n & (n-1) clears the lowest set bit each time.",
       "Count how many times you can do this before n becomes 0.",
       "Built-ins: bin(n).count('1') in Python, bits.OnesCount32 in Go, Integer.bitCount in Java."
     ],
-    "tags": ["Bit Manipulation"],
-    "approach": "Use n & (n-1) to clear the lowest set bit each iteration. Count iterations until n reaches 0. This is O(k) where k is the number of set bits — faster than checking all 32 bits.",
-    "timeComplexity": "O(k) — k set bits",
+    "tags": [
+      "Bit Manipulation"
+    ],
+    "approach": "Use n & (n-1) to clear the lowest set bit each iteration. Count iterations until n reaches 0. This is O(k) where k is the number of set bits \u00e2\u20ac\u201d faster than checking all 32 bits.",
+    "timeComplexity": "O(k) \u00e2\u20ac\u201d k set bits",
     "spaceComplexity": "O(1)",
     "solutions": {
       "python": "def hammingWeight(n: int) -> int:\n    count = 0\n    while n:\n        n &= n - 1  # clears lowest set bit\n        count += 1\n    return count\n\n# One-liner\n# return bin(n).count('1')",
-      "go": "func hammingWeight(n uint32) int {\n    count := 0\n    for n != 0 {\n        n &= n - 1  // clears lowest set bit\n        count++\n    }\n    return count\n}\n\n// Built-in alternative:\n// import \"math/bits\" → bits.OnesCount32(n)",
+      "go": "func hammingWeight(n uint32) int {\n    count := 0\n    for n != 0 {\n        n &= n - 1  // clears lowest set bit\n        count++\n    }\n    return count\n}\n\n// Built-in alternative:\n// import \"math/bits\" \u00e2\u2020\u2019 bits.OnesCount32(n)",
       "java": "public int hammingWeight(int n) {\n    int count = 0;\n    while (n != 0) {\n        n &= n - 1;  // clears lowest set bit\n        count++;\n    }\n    return count;\n}\n\n// Built-in: Integer.bitCount(n)"
     }
   },
@@ -249,16 +330,25 @@
     "category": "Bit Manipulation",
     "description": "Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.",
     "examples": [
-      { "input": "n = 2", "output": "[0,1,1]" },
-      { "input": "n = 5", "output": "[0,1,1,2,1,2]" }
+      {
+        "input": "n = 2",
+        "output": "[0,1,1]"
+      },
+      {
+        "input": "n = 5",
+        "output": "[0,1,1,2,1,2]"
+      }
     ],
     "hints": [
       "dp[i] = dp[i >> 1] + (i & 1)",
-      "i >> 1 is i with the last bit removed — you already computed its count.",
+      "i >> 1 is i with the last bit removed \u00e2\u20ac\u201d you already computed its count.",
       "The last bit (i & 1) is either 0 or 1, just add it."
     ],
-    "tags": ["Bit Manipulation", "Dynamic Programming"],
-    "approach": "DP: for each i, shift right by 1 (drop last bit) — already computed — then add the last bit (i & 1). This builds the answer in O(n) using prior results.",
+    "tags": [
+      "Bit Manipulation",
+      "Dynamic Programming"
+    ],
+    "approach": "DP: for each i, shift right by 1 (drop last bit) \u00e2\u20ac\u201d already computed \u00e2\u20ac\u201d then add the last bit (i & 1). This builds the answer in O(n) using prior results.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
     "solutions": {
@@ -275,17 +365,25 @@
     "category": "Bit Manipulation",
     "description": "Reverse bits of a given 32-bit unsigned integer.",
     "examples": [
-      { "input": "n = 00000010100101000001111010011100", "output": "964176192 (00111001011110000010100101000000)" },
-      { "input": "n = 11111111111111111111111111111101", "output": "3221225471 (10111111111111111111111111111111)" }
+      {
+        "input": "n = 00000010100101000001111010011100",
+        "output": "964176192 (00111001011110000010100101000000)"
+      },
+      {
+        "input": "n = 11111111111111111111111111111101",
+        "output": "3221225471 (10111111111111111111111111111111)"
+      }
     ],
     "hints": [
       "Extract the last bit of n with (n & 1), put it into result.",
       "Shift result left and n right by 1 each iteration.",
-      "Repeat 32 times — one per bit."
+      "Repeat 32 times \u00e2\u20ac\u201d one per bit."
     ],
-    "tags": ["Bit Manipulation"],
+    "tags": [
+      "Bit Manipulation"
+    ],
     "approach": "Loop 32 times. Each iteration: shift result left by 1, OR in the lowest bit of n (n & 1), then shift n right by 1. After 32 iterations result holds the reversed bits.",
-    "timeComplexity": "O(1) — always 32 iterations",
+    "timeComplexity": "O(1) \u00e2\u20ac\u201d always 32 iterations",
     "spaceComplexity": "O(1)",
     "solutions": {
       "python": "def reverseBits(n: int) -> int:\n    result = 0\n    for _ in range(32):\n        result = (result << 1) | (n & 1)\n        n >>= 1\n    return result",
@@ -301,16 +399,25 @@
     "category": "Bit Manipulation",
     "description": "Given an array nums containing n distinct numbers in the range [0, n], return the only number in the range that is missing from the array.",
     "examples": [
-      { "input": "nums = [3,0,1]", "output": "2" },
-      { "input": "nums = [9,6,4,2,3,5,7,0,1]", "output": "8" }
+      {
+        "input": "nums = [3,0,1]",
+        "output": "2"
+      },
+      {
+        "input": "nums = [9,6,4,2,3,5,7,0,1]",
+        "output": "8"
+      }
     ],
     "hints": [
       "Math: expected sum = n*(n+1)/2. Answer = expected - actual sum.",
       "XOR: XOR all indices 0..n and all values. Paired values cancel out, leaving the missing one.",
       "Math approach is simpler and O(1) space."
     ],
-    "tags": ["Bit Manipulation", "Array"],
-    "approach": "Gauss formula: expected sum of [0..n] is n*(n+1)/2. Subtract the actual array sum to get the missing number. XOR alternative: XOR all indices and all values — everything cancels except the missing index.",
+    "tags": [
+      "Bit Manipulation",
+      "Array"
+    ],
+    "approach": "Gauss formula: expected sum of [0..n] is n*(n+1)/2. Subtract the actual array sum to get the missing number. XOR alternative: XOR all indices and all values \u00e2\u20ac\u201d everything cancels except the missing index.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
     "solutions": {
@@ -327,17 +434,25 @@
     "category": "Bit Manipulation",
     "description": "Given two integers a and b, return the sum of the two integers without using the operators + and -.",
     "examples": [
-      { "input": "a = 1, b = 2", "output": "3" },
-      { "input": "a = 2, b = 3", "output": "5" }
+      {
+        "input": "a = 1, b = 2",
+        "output": "3"
+      },
+      {
+        "input": "a = 2, b = 3",
+        "output": "5"
+      }
     ],
     "hints": [
       "XOR (a ^ b) gives the sum bits without carrying.",
       "AND shifted left ((a & b) << 1) gives the carry bits.",
       "Repeat until there is no carry (b == 0)."
     ],
-    "tags": ["Bit Manipulation"],
+    "tags": [
+      "Bit Manipulation"
+    ],
     "approach": "XOR gives sum without carry; AND<<1 gives the carry. Add carry into the partial sum by repeating until carry is 0. In Python, mask to 32 bits to handle Python's arbitrary-precision integers.",
-    "timeComplexity": "O(1) — at most 32 iterations",
+    "timeComplexity": "O(1) \u00e2\u20ac\u201d at most 32 iterations",
     "spaceComplexity": "O(1)",
     "solutions": {
       "python": "def getSum(a: int, b: int) -> int:\n    mask    = 0xFFFFFFFF\n    max_int = 0x7FFFFFFF\n    while b & mask:\n        carry = ((a & b) << 1) & mask\n        a = (a ^ b) & mask\n        b = carry\n    # If high bit set, convert back to negative\n    return a if a <= max_int else ~(a ^ mask)",
@@ -353,17 +468,26 @@
     "category": "Matrix",
     "description": "You are given an n x n 2D matrix representing an image. Rotate the image by 90 degrees clockwise in-place.",
     "examples": [
-      { "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]", "output": "[[7,4,1],[8,5,2],[9,6,3]]" },
-      { "input": "matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]", "output": "[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]" }
+      {
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "output": "[[7,4,1],[8,5,2],[9,6,3]]"
+      },
+      {
+        "input": "matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]",
+        "output": "[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]"
+      }
     ],
     "hints": [
-      "90° clockwise = transpose then reverse each row.",
+      "90\u00c2\u00b0 clockwise = transpose then reverse each row.",
       "Transpose: swap matrix[i][j] with matrix[j][i] for j > i.",
       "Then reverse each row in-place."
     ],
-    "tags": ["Matrix", "Array"],
-    "approach": "Two-step in-place: (1) Transpose the matrix by swapping matrix[i][j] with matrix[j][i]. (2) Reverse each row. This is equivalent to a 90° clockwise rotation.",
-    "timeComplexity": "O(n²)",
+    "tags": [
+      "Matrix",
+      "Array"
+    ],
+    "approach": "Two-step in-place: (1) Transpose the matrix by swapping matrix[i][j] with matrix[j][i]. (2) Reverse each row. This is equivalent to a 90\u00c2\u00b0 clockwise rotation.",
+    "timeComplexity": "O(n\u00c2\u00b2)",
     "spaceComplexity": "O(1)",
     "solutions": {
       "python": "def rotate(matrix: list[list[int]]) -> None:\n    n = len(matrix)\n    # Step 1: Transpose\n    for i in range(n):\n        for j in range(i + 1, n):\n            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]\n    # Step 2: Reverse each row\n    for row in matrix:\n        row.reverse()",
@@ -379,17 +503,26 @@
     "category": "Matrix",
     "description": "Given an m x n matrix, return all elements of the matrix in spiral order.",
     "examples": [
-      { "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]", "output": "[1,2,3,6,9,8,7,4,5]" },
-      { "input": "matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]", "output": "[1,2,3,4,8,12,11,10,9,5,6,7]" }
+      {
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "output": "[1,2,3,6,9,8,7,4,5]"
+      },
+      {
+        "input": "matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]",
+        "output": "[1,2,3,4,8,12,11,10,9,5,6,7]"
+      }
     ],
     "hints": [
       "Use four boundaries: top, bottom, left, right.",
       "Traverse: right along top, down along right, left along bottom, up along left. Then shrink boundaries.",
       "Check top <= bottom and left <= right before each pass to avoid duplicates."
     ],
-    "tags": ["Matrix", "Array"],
-    "approach": "Maintain four boundary pointers (top, bottom, left, right). Traverse each layer: go right → down → left → up, then shrink all four boundaries inward. Guard the left/up passes to avoid re-visiting cells in non-square matrices.",
-    "timeComplexity": "O(m × n)",
+    "tags": [
+      "Matrix",
+      "Array"
+    ],
+    "approach": "Maintain four boundary pointers (top, bottom, left, right). Traverse each layer: go right \u00e2\u2020\u2019 down \u00e2\u2020\u2019 left \u00e2\u2020\u2019 up, then shrink all four boundaries inward. Guard the left/up passes to avoid re-visiting cells in non-square matrices.",
+    "timeComplexity": "O(m \u00c3\u2014 n)",
     "spaceComplexity": "O(1) extra",
     "solutions": {
       "python": "def spiralOrder(matrix: list[list[int]]) -> list[int]:\n    result = []\n    top, bottom = 0, len(matrix) - 1\n    left, right  = 0, len(matrix[0]) - 1\n    while top <= bottom and left <= right:\n        for c in range(left, right + 1):   result.append(matrix[top][c])\n        top += 1\n        for r in range(top, bottom + 1):   result.append(matrix[r][right])\n        right -= 1\n        if top <= bottom:\n            for c in range(right, left - 1, -1): result.append(matrix[bottom][c])\n            bottom -= 1\n        if left <= right:\n            for r in range(bottom, top - 1, -1): result.append(matrix[r][left])\n            left += 1\n    return result",
@@ -405,17 +538,27 @@
     "category": "Matrix",
     "description": "Given an m x n integer matrix, if an element is 0, set its entire row and column to 0's. You must do it in place.",
     "examples": [
-      { "input": "matrix = [[1,1,1],[1,0,1],[1,1,1]]", "output": "[[1,0,1],[0,0,0],[1,0,1]]" },
-      { "input": "matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]", "output": "[[0,0,0,0],[0,4,5,0],[0,3,1,0]]" }
+      {
+        "input": "matrix = [[1,1,1],[1,0,1],[1,1,1]]",
+        "output": "[[1,0,1],[0,0,0],[1,0,1]]"
+      },
+      {
+        "input": "matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]",
+        "output": "[[0,0,0,0],[0,4,5,0],[0,3,1,0]]"
+      }
     ],
     "hints": [
       "First pass: record which rows and columns contain a zero.",
       "Second pass: zero out those rows and columns.",
       "O(1) space trick: use the first row and first column as your markers."
     ],
-    "tags": ["Matrix", "Array", "Hash Set"],
+    "tags": [
+      "Matrix",
+      "Array",
+      "Hash Set"
+    ],
     "approach": "Two-pass approach: first collect all (row, col) positions of zeros into sets. Second pass: if row or col is in the sets, set to 0. O(1) space upgrade: use matrix[0][c] and matrix[r][0] as flags, being careful to handle the first row/column separately.",
-    "timeComplexity": "O(m × n)",
+    "timeComplexity": "O(m \u00c3\u2014 n)",
     "spaceComplexity": "O(m + n)",
     "solutions": {
       "python": "def setZeroes(matrix: list[list[int]]) -> None:\n    rows, cols = len(matrix), len(matrix[0])\n    zero_rows, zero_cols = set(), set()\n\n    for r in range(rows):\n        for c in range(cols):\n            if matrix[r][c] == 0:\n                zero_rows.add(r)\n                zero_cols.add(c)\n\n    for r in range(rows):\n        for c in range(cols):\n            if r in zero_rows or c in zero_cols:\n                matrix[r][c] = 0",
@@ -431,15 +574,24 @@
     "category": "Interval",
     "description": "Given an array of non-overlapping intervals sorted by start time and a newInterval, insert the interval and merge if necessary. Return the resulting array.",
     "examples": [
-      { "input": "intervals = [[1,3],[6,9]], newInterval = [2,5]", "output": "[[1,5],[6,9]]", "explanation": "Merge [1,3] and [2,5] into [1,5]" },
-      { "input": "intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]", "output": "[[1,2],[3,10],[12,16]]" }
+      {
+        "input": "intervals = [[1,3],[6,9]], newInterval = [2,5]",
+        "output": "[[1,5],[6,9]]",
+        "explanation": "Merge [1,3] and [2,5] into [1,5]"
+      },
+      {
+        "input": "intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]",
+        "output": "[[1,2],[3,10],[12,16]]"
+      }
     ],
     "hints": [
       "Add all intervals ending before newInterval starts",
       "Merge all overlapping intervals",
       "Add remaining intervals after newInterval ends"
     ],
-    "tags": ["Array"],
+    "tags": [
+      "Array"
+    ],
     "approach": "Iterate through. Add intervals that end before new one starts. Merge all overlapping by expanding newInterval. Add the rest.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
@@ -458,15 +610,26 @@
     "category": "Interval",
     "description": "Given an array of intervals, merge all overlapping intervals and return an array of the non-overlapping intervals.",
     "examples": [
-      { "input": "intervals = [[1,3],[2,6],[8,10],[15,18]]", "output": "[[1,6],[8,10],[15,18]]", "explanation": "Intervals [1,3] and [2,6] overlap, merge to [1,6]" },
-      { "input": "intervals = [[1,4],[4,5]]", "output": "[[1,5]]", "explanation": "Intervals [1,4] and [4,5] are considered overlapping" }
+      {
+        "input": "intervals = [[1,3],[2,6],[8,10],[15,18]]",
+        "output": "[[1,6],[8,10],[15,18]]",
+        "explanation": "Intervals [1,3] and [2,6] overlap, merge to [1,6]"
+      },
+      {
+        "input": "intervals = [[1,4],[4,5]]",
+        "output": "[[1,5]]",
+        "explanation": "Intervals [1,4] and [4,5] are considered overlapping"
+      }
     ],
     "hints": [
       "Sort intervals by start time first",
       "Compare each interval's start with the last merged interval's end",
       "Merge if overlapping, else add new interval"
     ],
-    "tags": ["Array", "Sorting"],
+    "tags": [
+      "Array",
+      "Sorting"
+    ],
     "approach": "Sort by start. Iterate and merge if current start <= last merged end, otherwise append.",
     "timeComplexity": "O(n log n)",
     "spaceComplexity": "O(n)",
@@ -485,15 +648,25 @@
     "category": "Interval",
     "description": "Given an array of intervals, return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.",
     "examples": [
-      { "input": "intervals = [[1,2],[2,3],[3,4],[1,3]]", "output": "1", "explanation": "Remove [1,3] and the rest are non-overlapping" },
-      { "input": "intervals = [[1,2],[1,2],[1,2]]", "output": "2" }
+      {
+        "input": "intervals = [[1,2],[2,3],[3,4],[1,3]]",
+        "output": "1",
+        "explanation": "Remove [1,3] and the rest are non-overlapping"
+      },
+      {
+        "input": "intervals = [[1,2],[1,2],[1,2]]",
+        "output": "2"
+      }
     ],
     "hints": [
       "Sort by end time, not start time",
       "Greedy: always keep the interval that ends earliest",
       "Count intervals that can't be kept (they overlap with previous)"
     ],
-    "tags": ["Array", "Greedy"],
+    "tags": [
+      "Array",
+      "Greedy"
+    ],
     "approach": "Greedy: sort by end time. Keep an interval if its start >= prevEnd. Count removals otherwise.",
     "timeComplexity": "O(n log n)",
     "spaceComplexity": "O(1)",
@@ -512,15 +685,25 @@
     "category": "Interval",
     "description": "Given an array of meeting time intervals where intervals[i] = [start_i, end_i], determine if a person could attend all meetings.",
     "examples": [
-      { "input": "intervals = [[0,30],[5,10],[15,20]]", "output": "false", "explanation": "Meeting [0,30] overlaps with [5,10] and [15,20]" },
-      { "input": "intervals = [[7,10],[2,4]]", "output": "true" }
+      {
+        "input": "intervals = [[0,30],[5,10],[15,20]]",
+        "output": "false",
+        "explanation": "Meeting [0,30] overlaps with [5,10] and [15,20]"
+      },
+      {
+        "input": "intervals = [[7,10],[2,4]]",
+        "output": "true"
+      }
     ],
     "hints": [
       "Sort intervals by start time",
       "Check if any meeting starts before the previous one ends",
       "One overlap means false"
     ],
-    "tags": ["Array", "Sorting"],
+    "tags": [
+      "Array",
+      "Sorting"
+    ],
     "approach": "Sort by start. If any interval starts before the previous ends, return false.",
     "timeComplexity": "O(n log n)",
     "spaceComplexity": "O(1)",
@@ -539,8 +722,14 @@
     "category": "Interval",
     "description": "Given an array of meeting time intervals, return the minimum number of conference rooms required.",
     "examples": [
-      { "input": "intervals = [[0,30],[5,10],[15,20]]", "output": "2" },
-      { "input": "intervals = [[7,10],[2,4]]", "output": "1" }
+      {
+        "input": "intervals = [[0,30],[5,10],[15,20]]",
+        "output": "2"
+      },
+      {
+        "input": "intervals = [[7,10],[2,4]]",
+        "output": "1"
+      }
     ],
     "hints": [
       "Use a min-heap to track end times of ongoing meetings",
@@ -548,7 +737,11 @@
       "If earliest ending meeting ends before next starts, reuse that room",
       "Heap size at end = number of rooms needed"
     ],
-    "tags": ["Array", "Heap", "Greedy"],
+    "tags": [
+      "Array",
+      "Heap",
+      "Greedy"
+    ],
     "approach": "Sort by start. Use min-heap of end times. If heap top <= current start, pop (reuse room). Push current end. Heap size = rooms needed.",
     "timeComplexity": "O(n log n)",
     "spaceComplexity": "O(n)",
@@ -567,16 +760,28 @@
     "category": "Breadth-First Search",
     "description": "You are given an integer n, the number of nodes in a directed graph where the nodes are labeled from 0 to n - 1. Each edge is red or blue in this graph, and there could be self-edges and parallel edges.\n\nYou are given two arrays redEdges and blueEdges where:\n- redEdges[i] = [ai, bi] indicates that there is a directed red edge from node ai to node bi.\n- blueEdges[i] = [ui, vi] indicates that there is a directed blue edge from node ui to node vi.\n\nReturn an array answer of length n, where answer[x] is the length of the shortest path from node 0 to node x such that the edge colors alternate along the path, or -1 if no such path exists.",
     "examples": [
-      { "input": "n = 3, redEdges = [[0,1],[1,2]], blueEdges = []", "output": "[0,1,-1]" },
-      { "input": "n = 3, redEdges = [[0,1]], blueEdges = [[2,1]]", "output": "[0,1,-1]" },
-      { "input": "n = 1, redEdges = [], blueEdges = []", "output": "[0]" }
+      {
+        "input": "n = 3, redEdges = [[0,1],[1,2]], blueEdges = []",
+        "output": "[0,1,-1]"
+      },
+      {
+        "input": "n = 3, redEdges = [[0,1]], blueEdges = [[2,1]]",
+        "output": "[0,1,-1]"
+      },
+      {
+        "input": "n = 1, redEdges = [], blueEdges = []",
+        "output": "[0]"
+      }
     ],
     "hints": [
-      "Use BFS where the state is (node, last_edge_color) — you must alternate colors at each step.",
+      "Use BFS where the state is (node, last_edge_color) \u00e2\u20ac\u201d you must alternate colors at each step.",
       "Start node 0 with both RED and BLUE as possible first-edge colors simultaneously.",
-      "Track visited (node, color) pairs to avoid cycles — the same node can be visited twice, once per color."
+      "Track visited (node, color) pairs to avoid cycles \u00e2\u20ac\u201d the same node can be visited twice, once per color."
     ],
-    "tags": ["Breadth-First Search", "Graph Theory"],
+    "tags": [
+      "Breadth-First Search",
+      "Graph Theory"
+    ],
     "approach": "BFS with state (node, last_color). Initialize the queue with (0, RED, 0) and (0, BLUE, 0). At each step expand neighbors reachable by the opposite color. Mark (node, color) visited. The first time a node is reached its distance is optimal.",
     "timeComplexity": "O(n + E)",
     "spaceComplexity": "O(n + E)",
@@ -595,17 +800,29 @@
     "category": "String",
     "description": "Special binary strings are binary strings with the following two properties:\n- The number of 0's equals the number of 1's.\n- Every prefix of the binary string has at least as many 1's as 0's.\n\nYou are given a special binary string s. A move consists of choosing two consecutive special strings and swapping them. Return the lexicographically largest string that can be obtained after any number of moves.",
     "examples": [
-      { "input": "s = \"11011000\"", "output": "\"11100100\"", "explanation": "The special substrings are \"10\", \"1100\", and the whole string. Sorting inner substrings of the outer wrapper descending gives \"1100\" then \"10\", producing \"11100100\"." },
-      { "input": "s = \"10\"", "output": "\"10\"", "explanation": "Already the only possibility." }
+      {
+        "input": "s = \"11011000\"",
+        "output": "\"11100100\"",
+        "explanation": "The special substrings are \"10\", \"1100\", and the whole string. Sorting inner substrings of the outer wrapper descending gives \"1100\" then \"10\", producing \"11100100\"."
+      },
+      {
+        "input": "s = \"10\"",
+        "output": "\"10\"",
+        "explanation": "Already the only possibility."
+      }
     ],
     "hints": [
-      "A special binary string always starts with 1 and ends with 0 — treat 1 as '(' and 0 as ')': it's a valid parenthesization.",
-      "Find all top-level special substrings by tracking balance (1 → +1, 0 → -1); each time balance hits 0 you've found one.",
+      "A special binary string always starts with 1 and ends with 0 \u00e2\u20ac\u201d treat 1 as '(' and 0 as ')': it's a valid parenthesization.",
+      "Find all top-level special substrings by tracking balance (1 \u00e2\u2020\u2019 +1, 0 \u00e2\u2020\u2019 -1); each time balance hits 0 you've found one.",
       "Recursively sort inner content of each special substring, then sort the resulting strings in reverse lexicographic order and concatenate."
     ],
-    "tags": ["String", "Divide and Conquer", "Sorting"],
-    "approach": "Map 1→'(' and 0→')'. Scan for top-level special substrings (balance returns to 0). For each, strip the outer '1'…'0', recursively sort the interior, then wrap back. Sort the collected substrings in descending order and join — greedy: putting the lexicographically largest substring first always wins.",
-    "timeComplexity": "O(n² log n) worst case",
+    "tags": [
+      "String",
+      "Divide and Conquer",
+      "Sorting"
+    ],
+    "approach": "Map 1\u00e2\u2020\u2019'(' and 0\u00e2\u2020\u2019')'. Scan for top-level special substrings (balance returns to 0). For each, strip the outer '1'\u00e2\u20ac\u00a6'0', recursively sort the interior, then wrap back. Sort the collected substrings in descending order and join \u00e2\u20ac\u201d greedy: putting the lexicographically largest substring first always wins.",
+    "timeComplexity": "O(n\u00c2\u00b2 log n) worst case",
     "spaceComplexity": "O(n) recursion stack",
     "solutions": {
       "python": "def makeLargestSpecial(s: str) -> str:\n    count = 0\n    start = 0\n    specials = []\n    for i, ch in enumerate(s):\n        count += 1 if ch == '1' else -1\n        if count == 0:\n            inner = makeLargestSpecial(s[start + 1:i])\n            specials.append('1' + inner + '0')\n            start = i + 1\n    specials.sort(reverse=True)\n    return ''.join(specials)",
@@ -622,16 +839,30 @@
     "category": "Array",
     "description": "A 0-indexed array derived with length n is derived by computing the bitwise XOR of adjacent values in a binary array original of length n.\n\nSpecifically, for each index i in the range [0, n-1]:\n- If i = n-1, then derived[i] = original[i] XOR original[0].\n- Otherwise, derived[i] = original[i] XOR original[i+1].\n\nGiven the array derived, return true if there exists a valid binary array original that could have produced derived, false otherwise.",
     "examples": [
-      { "input": "derived = [1,1,0]", "output": "true", "explanation": "original = [0,1,0] works: 0^1=1, 1^0=1, 0^0=0" },
-      { "input": "derived = [1,1]", "output": "true", "explanation": "original = [0,1] works: 0^1=1, 1^0=1" },
-      { "input": "derived = [1,0]", "output": "false" }
+      {
+        "input": "derived = [1,1,0]",
+        "output": "true",
+        "explanation": "original = [0,1,0] works: 0^1=1, 1^0=1, 0^0=0"
+      },
+      {
+        "input": "derived = [1,1]",
+        "output": "true",
+        "explanation": "original = [0,1] works: 0^1=1, 1^0=1"
+      },
+      {
+        "input": "derived = [1,0]",
+        "output": "false"
+      }
     ],
     "hints": [
       "XOR-expand derived: each original[i] appears exactly twice across all derived[i] = original[i] ^ original[i+1].",
       "Therefore XOR of all derived elements = 0 if and only if a valid original exists.",
       "Equivalent: sum(derived) % 2 == 0, since all values are 0 or 1."
     ],
-    "tags": ["Array", "Bit Manipulation"],
+    "tags": [
+      "Array",
+      "Bit Manipulation"
+    ],
     "approach": "XOR all elements of derived. Because each original[i] appears in exactly two terms (derived[i-1] and derived[i]), every element cancels out, making the total XOR equal 0 iff a valid original exists. O(n) single pass.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
@@ -647,18 +878,29 @@
     "title": "Maximum Difference by Remapping a Digit",
     "difficulty": "Easy",
     "category": "Greedy",
-    "description": "You are given an integer num. Bob will remap one of the 10 possible digits (0–9) to another digit. When Bob remaps digit d1 to d2, all occurrences of d1 in num become d2. The resulting value may have leading zeros, which are ignored when converting back to an integer.\n\nReturn the difference between the maximum and minimum values Bob can make by remapping exactly one digit in num.",
+    "description": "You are given an integer num. Bob will remap one of the 10 possible digits (0\u00e2\u20ac\u201c9) to another digit. When Bob remaps digit d1 to d2, all occurrences of d1 in num become d2. The resulting value may have leading zeros, which are ignored when converting back to an integer.\n\nReturn the difference between the maximum and minimum values Bob can make by remapping exactly one digit in num.",
     "examples": [
-      { "input": "num = 11891", "output": "99009", "explanation": "Max: remap 1→9 → 99899. Min: remap 1→0 → 890. Diff = 99899 - 890 = 99009." },
-      { "input": "num = 90", "output": "99", "explanation": "Max: remap 0→9 → 99. Min: remap 9→0 → 0. Diff = 99 - 0 = 99." }
+      {
+        "input": "num = 11891",
+        "output": "99009",
+        "explanation": "Max: remap 1\u00e2\u2020\u20199 \u00e2\u2020\u2019 99899. Min: remap 1\u00e2\u2020\u20190 \u00e2\u2020\u2019 890. Diff = 99899 - 890 = 99009."
+      },
+      {
+        "input": "num = 90",
+        "output": "99",
+        "explanation": "Max: remap 0\u00e2\u2020\u20199 \u00e2\u2020\u2019 99. Min: remap 9\u00e2\u2020\u20190 \u00e2\u2020\u2019 0. Diff = 99 - 0 = 99."
+      }
     ],
     "hints": [
       "To maximize: find the first digit that is not '9' and replace all occurrences with '9'.",
       "To minimize: replace all occurrences of the leading digit with '0' (leading zeros are dropped).",
       "Use string replace for all occurrences, then parse back to integer."
     ],
-    "tags": ["Math", "Greedy"],
-    "approach": "Greedy string manipulation. Max value: scan left-to-right for the first digit ≠ '9', replace all of them with '9'. Min value: replace every occurrence of the leading digit with '0'. Subtract min from max.",
+    "tags": [
+      "Math",
+      "Greedy"
+    ],
+    "approach": "Greedy string manipulation. Max value: scan left-to-right for the first digit \u00e2\u2030\u00a0 '9', replace all of them with '9'. Min value: replace every occurrence of the leading digit with '0'. Subtract min from max.",
     "timeComplexity": "O(d) where d = number of digits",
     "spaceComplexity": "O(d)",
     "solutions": {
@@ -675,18 +917,34 @@
     "category": "Dynamic Programming",
     "description": "You are given three integers start, finish, and limit. You are also given a 0-indexed string s representing a positive integer.\n\nA positive integer x is called powerful if:\n- x ends with s (s is a suffix of x), and\n- every digit of x is at most limit.\n\nReturn the total number of powerful integers in the range [start, finish].",
     "examples": [
-      { "input": "start = 1, finish = 6000, limit = 4, s = \"124\"", "output": "5", "explanation": "Powerful numbers: 124, 1124, 2124, 3124, 4124. All end with '124' and have digits ≤ 4." },
-      { "input": "start = 15, finish = 215, limit = 6, s = \"10\"", "output": "2", "explanation": "Powerful numbers in range: 110, 210." },
-      { "input": "start = 1000, finish = 2000, limit = 4, s = \"3000\"", "output": "0", "explanation": "3000 is outside [1000,2000] and 13000 is also out of range." }
+      {
+        "input": "start = 1, finish = 6000, limit = 4, s = \"124\"",
+        "output": "5",
+        "explanation": "Powerful numbers: 124, 1124, 2124, 3124, 4124. All end with '124' and have digits \u00e2\u2030\u00a4 4."
+      },
+      {
+        "input": "start = 15, finish = 215, limit = 6, s = \"10\"",
+        "output": "2",
+        "explanation": "Powerful numbers in range: 110, 210."
+      },
+      {
+        "input": "start = 1000, finish = 2000, limit = 4, s = \"3000\"",
+        "output": "0",
+        "explanation": "3000 is outside [1000,2000] and 13000 is also out of range."
+      }
     ],
     "hints": [
       "Use count(finish) - count(start-1) where count(n) = powerful integers in [1, n].",
       "For count(n): fix the suffix to s; build the prefix digit-by-digit using a tight-bound constraint.",
       "Also sum over all shorter valid lengths: for each length L < len(str(n)), count all valid L-digit powerful numbers directly."
     ],
-    "tags": ["Math", "String", "Dynamic Programming"],
-    "approach": "Digit DP with tight constraint. count(n) accumulates: (1) all powerful numbers with fewer digits than n by direct formula (first prefix digit 1..limit, rest 0..limit); (2) for the exact length of n, walk digit-by-digit keeping a tight flag — free branches contribute (limit+1)^remaining each, the tight path checks if the suffix fits.",
-    "timeComplexity": "O(d²) where d = digits of finish",
+    "tags": [
+      "Math",
+      "String",
+      "Dynamic Programming"
+    ],
+    "approach": "Digit DP with tight constraint. count(n) accumulates: (1) all powerful numbers with fewer digits than n by direct formula (first prefix digit 1..limit, rest 0..limit); (2) for the exact length of n, walk digit-by-digit keeping a tight flag \u00e2\u20ac\u201d free branches contribute (limit+1)^remaining each, the tight path checks if the suffix fits.",
+    "timeComplexity": "O(d\u00c2\u00b2) where d = digits of finish",
     "spaceComplexity": "O(d)",
     "solutions": {
       "python": "def numberOfPowerfulInt(start: int, finish: int, limit: int, s: str) -> int:\n    if any(int(c) > limit for c in s):\n        return 0\n\n    def count(n: int) -> int:\n        t = str(n)\n        n_len, s_len = len(t), len(s)\n        if n_len < s_len:\n            return 0\n        total = 0\n        # All powerful numbers with L digits where s_len <= L < n_len\n        for L in range(s_len, n_len):\n            pre = L - s_len\n            if pre == 0:\n                if s[0] != '0':\n                    total += 1\n            else:\n                total += limit * (limit + 1) ** (pre - 1)\n        # Exactly n_len digits\n        pre = n_len - s_len\n        if pre == 0:\n            total += 1 if t >= s else 0\n        else:\n            tight = True\n            for i in range(pre):\n                lo = 1 if i == 0 else 0\n                d = int(t[i])\n                free_upper = d if d <= limit else limit + 1\n                total += max(0, free_upper - lo) * (limit + 1) ** (pre - i - 1)\n                if d > limit:\n                    tight = False\n                    break\n            if tight and t[pre:] >= s:\n                total += 1\n        return total\n\n    return count(finish) - count(start - 1)",
@@ -702,15 +960,29 @@
     "category": "Binary Search",
     "description": "You are given two 0-indexed arrays nums and cost, each of length n. You can do the following operation any number of times:\n- Increase or decrease any element of nums by 1. The cost of one operation on element i is cost[i].\n\nReturn the minimum total cost to make all elements of nums equal.",
     "examples": [
-      { "input": "nums = [1,3,5,2], cost = [2,3,1,14]", "output": "8", "explanation": "Make all equal to 2: cost = 2×1 + 3×1 + 1×3 + 14×0 = 8." },
-      { "input": "nums = [2,2,2,2,2], cost = [4,2,8,1,3]", "output": "0", "explanation": "All elements are already equal." }
+      {
+        "input": "nums = [1,3,5,2], cost = [2,3,1,14]",
+        "output": "8",
+        "explanation": "Make all equal to 2: cost = 2\u00c3\u20141 + 3\u00c3\u20141 + 1\u00c3\u20143 + 14\u00c3\u20140 = 8."
+      },
+      {
+        "input": "nums = [2,2,2,2,2], cost = [4,2,8,1,3]",
+        "output": "0",
+        "explanation": "All elements are already equal."
+      }
     ],
     "hints": [
-      "The total cost function f(v) = Σ cost[i] × |nums[i] - v| is convex — it decreases then increases.",
+      "The total cost function f(v) = \u00ce\u00a3 cost[i] \u00c3\u2014 |nums[i] - v| is convex \u00e2\u20ac\u201d it decreases then increases.",
       "Binary search on v: if f(mid) > f(mid+1), the minimum is to the right; otherwise to the left or at mid.",
-      "Alternatively, find the weighted median: sort by value, accumulate cost until cumulative cost ≥ total/2."
+      "Alternatively, find the weighted median: sort by value, accumulate cost until cumulative cost \u00e2\u2030\u00a5 total/2."
     ],
-    "tags": ["Array", "Binary Search", "Greedy", "Sorting", "Prefix Sum"],
+    "tags": [
+      "Array",
+      "Binary Search",
+      "Greedy",
+      "Sorting",
+      "Prefix Sum"
+    ],
     "approach": "The cost function is convex and piecewise linear. Binary search on the target value in [min(nums), max(nums)]: compare f(mid) vs f(mid+1) to decide which half contains the minimum. Each evaluation is O(n), giving O(n log(maxVal)) overall.",
     "timeComplexity": "O(n log(maxVal))",
     "spaceComplexity": "O(1)",
@@ -728,16 +1000,27 @@
     "category": "Array",
     "description": "Given an integer array nums and an integer k, return the smallest positive multiple of k that is missing from nums.\n\nA multiple of k is any positive integer divisible by k.",
     "examples": [
-      { "input": "nums = [8,2,3,4,6], k = 2", "output": "10", "explanation": "Multiples of 2: 2, 4, 6, 8, 10, 12... The array contains 2, 4, 6, 8 but not 10." },
-      { "input": "nums = [1,4,7,10,15], k = 3", "output": "3", "explanation": "The smallest multiple of 3 is 3, which is not in the array." }
+      {
+        "input": "nums = [8,2,3,4,6], k = 2",
+        "output": "10",
+        "explanation": "Multiples of 2: 2, 4, 6, 8, 10, 12... The array contains 2, 4, 6, 8 but not 10."
+      },
+      {
+        "input": "nums = [1,4,7,10,15], k = 3",
+        "output": "3",
+        "explanation": "The smallest multiple of 3 is 3, which is not in the array."
+      }
     ],
     "hints": [
       "Put all elements of nums into a hash set for O(1) lookup.",
       "Iterate multiples of k starting from k and return the first one not in the set.",
       "The answer is at most (n+1)*k where n = len(nums), so the loop always terminates."
     ],
-    "tags": ["Array", "Hash Table"],
-    "approach": "Build a hash set from nums. Then check multiples of k in order (k, 2k, 3k, …) and return the first that is absent. The loop runs at most n+1 times since at most n multiples can be present.",
+    "tags": [
+      "Array",
+      "Hash Table"
+    ],
+    "approach": "Build a hash set from nums. Then check multiples of k in order (k, 2k, 3k, \u00e2\u20ac\u00a6) and return the first that is absent. The loop runs at most n+1 times since at most n multiples can be present.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(n)",
     "solutions": {
@@ -754,16 +1037,31 @@
     "category": "Linked List",
     "description": "Given head, the head of a linked list, determine if the linked list has a cycle in it. There is a cycle if some node can be reached again by continuously following the next pointer. Return true if there is a cycle, otherwise false.",
     "examples": [
-      { "input": "head = [3,2,0,-4], pos = 1", "output": "true", "explanation": "Tail connects back to node at index 1." },
-      { "input": "head = [1,2], pos = 0", "output": "true", "explanation": "Tail connects back to node at index 0." },
-      { "input": "head = [1], pos = -1", "output": "false", "explanation": "No cycle." }
+      {
+        "input": "head = [3,2,0,-4], pos = 1",
+        "output": "true",
+        "explanation": "Tail connects back to node at index 1."
+      },
+      {
+        "input": "head = [1,2], pos = 0",
+        "output": "true",
+        "explanation": "Tail connects back to node at index 0."
+      },
+      {
+        "input": "head = [1], pos = -1",
+        "output": "false",
+        "explanation": "No cycle."
+      }
     ],
     "hints": [
       "Use two pointers: slow moves one step, fast moves two steps.",
       "If they ever meet, there is a cycle.",
       "If fast reaches null, there is no cycle."
     ],
-    "tags": ["Linked List", "Two Pointers"],
+    "tags": [
+      "Linked List",
+      "Two Pointers"
+    ],
     "approach": "Floyd's cycle detection (tortoise and hare). Move slow one step and fast two steps each iteration. If the list has a cycle, fast will eventually lap slow and they meet. If fast reaches null the list is acyclic.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
@@ -779,17 +1077,26 @@
     "title": "Reorder List",
     "difficulty": "Medium",
     "category": "Linked List",
-    "description": "You are given the head of a singly linked list. The list can be represented as L0 → L1 → … → Ln-1 → Ln. Reorder it to: L0 → Ln → L1 → Ln-1 → L2 → Ln-2 → … You may not modify the values in the list's nodes. Only nodes themselves may be changed.",
+    "description": "You are given the head of a singly linked list. The list can be represented as L0 \u00e2\u2020\u2019 L1 \u00e2\u2020\u2019 \u00e2\u20ac\u00a6 \u00e2\u2020\u2019 Ln-1 \u00e2\u2020\u2019 Ln. Reorder it to: L0 \u00e2\u2020\u2019 Ln \u00e2\u2020\u2019 L1 \u00e2\u2020\u2019 Ln-1 \u00e2\u2020\u2019 L2 \u00e2\u2020\u2019 Ln-2 \u00e2\u2020\u2019 \u00e2\u20ac\u00a6 You may not modify the values in the list's nodes. Only nodes themselves may be changed.",
     "examples": [
-      { "input": "head = [1,2,3,4]", "output": "[1,4,2,3]" },
-      { "input": "head = [1,2,3,4,5]", "output": "[1,5,2,4,3]" }
+      {
+        "input": "head = [1,2,3,4]",
+        "output": "[1,4,2,3]"
+      },
+      {
+        "input": "head = [1,2,3,4,5]",
+        "output": "[1,5,2,4,3]"
+      }
     ],
     "hints": [
       "Find the middle of the list using slow/fast pointers.",
       "Reverse the second half in-place.",
       "Merge the two halves by alternating nodes."
     ],
-    "tags": ["Linked List", "Two Pointers"],
+    "tags": [
+      "Linked List",
+      "Two Pointers"
+    ],
     "approach": "Three steps: (1) find the middle with slow/fast pointers; (2) reverse the second half; (3) interleave nodes from the first and reversed second halves. All O(n) time and O(1) space.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
@@ -807,17 +1114,29 @@
     "category": "Linked List",
     "description": "Given the head of a linked list, remove the nth node from the end of the list and return its head.",
     "examples": [
-      { "input": "head = [1,2,3,4,5], n = 2", "output": "[1,2,3,5]" },
-      { "input": "head = [1], n = 1", "output": "[]" },
-      { "input": "head = [1,2], n = 1", "output": "[1]" }
+      {
+        "input": "head = [1,2,3,4,5], n = 2",
+        "output": "[1,2,3,5]"
+      },
+      {
+        "input": "head = [1], n = 1",
+        "output": "[]"
+      },
+      {
+        "input": "head = [1,2], n = 1",
+        "output": "[1]"
+      }
     ],
     "hints": [
       "Use a dummy head node to handle edge cases (removing the first node).",
       "Advance a fast pointer n+1 steps ahead of slow.",
       "When fast reaches null, slow.next is the node to remove."
     ],
-    "tags": ["Linked List", "Two Pointers"],
-    "approach": "One-pass two-pointer. Use a dummy node before head. Advance fast n+1 steps from dummy. Then move both slow and fast together until fast is null. slow.next is the target — set slow.next = slow.next.next.",
+    "tags": [
+      "Linked List",
+      "Two Pointers"
+    ],
+    "approach": "One-pass two-pointer. Use a dummy node before head. Advance fast n+1 steps from dummy. Then move both slow and fast together until fast is null. slow.next is the target \u00e2\u20ac\u201d set slow.next = slow.next.next.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(1)",
     "solutions": {
@@ -834,16 +1153,29 @@
     "category": "Linked List",
     "description": "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
     "examples": [
-      { "input": "lists = [[1,4,5],[1,3,4],[2,6]]", "output": "[1,1,2,3,4,4,5,6]" },
-      { "input": "lists = []", "output": "[]" },
-      { "input": "lists = [[]]", "output": "[]" }
+      {
+        "input": "lists = [[1,4,5],[1,3,4],[2,6]]",
+        "output": "[1,1,2,3,4,4,5,6]"
+      },
+      {
+        "input": "lists = []",
+        "output": "[]"
+      },
+      {
+        "input": "lists = [[]]",
+        "output": "[]"
+      }
     ],
     "hints": [
       "A min-heap of size k lets you always extract the smallest current node in O(log k).",
       "Alternatively, use divide and conquer: merge pairs of lists repeatedly until one remains.",
-      "Naive repeated merge of all lists gives O(kN) — aim for O(N log k)."
+      "Naive repeated merge of all lists gives O(kN) \u00e2\u20ac\u201d aim for O(N log k)."
     ],
-    "tags": ["Linked List", "Heap", "Divide and Conquer"],
+    "tags": [
+      "Linked List",
+      "Heap",
+      "Divide and Conquer"
+    ],
     "approach": "Min-heap approach: push the head of each non-null list into a min-heap keyed by node value. Repeatedly pop the minimum node, append it to the result, and push its next node (if any). Total: O(N log k) where N is total nodes.",
     "timeComplexity": "O(N log k)",
     "spaceComplexity": "O(k)",
@@ -861,16 +1193,29 @@
     "category": "Binary Tree",
     "description": "Given the root of a binary tree, invert the tree, and return its root.",
     "examples": [
-      { "input": "root = [4,2,7,1,3,6,9]", "output": "[4,7,2,9,6,3,1]" },
-      { "input": "root = [2,1,3]", "output": "[2,3,1]" },
-      { "input": "root = []", "output": "[]" }
+      {
+        "input": "root = [4,2,7,1,3,6,9]",
+        "output": "[4,7,2,9,6,3,1]"
+      },
+      {
+        "input": "root = [2,1,3]",
+        "output": "[2,3,1]"
+      },
+      {
+        "input": "root = []",
+        "output": "[]"
+      }
     ],
     "hints": [
       "Swap the left and right children of each node.",
-      "Recurse into both subtrees — order doesn't matter since swaps are independent.",
+      "Recurse into both subtrees \u00e2\u20ac\u201d order doesn't matter since swaps are independent.",
       "Works iteratively with a queue (BFS) or stack (DFS) as well."
     ],
-    "tags": ["Binary Tree", "Depth-First Search", "Breadth-First Search"],
+    "tags": [
+      "Binary Tree",
+      "Depth-First Search",
+      "Breadth-First Search"
+    ],
     "approach": "Recursive DFS: for each node, swap its left and right children, then recurse into both. Base case is null. The recursion visits every node exactly once.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(h) recursion stack, O(n) worst case for skewed tree",
@@ -888,15 +1233,25 @@
     "category": "Binary Tree",
     "description": "Given the root of a binary tree, return its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.",
     "examples": [
-      { "input": "root = [3,9,20,null,null,15,7]", "output": "3" },
-      { "input": "root = [1,null,2]", "output": "2" }
+      {
+        "input": "root = [3,9,20,null,null,15,7]",
+        "output": "3"
+      },
+      {
+        "input": "root = [1,null,2]",
+        "output": "2"
+      }
     ],
     "hints": [
       "The depth of a tree is 1 + max(depth(left), depth(right)).",
       "Base case: null node has depth 0.",
       "Can also solve iteratively with BFS, counting levels."
     ],
-    "tags": ["Binary Tree", "Depth-First Search", "Breadth-First Search"],
+    "tags": [
+      "Binary Tree",
+      "Depth-First Search",
+      "Breadth-First Search"
+    ],
     "approach": "Recursive DFS: return 0 for null, otherwise return 1 + max(maxDepth(left), maxDepth(right)). Each node is visited once.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(h) recursion stack",
@@ -914,17 +1269,29 @@
     "category": "Binary Tree",
     "description": "Given the roots of two binary trees p and q, write a function to check if they are the same or not. Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.",
     "examples": [
-      { "input": "p = [1,2,3], q = [1,2,3]", "output": "true" },
-      { "input": "p = [1,2], q = [1,null,2]", "output": "false" },
-      { "input": "p = [1,2,1], q = [1,1,2]", "output": "false" }
+      {
+        "input": "p = [1,2,3], q = [1,2,3]",
+        "output": "true"
+      },
+      {
+        "input": "p = [1,2], q = [1,null,2]",
+        "output": "false"
+      },
+      {
+        "input": "p = [1,2,1], q = [1,1,2]",
+        "output": "false"
+      }
     ],
     "hints": [
       "If both nodes are null, return true.",
       "If exactly one is null, or their values differ, return false.",
       "Recursively check left and right subtrees."
     ],
-    "tags": ["Binary Tree", "Depth-First Search"],
-    "approach": "Recursive DFS: two trees are the same iff their roots have equal values and their left and right subtrees are recursively the same. Three base cases: both null → true, one null → false, values differ → false.",
+    "tags": [
+      "Binary Tree",
+      "Depth-First Search"
+    ],
+    "approach": "Recursive DFS: two trees are the same iff their roots have equal values and their left and right subtrees are recursively the same. Three base cases: both null \u00e2\u2020\u2019 true, one null \u00e2\u2020\u2019 false, values differ \u00e2\u2020\u2019 false.",
     "timeComplexity": "O(n)",
     "spaceComplexity": "O(h) recursion stack",
     "solutions": {
@@ -941,15 +1308,24 @@
     "category": "Binary Tree",
     "description": "Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values as subRoot and false otherwise. A subtree of a binary tree is a tree that consists of a node in tree and all of this node's descendants.",
     "examples": [
-      { "input": "root = [3,4,5,1,2], subRoot = [4,1,2]", "output": "true" },
-      { "input": "root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]", "output": "false" }
+      {
+        "input": "root = [3,4,5,1,2], subRoot = [4,1,2]",
+        "output": "true"
+      },
+      {
+        "input": "root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]",
+        "output": "false"
+      }
     ],
     "hints": [
       "For each node in root, check if the subtree rooted there is identical to subRoot.",
       "Reuse isSameTree as a helper.",
       "The check is: isSameTree(root, subRoot) || isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot)."
     ],
-    "tags": ["Binary Tree", "Depth-First Search"],
+    "tags": [
+      "Binary Tree",
+      "Depth-First Search"
+    ],
     "approach": "DFS with isSameTree helper. At each node of root, check if the tree rooted there equals subRoot. If yes, return true. Otherwise recurse into left and right children. Time is O(m*n) where m and n are the sizes of the two trees.",
     "timeComplexity": "O(m * n)",
     "spaceComplexity": "O(h) recursion stack",
@@ -957,6 +1333,1680 @@
       "python": "def isSubtree(root: TreeNode, subRoot: TreeNode) -> bool:\n    def isSame(p, q):\n        if not p and not q:\n            return True\n        if not p or not q or p.val != q.val:\n            return False\n        return isSame(p.left, q.left) and isSame(p.right, q.right)\n\n    if not root:\n        return False\n    if isSame(root, subRoot):\n        return True\n    return isSubtree(root.left, subRoot) or isSubtree(root.right, subRoot)",
       "go": "func isSubtree(root *TreeNode, subRoot *TreeNode) bool {\n    if root == nil {\n        return false\n    }\n    if isSameTree(root, subRoot) {\n        return true\n    }\n    return isSubtree(root.Left, subRoot) || isSubtree(root.Right, subRoot)\n}\n\nfunc isSameTree(p, q *TreeNode) bool {\n    if p == nil && q == nil {\n        return true\n    }\n    if p == nil || q == nil || p.Val != q.Val {\n        return false\n    }\n    return isSameTree(p.Left, q.Left) && isSameTree(p.Right, q.Right)\n}",
       "java": "public boolean isSubtree(TreeNode root, TreeNode subRoot) {\n    if (root == null) return false;\n    if (isSameTree(root, subRoot)) return true;\n    return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);\n}\n\nprivate boolean isSameTree(TreeNode p, TreeNode q) {\n    if (p == null && q == null) return true;\n    if (p == null || q == null || p.val != q.val) return false;\n    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);\n}"
+    }
+  },
+  {
+    "id": 37,
+    "number": "#217",
+    "title": "Contains Duplicate",
+    "difficulty": "Easy",
+    "category": "Array",
+    "description": "Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.",
+    "examples": [
+      {
+        "input": "nums = [1,2,3,1]",
+        "output": "true"
+      },
+      {
+        "input": "nums = [1,2,3,4]",
+        "output": "false"
+      },
+      {
+        "input": "nums = [1,1,1,3,3,4,3,2,4,2]",
+        "output": "true"
+      }
+    ],
+    "hints": [
+      "Can you check membership in O(1)?",
+      "A hash set lets you track seen elements.",
+      "Return true as soon as you find a duplicate."
+    ],
+    "approach": "Use a hash set to track elements seen so far. If the current element is already in the set, return true. Otherwise add it. If we finish the loop, return false.",
+    "tags": [
+      "Array",
+      "Hash Set"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def containsDuplicate(nums: list[int]) -> bool:\n    seen = set()\n    for num in nums:\n        if num in seen:\n            return True\n        seen.add(num)\n    return False",
+      "go": "func containsDuplicate(nums []int) bool {\n    seen := make(map[int]bool)\n    for _, num := range nums {\n        if seen[num] {\n            return true\n        }\n        seen[num] = true\n    }\n    return false\n}",
+      "java": "public boolean containsDuplicate(int[] nums) {\n    Set<Integer> seen = new HashSet<>();\n    for (int num : nums) {\n        if (!seen.add(num)) return true;\n    }\n    return false;\n}"
+    }
+  },
+  {
+    "id": 38,
+    "number": "#242",
+    "title": "Valid Anagram",
+    "difficulty": "Easy",
+    "category": "Array",
+    "description": "Given two strings s and t, return true if t is an anagram of s, and false otherwise. An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, using all the original letters exactly once.",
+    "examples": [
+      {
+        "input": "s = \"anagram\", t = \"nagaram\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"rat\", t = \"car\"",
+        "output": "false"
+      }
+    ],
+    "hints": [
+      "Two anagrams have identical character frequencies.",
+      "A 26-element array can count letters efficiently.",
+      "Increment for s, decrement for t, check all zeros."
+    ],
+    "approach": "Count character frequencies. Increment counts for s and decrement for t. If all counts are zero at the end, s and t are anagrams.",
+    "tags": [
+      "Hash Map",
+      "String"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def isAnagram(s: str, t: str) -> bool:\n    if len(s) != len(t):\n        return False\n    count = {}\n    for ch in s:\n        count[ch] = count.get(ch, 0) + 1\n    for ch in t:\n        count[ch] = count.get(ch, 0) - 1\n        if count[ch] < 0:\n            return False\n    return True",
+      "go": "func isAnagram(s string, t string) bool {\n    if len(s) != len(t) {\n        return false\n    }\n    count := [26]int{}\n    for i := 0; i < len(s); i++ {\n        count[s[i]-'a']++\n        count[t[i]-'a']--\n    }\n    for _, v := range count {\n        if v != 0 {\n            return false\n        }\n    }\n    return true\n}",
+      "java": "public boolean isAnagram(String s, String t) {\n    if (s.length() != t.length()) return false;\n    int[] count = new int[26];\n    for (int i = 0; i < s.length(); i++) {\n        count[s.charAt(i) - 'a']++;\n        count[t.charAt(i) - 'a']--;\n    }\n    for (int c : count) {\n        if (c != 0) return false;\n    }\n    return true;\n}"
+    }
+  },
+  {
+    "id": 39,
+    "number": "#49",
+    "title": "Group Anagrams",
+    "difficulty": "Medium",
+    "category": "Array",
+    "description": "Given an array of strings strs, group the anagrams together. You can return the answer in any order.",
+    "examples": [
+      {
+        "input": "strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]",
+        "output": "[[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]"
+      },
+      {
+        "input": "strs = [\"\"]",
+        "output": "[[\"\"]]"
+      }
+    ],
+    "hints": [
+      "Anagrams share the same sorted form.",
+      "Use the sorted word as a key in a hash map.",
+      "Group all words that map to the same key."
+    ],
+    "approach": "For each string, sort its characters to form a canonical key and group strings with the same key together using a hash map.",
+    "tags": [
+      "Hash Map",
+      "String",
+      "Sorting"
+    ],
+    "timeComplexity": "O(n * k log k) where k is max string length",
+    "spaceComplexity": "O(n * k)",
+    "solutions": {
+      "python": "from collections import defaultdict\n\ndef groupAnagrams(strs: list[str]) -> list[list[str]]:\n    groups = defaultdict(list)\n    for s in strs:\n        key = tuple(sorted(s))\n        groups[key].append(s)\n    return list(groups.values())",
+      "go": "func groupAnagrams(strs []string) [][]string {\n    groups := make(map[string][]string)\n    for _, s := range strs {\n        b := []byte(s)\n        sort.Slice(b, func(i, j int) bool { return b[i] < b[j] })\n        key := string(b)\n        groups[key] = append(groups[key], s)\n    }\n    result := make([][]string, 0, len(groups))\n    for _, v := range groups {\n        result = append(result, v)\n    }\n    return result\n}",
+      "java": "public List<List<String>> groupAnagrams(String[] strs) {\n    Map<String, List<String>> groups = new HashMap<>();\n    for (String s : strs) {\n        char[] chars = s.toCharArray();\n        Arrays.sort(chars);\n        String key = new String(chars);\n        groups.computeIfAbsent(key, k -> new ArrayList<>()).add(s);\n    }\n    return new ArrayList<>(groups.values());\n}"
+    }
+  },
+  {
+    "id": 40,
+    "number": "#347",
+    "title": "Top K Frequent Elements",
+    "difficulty": "Medium",
+    "category": "Array",
+    "description": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.",
+    "examples": [
+      {
+        "input": "nums = [1,1,1,2,2,3], k = 2",
+        "output": "[1,2]"
+      },
+      {
+        "input": "nums = [1], k = 1",
+        "output": "[1]"
+      }
+    ],
+    "hints": [
+      "Count frequencies with a hash map first.",
+      "Bucket sort: index by frequency (0 to n).",
+      "Read buckets from highest frequency down until k elements are collected."
+    ],
+    "approach": "Count frequencies with a hash map. Use bucket sort where index = frequency. Collect elements from the highest-frequency bucket downward until k elements are gathered.",
+    "tags": [
+      "Hash Map",
+      "Bucket Sort"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def topKFrequent(nums: list[int], k: int) -> list[int]:\n    count = {}\n    for num in nums:\n        count[num] = count.get(num, 0) + 1\n    buckets = [[] for _ in range(len(nums) + 1)]\n    for num, freq in count.items():\n        buckets[freq].append(num)\n    result = []\n    for freq in range(len(buckets) - 1, 0, -1):\n        for num in buckets[freq]:\n            result.append(num)\n            if len(result) == k:\n                return result\n    return result",
+      "go": "func topKFrequent(nums []int, k int) []int {\n    count := make(map[int]int)\n    for _, num := range nums {\n        count[num]++\n    }\n    buckets := make([][]int, len(nums)+1)\n    for num, freq := range count {\n        buckets[freq] = append(buckets[freq], num)\n    }\n    result := []int{}\n    for freq := len(buckets) - 1; freq > 0 && len(result) < k; freq-- {\n        result = append(result, buckets[freq]...)\n    }\n    return result[:k]\n}",
+      "java": "public int[] topKFrequent(int[] nums, int k) {\n    Map<Integer, Integer> count = new HashMap<>();\n    for (int num : nums) count.merge(num, 1, Integer::sum);\n    List<Integer>[] buckets = new List[nums.length + 1];\n    for (Map.Entry<Integer, Integer> e : count.entrySet()) {\n        int freq = e.getValue();\n        if (buckets[freq] == null) buckets[freq] = new ArrayList<>();\n        buckets[freq].add(e.getKey());\n    }\n    int[] result = new int[k];\n    int idx = 0;\n    for (int freq = buckets.length - 1; freq > 0 && idx < k; freq--) {\n        if (buckets[freq] != null)\n            for (int num : buckets[freq])\n                if (idx < k) result[idx++] = num;\n    }\n    return result;\n}"
+    }
+  },
+  {
+    "id": 41,
+    "number": "#271",
+    "title": "Encode and Decode Strings",
+    "difficulty": "Medium",
+    "category": "Array",
+    "description": "Design an algorithm to encode a list of strings to a single string. The encoded string is then sent over the network and is decoded back to the original list of strings. Implement encode and decode functions.",
+    "examples": [
+      {
+        "input": "strs = [\"lint\",\"code\",\"love\",\"you\"]",
+        "output": "[\"lint\",\"code\",\"love\",\"you\"]",
+        "explanation": "Encoded then decoded returns the original list"
+      },
+      {
+        "input": "strs = [\"we\",\"say\",\":\",\"yes\"]",
+        "output": "[\"we\",\"say\",\":\",\"yes\"]"
+      }
+    ],
+    "hints": [
+      "Simple delimiters won't work if strings can contain any character.",
+      "Prefix each string with its length and a separator.",
+      "Length-prefix format: \"4#lint4#code4#love3#you\""
+    ],
+    "approach": "Use length-prefix encoding: for each string, prepend its length and a \"#\" delimiter. To decode, read the length, skip past \"#\", then slice that many characters.",
+    "tags": [
+      "String",
+      "Design"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def encode(strs: list[str]) -> str:\n    return \"\".join(f\"{len(s)}#{s}\" for s in strs)\n\ndef decode(s: str) -> list[str]:\n    result = []\n    i = 0\n    while i < len(s):\n        j = s.index(\"#\", i)\n        length = int(s[i:j])\n        result.append(s[j+1:j+1+length])\n        i = j + 1 + length\n    return result",
+      "go": "func encode(strs []string) string {\n    var sb strings.Builder\n    for _, s := range strs {\n        sb.WriteString(fmt.Sprintf(\"%d#%s\", len(s), s))\n    }\n    return sb.String()\n}\n\nfunc decode(s string) []string {\n    result := []string{}\n    i := 0\n    for i < len(s) {\n        j := strings.Index(s[i:], \"#\") + i\n        length, _ := strconv.Atoi(s[i:j])\n        result = append(result, s[j+1:j+1+length])\n        i = j + 1 + length\n    }\n    return result\n}",
+      "java": "public String encode(List<String> strs) {\n    StringBuilder sb = new StringBuilder();\n    for (String s : strs) sb.append(s.length()).append(\"#\").append(s);\n    return sb.toString();\n}\n\npublic List<String> decode(String s) {\n    List<String> result = new ArrayList<>();\n    int i = 0;\n    while (i < s.length()) {\n        int j = s.indexOf(\"#\", i);\n        int length = Integer.parseInt(s.substring(i, j));\n        result.add(s.substring(j + 1, j + 1 + length));\n        i = j + 1 + length;\n    }\n    return result;\n}"
+    }
+  },
+  {
+    "id": 42,
+    "number": "#238",
+    "title": "Product of Array Except Self",
+    "difficulty": "Medium",
+    "category": "Array",
+    "description": "Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i]. You must write an algorithm that runs in O(n) time and without using the division operation.",
+    "examples": [
+      {
+        "input": "nums = [1,2,3,4]",
+        "output": "[24,12,8,6]"
+      },
+      {
+        "input": "nums = [-1,1,0,-3,3]",
+        "output": "[0,0,9,0,0]"
+      }
+    ],
+    "hints": [
+      "Think prefix products and suffix products.",
+      "answer[i] = product of all elements to the left * product of all elements to the right.",
+      "Can you do it in O(1) extra space (excluding the output array)?"
+    ],
+    "approach": "First pass: fill output with prefix products. Second pass: multiply each position by the running suffix product. This avoids division and uses O(1) extra space.",
+    "tags": [
+      "Array",
+      "Prefix Sum"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def productExceptSelf(nums: list[int]) -> list[int]:\n    n = len(nums)\n    result = [1] * n\n    prefix = 1\n    for i in range(n):\n        result[i] = prefix\n        prefix *= nums[i]\n    suffix = 1\n    for i in range(n - 1, -1, -1):\n        result[i] *= suffix\n        suffix *= nums[i]\n    return result",
+      "go": "func productExceptSelf(nums []int) []int {\n    n := len(nums)\n    result := make([]int, n)\n    prefix := 1\n    for i := 0; i < n; i++ {\n        result[i] = prefix\n        prefix *= nums[i]\n    }\n    suffix := 1\n    for i := n - 1; i >= 0; i-- {\n        result[i] *= suffix\n        suffix *= nums[i]\n    }\n    return result\n}",
+      "java": "public int[] productExceptSelf(int[] nums) {\n    int n = nums.length;\n    int[] result = new int[n];\n    int prefix = 1;\n    for (int i = 0; i < n; i++) {\n        result[i] = prefix;\n        prefix *= nums[i];\n    }\n    int suffix = 1;\n    for (int i = n - 1; i >= 0; i--) {\n        result[i] *= suffix;\n        suffix *= nums[i];\n    }\n    return result;\n}"
+    }
+  },
+  {
+    "id": 43,
+    "number": "#128",
+    "title": "Longest Consecutive Sequence",
+    "difficulty": "Medium",
+    "category": "Array",
+    "description": "Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence. You must write an algorithm that runs in O(n) time.",
+    "examples": [
+      {
+        "input": "nums = [100,4,200,1,3,2]",
+        "output": "4",
+        "explanation": "The longest consecutive sequence is [1,2,3,4]"
+      },
+      {
+        "input": "nums = [0,3,7,2,5,8,4,6,0,1]",
+        "output": "9"
+      }
+    ],
+    "hints": [
+      "Put all numbers in a hash set for O(1) lookup.",
+      "A number starts a new sequence only if num-1 is not in the set.",
+      "From each sequence start, count how long the streak extends."
+    ],
+    "approach": "Add all numbers to a set. For each number that has no predecessor (num-1 not in set), extend the sequence upward counting consecutive numbers. Track the longest streak found.",
+    "tags": [
+      "Array",
+      "Hash Set"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def longestConsecutive(nums: list[int]) -> int:\n    num_set = set(nums)\n    longest = 0\n    for num in num_set:\n        if num - 1 not in num_set:\n            length = 1\n            while num + length in num_set:\n                length += 1\n            longest = max(longest, length)\n    return longest",
+      "go": "func longestConsecutive(nums []int) int {\n    numSet := make(map[int]bool)\n    for _, num := range nums {\n        numSet[num] = true\n    }\n    longest := 0\n    for num := range numSet {\n        if !numSet[num-1] {\n            length := 1\n            for numSet[num+length] {\n                length++\n            }\n            if length > longest {\n                longest = length\n            }\n        }\n    }\n    return longest\n}",
+      "java": "public int longestConsecutive(int[] nums) {\n    Set<Integer> numSet = new HashSet<>();\n    for (int num : nums) numSet.add(num);\n    int longest = 0;\n    for (int num : numSet) {\n        if (!numSet.contains(num - 1)) {\n            int length = 1;\n            while (numSet.contains(num + length)) length++;\n            longest = Math.max(longest, length);\n        }\n    }\n    return longest;\n}"
+    }
+  },
+  {
+    "id": 44,
+    "number": "#125",
+    "title": "Valid Palindrome",
+    "difficulty": "Easy",
+    "category": "Two Pointers",
+    "description": "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Given a string s, return true if it is a palindrome, or false otherwise.",
+    "examples": [
+      {
+        "input": "s = \"A man, a plan, a canal: Panama\"",
+        "output": "true",
+        "explanation": "\"amanaplanacanalpanama\" is a palindrome"
+      },
+      {
+        "input": "s = \"race a car\"",
+        "output": "false"
+      },
+      {
+        "input": "s = \" \"",
+        "output": "true"
+      }
+    ],
+    "hints": [
+      "Use two pointers from both ends.",
+      "Skip non-alphanumeric characters.",
+      "Compare characters case-insensitively."
+    ],
+    "approach": "Use two pointers starting from both ends. Skip non-alphanumeric characters on each side. Compare characters (case-insensitive). Return false on mismatch, true if pointers meet.",
+    "tags": [
+      "String",
+      "Two Pointers"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def isPalindrome(s: str) -> bool:\n    left, right = 0, len(s) - 1\n    while left < right:\n        while left < right and not s[left].isalnum():\n            left += 1\n        while left < right and not s[right].isalnum():\n            right -= 1\n        if s[left].lower() != s[right].lower():\n            return False\n        left += 1\n        right -= 1\n    return True",
+      "go": "func isPalindrome(s string) bool {\n    left, right := 0, len(s)-1\n    isAlnum := func(b byte) bool {\n        return (b >= 'a' && b <= 'z') || (b >= 'A' && b <= 'Z') || (b >= '0' && b <= '9')\n    }\n    toLower := func(b byte) byte {\n        if b >= 'A' && b <= 'Z' { return b + 32 }\n        return b\n    }\n    for left < right {\n        for left < right && !isAlnum(s[left]) { left++ }\n        for left < right && !isAlnum(s[right]) { right-- }\n        if toLower(s[left]) != toLower(s[right]) {\n            return false\n        }\n        left++; right--\n    }\n    return true\n}",
+      "java": "public boolean isPalindrome(String s) {\n    int left = 0, right = s.length() - 1;\n    while (left < right) {\n        while (left < right && !Character.isLetterOrDigit(s.charAt(left))) left++;\n        while (left < right && !Character.isLetterOrDigit(s.charAt(right))) right--;\n        if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right)))\n            return false;\n        left++; right--;\n    }\n    return true;\n}"
+    }
+  },
+  {
+    "id": 45,
+    "number": "#15",
+    "title": "3Sum",
+    "difficulty": "Medium",
+    "category": "Two Pointers",
+    "description": "Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, j != k, and nums[i] + nums[j] + nums[k] == 0. The solution set must not contain duplicate triplets.",
+    "examples": [
+      {
+        "input": "nums = [-1,0,1,2,-1,-4]",
+        "output": "[[-1,-1,2],[-1,0,1]]"
+      },
+      {
+        "input": "nums = [0,1,1]",
+        "output": "[]"
+      },
+      {
+        "input": "nums = [0,0,0]",
+        "output": "[[0,0,0]]"
+      }
+    ],
+    "hints": [
+      "Sort the array first.",
+      "Fix one element, then use two pointers on the rest.",
+      "Skip duplicate values to avoid duplicate triplets."
+    ],
+    "approach": "Sort the array. For each index i, use two pointers (left=i+1, right=end) to find pairs summing to -nums[i]. Skip duplicates at each step.",
+    "tags": [
+      "Array",
+      "Two Pointers",
+      "Sorting"
+    ],
+    "timeComplexity": "O(n^2)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def threeSum(nums: list[int]) -> list[list[int]]:\n    nums.sort()\n    result = []\n    for i in range(len(nums) - 2):\n        if i > 0 and nums[i] == nums[i - 1]:\n            continue\n        left, right = i + 1, len(nums) - 1\n        while left < right:\n            total = nums[i] + nums[left] + nums[right]\n            if total == 0:\n                result.append([nums[i], nums[left], nums[right]])\n                while left < right and nums[left] == nums[left + 1]:\n                    left += 1\n                while left < right and nums[right] == nums[right - 1]:\n                    right -= 1\n                left += 1\n                right -= 1\n            elif total < 0:\n                left += 1\n            else:\n                right -= 1\n    return result",
+      "go": "func threeSum(nums []int) [][]int {\n    sort.Ints(nums)\n    result := [][]int{}\n    for i := 0; i < len(nums)-2; i++ {\n        if i > 0 && nums[i] == nums[i-1] {\n            continue\n        }\n        left, right := i+1, len(nums)-1\n        for left < right {\n            total := nums[i] + nums[left] + nums[right]\n            if total == 0 {\n                result = append(result, []int{nums[i], nums[left], nums[right]})\n                for left < right && nums[left] == nums[left+1] { left++ }\n                for left < right && nums[right] == nums[right-1] { right-- }\n                left++; right--\n            } else if total < 0 {\n                left++\n            } else {\n                right--\n            }\n        }\n    }\n    return result\n}",
+      "java": "public List<List<Integer>> threeSum(int[] nums) {\n    Arrays.sort(nums);\n    List<List<Integer>> result = new ArrayList<>();\n    for (int i = 0; i < nums.length - 2; i++) {\n        if (i > 0 && nums[i] == nums[i - 1]) continue;\n        int left = i + 1, right = nums.length - 1;\n        while (left < right) {\n            int total = nums[i] + nums[left] + nums[right];\n            if (total == 0) {\n                result.add(Arrays.asList(nums[i], nums[left], nums[right]));\n                while (left < right && nums[left] == nums[left + 1]) left++;\n                while (left < right && nums[right] == nums[right - 1]) right--;\n                left++; right--;\n            } else if (total < 0) left++;\n            else right--;\n        }\n    }\n    return result;\n}"
+    }
+  },
+  {
+    "id": 46,
+    "number": "#11",
+    "title": "Container With Most Water",
+    "difficulty": "Medium",
+    "category": "Two Pointers",
+    "description": "You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]). Find two lines that together with the x-axis form a container, such that the container contains the most water. Return the maximum amount of water a container can store.",
+    "examples": [
+      {
+        "input": "height = [1,8,6,2,5,4,8,3,7]",
+        "output": "49"
+      },
+      {
+        "input": "height = [1,1]",
+        "output": "1"
+      }
+    ],
+    "hints": [
+      "Use two pointers starting at both ends.",
+      "Water = min(height[left], height[right]) * (right - left).",
+      "Move the pointer with the smaller height inward."
+    ],
+    "approach": "Start with pointers at both ends. Calculate area, update max. Move the pointer with the smaller height inward \u2014 only moving the taller one could never increase the area.",
+    "tags": [
+      "Array",
+      "Two Pointers"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def maxArea(height: list[int]) -> int:\n    left, right = 0, len(height) - 1\n    max_water = 0\n    while left < right:\n        water = min(height[left], height[right]) * (right - left)\n        max_water = max(max_water, water)\n        if height[left] < height[right]:\n            left += 1\n        else:\n            right -= 1\n    return max_water",
+      "go": "func maxArea(height []int) int {\n    left, right := 0, len(height)-1\n    maxWater := 0\n    for left < right {\n        h := height[left]\n        if height[right] < h {\n            h = height[right]\n        }\n        water := h * (right - left)\n        if water > maxWater {\n            maxWater = water\n        }\n        if height[left] < height[right] {\n            left++\n        } else {\n            right--\n        }\n    }\n    return maxWater\n}",
+      "java": "public int maxArea(int[] height) {\n    int left = 0, right = height.length - 1, maxWater = 0;\n    while (left < right) {\n        int water = Math.min(height[left], height[right]) * (right - left);\n        maxWater = Math.max(maxWater, water);\n        if (height[left] < height[right]) left++;\n        else right--;\n    }\n    return maxWater;\n}"
+    }
+  },
+  {
+    "id": 47,
+    "number": "#121",
+    "title": "Best Time to Buy and Sell Stock",
+    "difficulty": "Easy",
+    "category": "Two Pointers",
+    "description": "You are given an array prices where prices[i] is the price of a given stock on the ith day. You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock. Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.",
+    "examples": [
+      {
+        "input": "prices = [7,1,5,3,6,4]",
+        "output": "5",
+        "explanation": "Buy on day 2 (price=1), sell on day 5 (price=6), profit=5"
+      },
+      {
+        "input": "prices = [7,6,4,3,1]",
+        "output": "0"
+      }
+    ],
+    "hints": [
+      "Track the minimum price seen so far.",
+      "At each day, profit = current price - min price so far.",
+      "Track the maximum profit seen."
+    ],
+    "approach": "Track the minimum price seen so far. At each step compute the potential profit if selling today. Update max profit accordingly.",
+    "tags": [
+      "Array",
+      "Two Pointers"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def maxProfit(prices: list[int]) -> int:\n    min_price = float('inf')\n    max_profit = 0\n    for price in prices:\n        min_price = min(min_price, price)\n        max_profit = max(max_profit, price - min_price)\n    return max_profit",
+      "go": "func maxProfit(prices []int) int {\n    minPrice := math.MaxInt64\n    maxProfit := 0\n    for _, price := range prices {\n        if price < minPrice {\n            minPrice = price\n        }\n        if price-minPrice > maxProfit {\n            maxProfit = price - minPrice\n        }\n    }\n    return maxProfit\n}",
+      "java": "public int maxProfit(int[] prices) {\n    int minPrice = Integer.MAX_VALUE, maxProfit = 0;\n    for (int price : prices) {\n        minPrice = Math.min(minPrice, price);\n        maxProfit = Math.max(maxProfit, price - minPrice);\n    }\n    return maxProfit;\n}"
+    }
+  },
+  {
+    "id": 48,
+    "number": "#3",
+    "title": "Longest Substring Without Repeating Characters",
+    "difficulty": "Medium",
+    "category": "Sliding Window",
+    "description": "Given a string s, find the length of the longest substring without repeating characters.",
+    "examples": [
+      {
+        "input": "s = \"abcabcbb\"",
+        "output": "3",
+        "explanation": "The answer is \"abc\", with the length of 3"
+      },
+      {
+        "input": "s = \"bbbbb\"",
+        "output": "1"
+      },
+      {
+        "input": "s = \"pwwkew\"",
+        "output": "3"
+      }
+    ],
+    "hints": [
+      "Use a sliding window with a set to track characters in the window.",
+      "Expand the right pointer; when a duplicate is found, shrink from the left.",
+      "Track the maximum window size seen."
+    ],
+    "approach": "Sliding window with a hash set. Expand right; if duplicate found, remove characters from the left until no duplicate. Track max window length.",
+    "tags": [
+      "String",
+      "Sliding Window",
+      "Hash Set"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def lengthOfLongestSubstring(s: str) -> int:\n    char_set = set()\n    left = 0\n    max_len = 0\n    for right in range(len(s)):\n        while s[right] in char_set:\n            char_set.remove(s[left])\n            left += 1\n        char_set.add(s[right])\n        max_len = max(max_len, right - left + 1)\n    return max_len",
+      "go": "func lengthOfLongestSubstring(s string) int {\n    charSet := make(map[byte]bool)\n    left, maxLen := 0, 0\n    for right := 0; right < len(s); right++ {\n        for charSet[s[right]] {\n            delete(charSet, s[left])\n            left++\n        }\n        charSet[s[right]] = true\n        if right-left+1 > maxLen {\n            maxLen = right - left + 1\n        }\n    }\n    return maxLen\n}",
+      "java": "public int lengthOfLongestSubstring(String s) {\n    Set<Character> charSet = new HashSet<>();\n    int left = 0, maxLen = 0;\n    for (int right = 0; right < s.length(); right++) {\n        while (charSet.contains(s.charAt(right))) {\n            charSet.remove(s.charAt(left++));\n        }\n        charSet.add(s.charAt(right));\n        maxLen = Math.max(maxLen, right - left + 1);\n    }\n    return maxLen;\n}"
+    }
+  },
+  {
+    "id": 49,
+    "number": "#424",
+    "title": "Longest Repeating Character Replacement",
+    "difficulty": "Medium",
+    "category": "Sliding Window",
+    "description": "You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times. Return the length of the longest substring containing the same letter you can get after performing the above operations.",
+    "examples": [
+      {
+        "input": "s = \"ABAB\", k = 2",
+        "output": "4",
+        "explanation": "Replace the two 'A's with 'B's or vice versa"
+      },
+      {
+        "input": "s = \"AABABBA\", k = 1",
+        "output": "4"
+      }
+    ],
+    "hints": [
+      "Use a sliding window and track character frequencies.",
+      "Window is valid if: window_size - max_freq <= k.",
+      "When invalid, shrink from the left."
+    ],
+    "approach": "Sliding window tracking character counts. A window is valid when (window size - most frequent char count) <= k. Expand right freely; shrink left when invalid. Track max window size.",
+    "tags": [
+      "String",
+      "Sliding Window"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def characterReplacement(s: str, k: int) -> int:\n    count = {}\n    left = 0\n    max_freq = 0\n    max_len = 0\n    for right in range(len(s)):\n        count[s[right]] = count.get(s[right], 0) + 1\n        max_freq = max(max_freq, count[s[right]])\n        while (right - left + 1) - max_freq > k:\n            count[s[left]] -= 1\n            left += 1\n        max_len = max(max_len, right - left + 1)\n    return max_len",
+      "go": "func characterReplacement(s string, k int) int {\n    count := [26]int{}\n    left, maxFreq, maxLen := 0, 0, 0\n    for right := 0; right < len(s); right++ {\n        count[s[right]-'A']++\n        if count[s[right]-'A'] > maxFreq {\n            maxFreq = count[s[right]-'A']\n        }\n        for (right-left+1)-maxFreq > k {\n            count[s[left]-'A']--\n            left++\n        }\n        if right-left+1 > maxLen {\n            maxLen = right - left + 1\n        }\n    }\n    return maxLen\n}",
+      "java": "public int characterReplacement(String s, int k) {\n    int[] count = new int[26];\n    int left = 0, maxFreq = 0, maxLen = 0;\n    for (int right = 0; right < s.length(); right++) {\n        count[s.charAt(right) - 'A']++;\n        maxFreq = Math.max(maxFreq, count[s.charAt(right) - 'A']);\n        while ((right - left + 1) - maxFreq > k) {\n            count[s.charAt(left++) - 'A']--;\n        }\n        maxLen = Math.max(maxLen, right - left + 1);\n    }\n    return maxLen;\n}"
+    }
+  },
+  {
+    "id": 50,
+    "number": "#76",
+    "title": "Minimum Window Substring",
+    "difficulty": "Hard",
+    "category": "Sliding Window",
+    "description": "Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string \"\".",
+    "examples": [
+      {
+        "input": "s = \"ADOBECODEBANC\", t = \"ABC\"",
+        "output": "\"BANC\""
+      },
+      {
+        "input": "s = \"a\", t = \"a\"",
+        "output": "\"a\""
+      },
+      {
+        "input": "s = \"a\", t = \"aa\"",
+        "output": "\"\""
+      }
+    ],
+    "hints": [
+      "Use a sliding window with two frequency maps.",
+      "Track how many distinct characters from t are satisfied (have >= required count).",
+      "Shrink the window from the left when all characters are satisfied."
+    ],
+    "approach": "Use a sliding window. Expand right, updating character counts. When all t characters are satisfied, try shrinking from left to find the minimum valid window. Track the smallest such window.",
+    "tags": [
+      "String",
+      "Sliding Window",
+      "Hash Map"
+    ],
+    "timeComplexity": "O(m + n)",
+    "spaceComplexity": "O(m + n)",
+    "solutions": {
+      "python": "def minWindow(s: str, t: str) -> str:\n    if not t:\n        return \"\"\n    need = {}\n    for ch in t:\n        need[ch] = need.get(ch, 0) + 1\n    have, required = 0, len(need)\n    window = {}\n    left = 0\n    result = \"\"\n    min_len = float('inf')\n    for right in range(len(s)):\n        ch = s[right]\n        window[ch] = window.get(ch, 0) + 1\n        if ch in need and window[ch] == need[ch]:\n            have += 1\n        while have == required:\n            if right - left + 1 < min_len:\n                min_len = right - left + 1\n                result = s[left:right + 1]\n            window[s[left]] -= 1\n            if s[left] in need and window[s[left]] < need[s[left]]:\n                have -= 1\n            left += 1\n    return result",
+      "go": "func minWindow(s string, t string) string {\n    need := make(map[byte]int)\n    for i := 0; i < len(t); i++ {\n        need[t[i]]++\n    }\n    window := make(map[byte]int)\n    have, required := 0, len(need)\n    left, minLen := 0, len(s)+1\n    result := \"\"\n    for right := 0; right < len(s); right++ {\n        ch := s[right]\n        window[ch]++\n        if need[ch] > 0 && window[ch] == need[ch] {\n            have++\n        }\n        for have == required {\n            if right-left+1 < minLen {\n                minLen = right - left + 1\n                result = s[left : right+1]\n            }\n            window[s[left]]--\n            if need[s[left]] > 0 && window[s[left]] < need[s[left]] {\n                have--\n            }\n            left++\n        }\n    }\n    return result\n}",
+      "java": "public String minWindow(String s, String t) {\n    Map<Character, Integer> need = new HashMap<>();\n    for (char ch : t.toCharArray()) need.merge(ch, 1, Integer::sum);\n    Map<Character, Integer> window = new HashMap<>();\n    int have = 0, required = need.size();\n    int left = 0, minLen = Integer.MAX_VALUE, start = 0;\n    for (int right = 0; right < s.length(); right++) {\n        char ch = s.charAt(right);\n        window.merge(ch, 1, Integer::sum);\n        if (need.containsKey(ch) && window.get(ch).equals(need.get(ch))) have++;\n        while (have == required) {\n            if (right - left + 1 < minLen) { minLen = right - left + 1; start = left; }\n            char lc = s.charAt(left++);\n            window.merge(lc, -1, Integer::sum);\n            if (need.containsKey(lc) && window.get(lc) < need.get(lc)) have--;\n        }\n    }\n    return minLen == Integer.MAX_VALUE ? \"\" : s.substring(start, start + minLen);\n}"
+    }
+  },
+  {
+    "id": 51,
+    "number": "#153",
+    "title": "Find Minimum in Rotated Sorted Array",
+    "difficulty": "Medium",
+    "category": "Binary Search",
+    "description": "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. Given the sorted rotated array nums of unique elements, return the minimum element of this array. You must write an algorithm that runs in O(log n) time.",
+    "examples": [
+      {
+        "input": "nums = [3,4,5,1,2]",
+        "output": "1"
+      },
+      {
+        "input": "nums = [4,5,6,7,0,1,2]",
+        "output": "0"
+      },
+      {
+        "input": "nums = [11,13,15,17]",
+        "output": "11"
+      }
+    ],
+    "hints": [
+      "Use binary search.",
+      "If nums[mid] > nums[right], the minimum is in the right half.",
+      "Otherwise, the minimum is in the left half (including mid)."
+    ],
+    "approach": "Binary search: if the mid element is greater than the rightmost element, the minimum lies in the right half. Otherwise it lies in the left half (including mid). Converge until left == right.",
+    "tags": [
+      "Array",
+      "Binary Search"
+    ],
+    "timeComplexity": "O(log n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def findMin(nums: list[int]) -> int:\n    left, right = 0, len(nums) - 1\n    while left < right:\n        mid = (left + right) // 2\n        if nums[mid] > nums[right]:\n            left = mid + 1\n        else:\n            right = mid\n    return nums[left]",
+      "go": "func findMin(nums []int) int {\n    left, right := 0, len(nums)-1\n    for left < right {\n        mid := (left + right) / 2\n        if nums[mid] > nums[right] {\n            left = mid + 1\n        } else {\n            right = mid\n        }\n    }\n    return nums[left]\n}",
+      "java": "public int findMin(int[] nums) {\n    int left = 0, right = nums.length - 1;\n    while (left < right) {\n        int mid = (left + right) / 2;\n        if (nums[mid] > nums[right]) left = mid + 1;\n        else right = mid;\n    }\n    return nums[left];\n}"
+    }
+  },
+  {
+    "id": 52,
+    "number": "#235",
+    "title": "Lowest Common Ancestor of a Binary Search Tree",
+    "difficulty": "Medium",
+    "category": "Tree",
+    "description": "Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes p and q. The LCA is defined as the lowest node in the tree that has both p and q as descendants (a node can be a descendant of itself).",
+    "examples": [
+      {
+        "input": "root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8",
+        "output": "6"
+      },
+      {
+        "input": "root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4",
+        "output": "2"
+      }
+    ],
+    "hints": [
+      "Use the BST property: left < node < right.",
+      "If both p and q are smaller than current node, go left.",
+      "If both are larger, go right. Otherwise, current node is the LCA."
+    ],
+    "approach": "Leverage BST ordering. If both p and q are less than current node, recurse left. If both are greater, recurse right. Otherwise the current node is the split point \u2014 the LCA.",
+    "tags": [
+      "Tree",
+      "BST"
+    ],
+    "timeComplexity": "O(h) where h is tree height",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def lowestCommonAncestor(root, p, q):\n    while root:\n        if p.val < root.val and q.val < root.val:\n            root = root.left\n        elif p.val > root.val and q.val > root.val:\n            root = root.right\n        else:\n            return root",
+      "go": "func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {\n    for root != nil {\n        if p.Val < root.Val && q.Val < root.Val {\n            root = root.Left\n        } else if p.Val > root.Val && q.Val > root.Val {\n            root = root.Right\n        } else {\n            return root\n        }\n    }\n    return nil\n}",
+      "java": "public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {\n    while (root != null) {\n        if (p.val < root.val && q.val < root.val) root = root.left;\n        else if (p.val > root.val && q.val > root.val) root = root.right;\n        else return root;\n    }\n    return null;\n}"
+    }
+  },
+  {
+    "id": 53,
+    "number": "#98",
+    "title": "Validate Binary Search Tree",
+    "difficulty": "Medium",
+    "category": "Tree",
+    "description": "Given the root of a binary tree, determine if it is a valid binary search tree (BST). A valid BST is defined as follows: the left subtree of a node contains only nodes with keys less than the node's key; the right subtree contains only nodes with keys greater than the node's key; both subtrees must also be binary search trees.",
+    "examples": [
+      {
+        "input": "root = [2,1,3]",
+        "output": "true"
+      },
+      {
+        "input": "root = [5,1,4,null,null,3,6]",
+        "output": "false",
+        "explanation": "The root node's value is 5 but its right child's value is 4."
+      }
+    ],
+    "hints": [
+      "Pass down valid min/max bounds for each node.",
+      "Left child must be less than current node's value.",
+      "Right child must be greater than current node's value."
+    ],
+    "approach": "DFS with min/max bounds. Each node must satisfy min < node.val < max. Pass updated bounds down: right subtree gets a new min, left subtree gets a new max.",
+    "tags": [
+      "Tree",
+      "DFS",
+      "BST"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(h)",
+    "solutions": {
+      "python": "def isValidBST(root) -> bool:\n    def validate(node, min_val, max_val):\n        if not node:\n            return True\n        if node.val <= min_val or node.val >= max_val:\n            return False\n        return validate(node.left, min_val, node.val) and validate(node.right, node.val, max_val)\n    return validate(root, float('-inf'), float('inf'))",
+      "go": "func isValidBST(root *TreeNode) bool {\n    var validate func(node *TreeNode, min, max int) bool\n    validate = func(node *TreeNode, min, max int) bool {\n        if node == nil {\n            return true\n        }\n        if node.Val <= min || node.Val >= max {\n            return false\n        }\n        return validate(node.Left, min, node.Val) && validate(node.Right, node.Val, max)\n    }\n    return validate(root, math.MinInt64, math.MaxInt64)\n}",
+      "java": "public boolean isValidBST(TreeNode root) {\n    return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);\n}\nprivate boolean validate(TreeNode node, long min, long max) {\n    if (node == null) return true;\n    if (node.val <= min || node.val >= max) return false;\n    return validate(node.left, min, node.val) && validate(node.right, node.val, max);\n}"
+    }
+  },
+  {
+    "id": 54,
+    "number": "#230",
+    "title": "Kth Smallest Element in a BST",
+    "difficulty": "Medium",
+    "category": "Tree",
+    "description": "Given the root of a binary search tree, and an integer k, return the kth smallest value (1-indexed) of all the values of the nodes in the tree.",
+    "examples": [
+      {
+        "input": "root = [3,1,4,null,2], k = 1",
+        "output": "1"
+      },
+      {
+        "input": "root = [5,3,6,2,4,null,null,1], k = 3",
+        "output": "3"
+      }
+    ],
+    "hints": [
+      "In-order traversal of a BST yields sorted order.",
+      "Count nodes visited; the kth node is the answer.",
+      "Can be done iteratively with a stack."
+    ],
+    "approach": "In-order traversal (left \u2192 node \u2192 right) visits BST nodes in ascending order. Count down k; when k reaches 0, return the current node's value.",
+    "tags": [
+      "Tree",
+      "BST",
+      "DFS"
+    ],
+    "timeComplexity": "O(h + k)",
+    "spaceComplexity": "O(h)",
+    "solutions": {
+      "python": "def kthSmallest(root, k: int) -> int:\n    stack = []\n    node = root\n    while stack or node:\n        while node:\n            stack.append(node)\n            node = node.left\n        node = stack.pop()\n        k -= 1\n        if k == 0:\n            return node.val\n        node = node.right",
+      "go": "func kthSmallest(root *TreeNode, k int) int {\n    stack := []*TreeNode{}\n    node := root\n    for len(stack) > 0 || node != nil {\n        for node != nil {\n            stack = append(stack, node)\n            node = node.Left\n        }\n        node = stack[len(stack)-1]\n        stack = stack[:len(stack)-1]\n        k--\n        if k == 0 {\n            return node.Val\n        }\n        node = node.Right\n    }\n    return -1\n}",
+      "java": "public int kthSmallest(TreeNode root, int k) {\n    Deque<TreeNode> stack = new ArrayDeque<>();\n    TreeNode node = root;\n    while (!stack.isEmpty() || node != null) {\n        while (node != null) { stack.push(node); node = node.left; }\n        node = stack.pop();\n        if (--k == 0) return node.val;\n        node = node.right;\n    }\n    return -1;\n}"
+    }
+  },
+  {
+    "id": 55,
+    "number": "#105",
+    "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+    "difficulty": "Medium",
+    "category": "Tree",
+    "description": "Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.",
+    "examples": [
+      {
+        "input": "preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]",
+        "output": "[3,9,20,null,null,15,7]"
+      },
+      {
+        "input": "preorder = [-1], inorder = [-1]",
+        "output": "[-1]"
+      }
+    ],
+    "hints": [
+      "The first element of preorder is always the root.",
+      "Find the root in inorder to split left and right subtrees.",
+      "Use a hash map for O(1) index lookup in inorder."
+    ],
+    "approach": "The first preorder element is the root. Find it in inorder to determine left and right subtree sizes. Recurse with the corresponding slices. Use a hash map for fast inorder index lookup.",
+    "tags": [
+      "Tree",
+      "DFS",
+      "Hash Map"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def buildTree(preorder: list[int], inorder: list[int]):\n    inorder_idx = {val: i for i, val in enumerate(inorder)}\n    pre_idx = [0]\n    def build(left, right):\n        if left > right:\n            return None\n        root_val = preorder[pre_idx[0]]\n        pre_idx[0] += 1\n        node = TreeNode(root_val)\n        mid = inorder_idx[root_val]\n        node.left = build(left, mid - 1)\n        node.right = build(mid + 1, right)\n        return node\n    return build(0, len(inorder) - 1)",
+      "go": "func buildTree(preorder []int, inorder []int) *TreeNode {\n    idxMap := make(map[int]int)\n    for i, v := range inorder {\n        idxMap[v] = i\n    }\n    preIdx := 0\n    var build func(left, right int) *TreeNode\n    build = func(left, right int) *TreeNode {\n        if left > right {\n            return nil\n        }\n        rootVal := preorder[preIdx]\n        preIdx++\n        node := &TreeNode{Val: rootVal}\n        mid := idxMap[rootVal]\n        node.Left = build(left, mid-1)\n        node.Right = build(mid+1, right)\n        return node\n    }\n    return build(0, len(inorder)-1)\n}",
+      "java": "public TreeNode buildTree(int[] preorder, int[] inorder) {\n    Map<Integer, Integer> idxMap = new HashMap<>();\n    for (int i = 0; i < inorder.length; i++) idxMap.put(inorder[i], i);\n    int[] preIdx = {0};\n    return build(preorder, idxMap, preIdx, 0, inorder.length - 1);\n}\nprivate TreeNode build(int[] preorder, Map<Integer,Integer> idxMap, int[] preIdx, int left, int right) {\n    if (left > right) return null;\n    int rootVal = preorder[preIdx[0]++];\n    TreeNode node = new TreeNode(rootVal);\n    int mid = idxMap.get(rootVal);\n    node.left = build(preorder, idxMap, preIdx, left, mid - 1);\n    node.right = build(preorder, idxMap, preIdx, mid + 1, right);\n    return node;\n}"
+    }
+  },
+  {
+    "id": 56,
+    "number": "#124",
+    "title": "Binary Tree Maximum Path Sum",
+    "difficulty": "Hard",
+    "category": "Tree",
+    "description": "A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. The path does not need to pass through the root. Given the root of a binary tree, return the maximum path sum of any non-empty path.",
+    "examples": [
+      {
+        "input": "root = [1,2,3]",
+        "output": "6",
+        "explanation": "The optimal path is 2 -> 1 -> 3"
+      },
+      {
+        "input": "root = [-10,9,20,null,null,15,7]",
+        "output": "42",
+        "explanation": "The optimal path is 15 -> 20 -> 7"
+      }
+    ],
+    "hints": [
+      "For each node, compute the max gain from its left and right subtrees.",
+      "Negative gains should be ignored (treat as 0).",
+      "At each node, the path through it = node.val + left_gain + right_gain. Update global max."
+    ],
+    "approach": "DFS returning the max single-path gain from each node (max of left gain, right gain, or 0, plus node value). At each node update the global max using the full path (left + node + right).",
+    "tags": [
+      "Tree",
+      "DFS"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(h)",
+    "solutions": {
+      "python": "def maxPathSum(root) -> int:\n    max_sum = [float('-inf')]\n    def dfs(node):\n        if not node:\n            return 0\n        left = max(dfs(node.left), 0)\n        right = max(dfs(node.right), 0)\n        max_sum[0] = max(max_sum[0], node.val + left + right)\n        return node.val + max(left, right)\n    dfs(root)\n    return max_sum[0]",
+      "go": "func maxPathSum(root *TreeNode) int {\n    maxSum := math.MinInt64\n    var dfs func(node *TreeNode) int\n    dfs = func(node *TreeNode) int {\n        if node == nil {\n            return 0\n        }\n        left := max(dfs(node.Left), 0)\n        right := max(dfs(node.Right), 0)\n        if node.Val+left+right > maxSum {\n            maxSum = node.Val + left + right\n        }\n        return node.Val + max(left, right)\n    }\n    dfs(root)\n    return maxSum\n}",
+      "java": "int maxSum = Integer.MIN_VALUE;\npublic int maxPathSum(TreeNode root) {\n    dfs(root);\n    return maxSum;\n}\nprivate int dfs(TreeNode node) {\n    if (node == null) return 0;\n    int left = Math.max(dfs(node.left), 0);\n    int right = Math.max(dfs(node.right), 0);\n    maxSum = Math.max(maxSum, node.val + left + right);\n    return node.val + Math.max(left, right);\n}"
+    }
+  },
+  {
+    "id": 57,
+    "number": "#297",
+    "title": "Serialize and Deserialize Binary Tree",
+    "difficulty": "Hard",
+    "category": "Tree",
+    "description": "Serialization is the process of converting a data structure into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network. Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work.",
+    "examples": [
+      {
+        "input": "root = [1,2,3,null,null,4,5]",
+        "output": "[1,2,3,null,null,4,5]",
+        "explanation": "Serialize then deserialize returns the original tree"
+      }
+    ],
+    "hints": [
+      "Use preorder DFS; mark null nodes with a sentinel like 'N'.",
+      "Serialize: root, left subtree, right subtree with commas.",
+      "Deserialize: use a queue/index to consume tokens in the same order."
+    ],
+    "approach": "Preorder DFS serialization: record node values separated by commas, using 'N' for null. Deserialize by consuming tokens in the same preorder sequence using a pointer or deque.",
+    "tags": [
+      "Tree",
+      "DFS",
+      "Design"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def serialize(root) -> str:\n    result = []\n    def dfs(node):\n        if not node:\n            result.append('N')\n            return\n        result.append(str(node.val))\n        dfs(node.left)\n        dfs(node.right)\n    dfs(root)\n    return ','.join(result)\n\ndef deserialize(data: str):\n    tokens = iter(data.split(','))\n    def dfs():\n        val = next(tokens)\n        if val == 'N':\n            return None\n        node = TreeNode(int(val))\n        node.left = dfs()\n        node.right = dfs()\n        return node\n    return dfs()",
+      "go": "func serialize(root *TreeNode) string {\n    var sb strings.Builder\n    var dfs func(node *TreeNode)\n    dfs = func(node *TreeNode) {\n        if node == nil {\n            sb.WriteString(\"N,\")\n            return\n        }\n        sb.WriteString(strconv.Itoa(node.Val) + \",\")\n        dfs(node.Left)\n        dfs(node.Right)\n    }\n    dfs(root)\n    return sb.String()\n}\n\nfunc deserialize(data string) *TreeNode {\n    tokens := strings.Split(data, \",\")\n    idx := 0\n    var dfs func() *TreeNode\n    dfs = func() *TreeNode {\n        if tokens[idx] == \"N\" || tokens[idx] == \"\" {\n            idx++\n            return nil\n        }\n        val, _ := strconv.Atoi(tokens[idx])\n        idx++\n        node := &TreeNode{Val: val}\n        node.Left = dfs()\n        node.Right = dfs()\n        return node\n    }\n    return dfs()\n}",
+      "java": "public String serialize(TreeNode root) {\n    StringBuilder sb = new StringBuilder();\n    serializeDfs(root, sb);\n    return sb.toString();\n}\nprivate void serializeDfs(TreeNode node, StringBuilder sb) {\n    if (node == null) { sb.append(\"N,\"); return; }\n    sb.append(node.val).append(\",\");\n    serializeDfs(node.left, sb);\n    serializeDfs(node.right, sb);\n}\npublic TreeNode deserialize(String data) {\n    Queue<String> tokens = new LinkedList<>(Arrays.asList(data.split(\",\")));\n    return deserializeDfs(tokens);\n}\nprivate TreeNode deserializeDfs(Queue<String> tokens) {\n    String val = tokens.poll();\n    if (\"N\".equals(val)) return null;\n    TreeNode node = new TreeNode(Integer.parseInt(val));\n    node.left = deserializeDfs(tokens);\n    node.right = deserializeDfs(tokens);\n    return node;\n}"
+    }
+  },
+  {
+    "id": 58,
+    "number": "#295",
+    "title": "Find Median from Data Stream",
+    "difficulty": "Hard",
+    "category": "Heap",
+    "description": "The MedianFinder class finds the median from a data stream. Implement MedianFinder() which initializes the object, addNum(int num) which adds a number from the data stream to the data structure, and findMedian() which returns the median of all elements so far.",
+    "examples": [
+      {
+        "input": "[\"MedianFinder\",\"addNum\",\"addNum\",\"findMedian\",\"addNum\",\"findMedian\"] with args [[],[1],[2],[],[3],[]]",
+        "output": "[null,null,null,1.5,null,2.0]"
+      }
+    ],
+    "hints": [
+      "Use two heaps: a max-heap for the lower half, a min-heap for the upper half.",
+      "Keep them balanced: sizes differ by at most 1.",
+      "Median is the top of the larger heap, or average of both tops."
+    ],
+    "approach": "Maintain a max-heap (lower half) and min-heap (upper half). On insert, push to max-heap first, then rebalance. Median is the top of the larger heap or the average of both tops.",
+    "tags": [
+      "Heap",
+      "Design"
+    ],
+    "timeComplexity": "O(log n) addNum, O(1) findMedian",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "import heapq\n\nclass MedianFinder:\n    def __init__(self):\n        self.small = []  # max-heap (negate values)\n        self.large = []  # min-heap\n\n    def addNum(self, num: int) -> None:\n        heapq.heappush(self.small, -num)\n        # Balance: ensure max(small) <= min(large)\n        if self.small and self.large and (-self.small[0]) > self.large[0]:\n            heapq.heappush(self.large, -heapq.heappop(self.small))\n        # Keep sizes balanced\n        if len(self.small) > len(self.large) + 1:\n            heapq.heappush(self.large, -heapq.heappop(self.small))\n        if len(self.large) > len(self.small):\n            heapq.heappush(self.small, -heapq.heappop(self.large))\n\n    def findMedian(self) -> float:\n        if len(self.small) > len(self.large):\n            return -self.small[0]\n        return (-self.small[0] + self.large[0]) / 2.0",
+      "go": "type MedianFinder struct {\n    small MaxHeap  // lower half\n    large MinHeap  // upper half\n}\n\nfunc (mf *MedianFinder) AddNum(num int) {\n    heap.Push(&mf.small, num)\n    if mf.small.Len() > 0 && mf.large.Len() > 0 && mf.small.Top() > mf.large.Top() {\n        heap.Push(&mf.large, heap.Pop(&mf.small))\n    }\n    if mf.small.Len() > mf.large.Len()+1 {\n        heap.Push(&mf.large, heap.Pop(&mf.small))\n    } else if mf.large.Len() > mf.small.Len() {\n        heap.Push(&mf.small, heap.Pop(&mf.large))\n    }\n}\n\nfunc (mf *MedianFinder) FindMedian() float64 {\n    if mf.small.Len() > mf.large.Len() {\n        return float64(mf.small.Top())\n    }\n    return float64(mf.small.Top()+mf.large.Top()) / 2.0\n}",
+      "java": "class MedianFinder {\n    PriorityQueue<Integer> small = new PriorityQueue<>(Collections.reverseOrder()); // max-heap\n    PriorityQueue<Integer> large = new PriorityQueue<>(); // min-heap\n\n    public void addNum(int num) {\n        small.offer(num);\n        if (!small.isEmpty() && !large.isEmpty() && small.peek() > large.peek())\n            large.offer(small.poll());\n        if (small.size() > large.size() + 1)\n            large.offer(small.poll());\n        else if (large.size() > small.size())\n            small.offer(large.poll());\n    }\n\n    public double findMedian() {\n        if (small.size() > large.size()) return small.peek();\n        return (small.peek() + large.peek()) / 2.0;\n    }\n}"
+    }
+  },
+  {
+    "id": 59,
+    "number": "#39",
+    "title": "Combination Sum",
+    "difficulty": "Medium",
+    "category": "Backtracking",
+    "description": "Given an array of distinct integers candidates and a target integer target, return a list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order. The same number may be chosen from candidates an unlimited number of times.",
+    "examples": [
+      {
+        "input": "candidates = [2,3,6,7], target = 7",
+        "output": "[[2,2,3],[7]]"
+      },
+      {
+        "input": "candidates = [2,3,5], target = 8",
+        "output": "[[2,2,2,2],[2,3,3],[3,5]]"
+      }
+    ],
+    "hints": [
+      "Use backtracking.",
+      "At each step, try each candidate >= current index (to avoid duplicates).",
+      "Subtract the chosen value from target; backtrack when target <= 0."
+    ],
+    "approach": "Backtracking: at each step pick a candidate (starting from the current index to allow reuse). Recurse with reduced target. Add to result when target == 0; prune when target < 0.",
+    "tags": [
+      "Backtracking",
+      "Array"
+    ],
+    "timeComplexity": "O(n^(t/m)) where t is target and m is smallest candidate",
+    "spaceComplexity": "O(t/m)",
+    "solutions": {
+      "python": "def combinationSum(candidates: list[int], target: int) -> list[list[int]]:\n    result = []\n    def backtrack(start, current, remaining):\n        if remaining == 0:\n            result.append(list(current))\n            return\n        for i in range(start, len(candidates)):\n            if candidates[i] > remaining:\n                break\n            current.append(candidates[i])\n            backtrack(i, current, remaining - candidates[i])\n            current.pop()\n    candidates.sort()\n    backtrack(0, [], target)\n    return result",
+      "go": "func combinationSum(candidates []int, target int) [][]int {\n    sort.Ints(candidates)\n    result := [][]int{}\n    var backtrack func(start int, current []int, remaining int)\n    backtrack = func(start int, current []int, remaining int) {\n        if remaining == 0 {\n            tmp := make([]int, len(current))\n            copy(tmp, current)\n            result = append(result, tmp)\n            return\n        }\n        for i := start; i < len(candidates) && candidates[i] <= remaining; i++ {\n            current = append(current, candidates[i])\n            backtrack(i, current, remaining-candidates[i])\n            current = current[:len(current)-1]\n        }\n    }\n    backtrack(0, []int{}, target)\n    return result\n}",
+      "java": "public List<List<Integer>> combinationSum(int[] candidates, int target) {\n    Arrays.sort(candidates);\n    List<List<Integer>> result = new ArrayList<>();\n    backtrack(candidates, target, 0, new ArrayList<>(), result);\n    return result;\n}\nprivate void backtrack(int[] candidates, int remaining, int start, List<Integer> current, List<List<Integer>> result) {\n    if (remaining == 0) { result.add(new ArrayList<>(current)); return; }\n    for (int i = start; i < candidates.length && candidates[i] <= remaining; i++) {\n        current.add(candidates[i]);\n        backtrack(candidates, remaining - candidates[i], i, current, result);\n        current.remove(current.size() - 1);\n    }\n}"
+    }
+  },
+  {
+    "id": 60,
+    "number": "#79",
+    "title": "Word Search",
+    "difficulty": "Medium",
+    "category": "Backtracking",
+    "description": "Given an m x n grid of characters board and a string word, return true if word exists in the grid. The word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.",
+    "examples": [
+      {
+        "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"",
+        "output": "true"
+      },
+      {
+        "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"SEE\"",
+        "output": "true"
+      },
+      {
+        "input": "board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCB\"",
+        "output": "false"
+      }
+    ],
+    "hints": [
+      "Use DFS/backtracking from each cell.",
+      "Mark visited cells temporarily (e.g., replace with '#').",
+      "Restore the cell after backtracking."
+    ],
+    "approach": "For each cell matching word[0], run DFS exploring all 4 directions. Mark cells visited by modifying in-place. Restore on backtrack. Return true if all characters matched.",
+    "tags": [
+      "Backtracking",
+      "Matrix",
+      "DFS"
+    ],
+    "timeComplexity": "O(m * n * 4^L) where L is word length",
+    "spaceComplexity": "O(L)",
+    "solutions": {
+      "python": "def exist(board: list[list[str]], word: str) -> bool:\n    rows, cols = len(board), len(board[0])\n    def dfs(r, c, idx):\n        if idx == len(word):\n            return True\n        if r < 0 or r >= rows or c < 0 or c >= cols or board[r][c] != word[idx]:\n            return False\n        tmp = board[r][c]\n        board[r][c] = '#'\n        found = dfs(r+1,c,idx+1) or dfs(r-1,c,idx+1) or dfs(r,c+1,idx+1) or dfs(r,c-1,idx+1)\n        board[r][c] = tmp\n        return found\n    for r in range(rows):\n        for c in range(cols):\n            if dfs(r, c, 0):\n                return True\n    return False",
+      "go": "func exist(board [][]byte, word string) bool {\n    rows, cols := len(board), len(board[0])\n    var dfs func(r, c, idx int) bool\n    dfs = func(r, c, idx int) bool {\n        if idx == len(word) { return true }\n        if r < 0 || r >= rows || c < 0 || c >= cols || board[r][c] != word[idx] {\n            return false\n        }\n        tmp := board[r][c]\n        board[r][c] = '#'\n        found := dfs(r+1,c,idx+1) || dfs(r-1,c,idx+1) || dfs(r,c+1,idx+1) || dfs(r,c-1,idx+1)\n        board[r][c] = tmp\n        return found\n    }\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            if dfs(r, c, 0) { return true }\n        }\n    }\n    return false\n}",
+      "java": "public boolean exist(char[][] board, String word) {\n    for (int r = 0; r < board.length; r++)\n        for (int c = 0; c < board[0].length; c++)\n            if (dfs(board, word, r, c, 0)) return true;\n    return false;\n}\nprivate boolean dfs(char[][] board, String word, int r, int c, int idx) {\n    if (idx == word.length()) return true;\n    if (r < 0 || r >= board.length || c < 0 || c >= board[0].length || board[r][c] != word.charAt(idx)) return false;\n    char tmp = board[r][c]; board[r][c] = '#';\n    boolean found = dfs(board,word,r+1,c,idx+1)||dfs(board,word,r-1,c,idx+1)||dfs(board,word,r,c+1,idx+1)||dfs(board,word,r,c-1,idx+1);\n    board[r][c] = tmp;\n    return found;\n}"
+    }
+  },
+  {
+    "id": 61,
+    "number": "#208",
+    "title": "Implement Trie (Prefix Tree)",
+    "difficulty": "Medium",
+    "category": "Trie",
+    "description": "A trie (pronounced as \"try\") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. Implement the Trie class with insert(word), search(word), and startsWith(prefix) methods.",
+    "examples": [
+      {
+        "input": "[\"Trie\",\"insert\",\"search\",\"search\",\"startsWith\",\"insert\",\"search\"] with args [[],[\"apple\"],[\"apple\"],[\"app\"],[\"app\"],[\"app\"],[\"app\"]]",
+        "output": "[null,null,true,false,true,null,true]"
+      }
+    ],
+    "hints": [
+      "Each node has up to 26 children (one per letter) and an is_end flag.",
+      "Insert: traverse/create nodes for each character.",
+      "Search: traverse nodes, return true only if last node is_end. startsWith: same but don't check is_end."
+    ],
+    "approach": "Each TrieNode has a children array of size 26 and a boolean marking end of word. Insert/search/startsWith traverse character by character, creating nodes as needed for insert.",
+    "tags": [
+      "Trie",
+      "Design"
+    ],
+    "timeComplexity": "O(L) per operation where L is word length",
+    "spaceComplexity": "O(n * L)",
+    "solutions": {
+      "python": "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.is_end = False\n\nclass Trie:\n    def __init__(self):\n        self.root = TrieNode()\n\n    def insert(self, word: str) -> None:\n        node = self.root\n        for ch in word:\n            if ch not in node.children:\n                node.children[ch] = TrieNode()\n            node = node.children[ch]\n        node.is_end = True\n\n    def search(self, word: str) -> bool:\n        node = self.root\n        for ch in word:\n            if ch not in node.children:\n                return False\n            node = node.children[ch]\n        return node.is_end\n\n    def startsWith(self, prefix: str) -> bool:\n        node = self.root\n        for ch in prefix:\n            if ch not in node.children:\n                return False\n            node = node.children[ch]\n        return True",
+      "go": "type TrieNode struct {\n    children [26]*TrieNode\n    isEnd    bool\n}\n\ntype Trie struct {\n    root *TrieNode\n}\n\nfunc Constructor() Trie {\n    return Trie{root: &TrieNode{}}\n}\n\nfunc (t *Trie) Insert(word string) {\n    node := t.root\n    for _, ch := range word {\n        idx := ch - 'a'\n        if node.children[idx] == nil {\n            node.children[idx] = &TrieNode{}\n        }\n        node = node.children[idx]\n    }\n    node.isEnd = true\n}\n\nfunc (t *Trie) Search(word string) bool {\n    node := t.root\n    for _, ch := range word {\n        idx := ch - 'a'\n        if node.children[idx] == nil { return false }\n        node = node.children[idx]\n    }\n    return node.isEnd\n}\n\nfunc (t *Trie) StartsWith(prefix string) bool {\n    node := t.root\n    for _, ch := range prefix {\n        idx := ch - 'a'\n        if node.children[idx] == nil { return false }\n        node = node.children[idx]\n    }\n    return true\n}",
+      "java": "class Trie {\n    private TrieNode root = new TrieNode();\n\n    public void insert(String word) {\n        TrieNode node = root;\n        for (char ch : word.toCharArray()) {\n            int idx = ch - 'a';\n            if (node.children[idx] == null) node.children[idx] = new TrieNode();\n            node = node.children[idx];\n        }\n        node.isEnd = true;\n    }\n\n    public boolean search(String word) {\n        TrieNode node = root;\n        for (char ch : word.toCharArray()) {\n            int idx = ch - 'a';\n            if (node.children[idx] == null) return false;\n            node = node.children[idx];\n        }\n        return node.isEnd;\n    }\n\n    public boolean startsWith(String prefix) {\n        TrieNode node = root;\n        for (char ch : prefix.toCharArray()) {\n            int idx = ch - 'a';\n            if (node.children[idx] == null) return false;\n            node = node.children[idx];\n        }\n        return true;\n    }\n}\nclass TrieNode {\n    TrieNode[] children = new TrieNode[26];\n    boolean isEnd;\n}"
+    }
+  },
+  {
+    "id": 62,
+    "number": "#211",
+    "title": "Design Add and Search Words Data Structure",
+    "difficulty": "Medium",
+    "category": "Trie",
+    "description": "Design a data structure that supports adding new words and finding if a string matches any previously added string. Implement WordDictionary with addWord(word) and search(word) methods. search(word) may contain dots '.' where dots can be matched with any letter.",
+    "examples": [
+      {
+        "input": "[\"WordDictionary\",\"addWord\",\"addWord\",\"addWord\",\"search\",\"search\",\"search\",\"search\"] with args [[],[\"bad\"],[\"dad\"],[\"mad\"],[\"pad\"],[\"bad\"],[\".ad\"],[\"b..\"]]",
+        "output": "[null,null,null,null,false,true,true,true]"
+      }
+    ],
+    "hints": [
+      "Build on a Trie structure.",
+      "For search, when '.' is encountered, recurse into all children.",
+      "Regular characters work like standard Trie search."
+    ],
+    "approach": "Trie-based structure. addWord is standard Trie insert. search uses DFS: for regular characters traverse the matching child; for '.', try all non-null children recursively.",
+    "tags": [
+      "Trie",
+      "DFS",
+      "Design"
+    ],
+    "timeComplexity": "O(L) addWord, O(26^L) search worst case with wildcards",
+    "spaceComplexity": "O(n * L)",
+    "solutions": {
+      "python": "class WordDictionary:\n    def __init__(self):\n        self.children = {}\n        self.is_end = False\n\n    def addWord(self, word: str) -> None:\n        node = self\n        for ch in word:\n            if ch not in node.children:\n                node.children[ch] = WordDictionary()\n            node = node.children[ch]\n        node.is_end = True\n\n    def search(self, word: str) -> bool:\n        node = self\n        for i, ch in enumerate(word):\n            if ch == '.':\n                return any(child.search(word[i+1:]) for child in node.children.values())\n            if ch not in node.children:\n                return False\n            node = node.children[ch]\n        return node.is_end",
+      "go": "type WordDictionary struct {\n    children [26]*WordDictionary\n    isEnd    bool\n}\n\nfunc (wd *WordDictionary) AddWord(word string) {\n    node := wd\n    for _, ch := range word {\n        idx := ch - 'a'\n        if node.children[idx] == nil {\n            node.children[idx] = &WordDictionary{}\n        }\n        node = node.children[idx]\n    }\n    node.isEnd = true\n}\n\nfunc (wd *WordDictionary) Search(word string) bool {\n    return wd.searchFrom(word, 0)\n}\n\nfunc (wd *WordDictionary) searchFrom(word string, idx int) bool {\n    if idx == len(word) { return wd.isEnd }\n    ch := word[idx]\n    if ch == '.' {\n        for _, child := range wd.children {\n            if child != nil && child.searchFrom(word, idx+1) {\n                return true\n            }\n        }\n        return false\n    }\n    child := wd.children[ch-'a']\n    return child != nil && child.searchFrom(word, idx+1)\n}",
+      "java": "class WordDictionary {\n    private WordDictionary[] children = new WordDictionary[26];\n    private boolean isEnd;\n\n    public void addWord(String word) {\n        WordDictionary node = this;\n        for (char ch : word.toCharArray()) {\n            int idx = ch - 'a';\n            if (node.children[idx] == null) node.children[idx] = new WordDictionary();\n            node = node.children[idx];\n        }\n        node.isEnd = true;\n    }\n\n    public boolean search(String word) {\n        return searchFrom(word, 0);\n    }\n\n    private boolean searchFrom(String word, int idx) {\n        if (idx == word.length()) return isEnd;\n        char ch = word.charAt(idx);\n        if (ch == '.') {\n            for (WordDictionary child : children)\n                if (child != null && child.searchFrom(word, idx + 1)) return true;\n            return false;\n        }\n        WordDictionary child = children[ch - 'a'];\n        return child != null && child.searchFrom(word, idx + 1);\n    }\n}"
+    }
+  },
+  {
+    "id": 63,
+    "number": "#212",
+    "title": "Word Search II",
+    "difficulty": "Hard",
+    "category": "Trie",
+    "description": "Given an m x n board of characters and a list of strings words, return all words on the board. Each word must be constructed from letters of sequentially adjacent cells (horizontally or vertically neighboring). The same letter cell may not be used more than once in a word.",
+    "examples": [
+      {
+        "input": "board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]",
+        "output": "[\"eat\",\"oath\"]"
+      }
+    ],
+    "hints": [
+      "Build a Trie from all words.",
+      "DFS from each cell, traversing the Trie simultaneously.",
+      "When a Trie node marks end-of-word, add to results. Prune branches not in the Trie."
+    ],
+    "approach": "Insert all words into a Trie. DFS from every cell; at each step check if the current path exists in the Trie. Collect complete words. Remove found words from Trie to avoid duplicates.",
+    "tags": [
+      "Trie",
+      "Backtracking",
+      "Matrix",
+      "DFS"
+    ],
+    "timeComplexity": "O(m * n * 4^L) where L is max word length",
+    "spaceComplexity": "O(total chars in words)",
+    "solutions": {
+      "python": "def findWords(board: list[list[str]], words: list[str]) -> list[str]:\n    # Build Trie\n    trie = {}\n    for word in words:\n        node = trie\n        for ch in word:\n            node = node.setdefault(ch, {})\n        node['#'] = word  # store word at end\n\n    rows, cols = len(board), len(board[0])\n    result = []\n\n    def dfs(r, c, node):\n        ch = board[r][c]\n        if ch not in node:\n            return\n        next_node = node[ch]\n        if '#' in next_node:\n            result.append(next_node['#'])\n            del next_node['#']  # avoid duplicates\n        board[r][c] = '#'\n        for dr, dc in [(1,0),(-1,0),(0,1),(0,-1)]:\n            nr, nc = r+dr, c+dc\n            if 0 <= nr < rows and 0 <= nc < cols:\n                dfs(nr, nc, next_node)\n        board[r][c] = ch\n\n    for r in range(rows):\n        for c in range(cols):\n            dfs(r, c, trie)\n    return result",
+      "go": "func findWords(board [][]byte, words []string) []string {\n    type TrieNode struct {\n        children [26]*TrieNode\n        word     string\n    }\n    root := &TrieNode{}\n    for _, w := range words {\n        node := root\n        for _, ch := range w {\n            idx := ch - 'a'\n            if node.children[idx] == nil {\n                node.children[idx] = &TrieNode{}\n            }\n            node = node.children[idx]\n        }\n        node.word = w\n    }\n    rows, cols := len(board), len(board[0])\n    var result []string\n    var dfs func(r, c int, node *TrieNode)\n    dfs = func(r, c int, node *TrieNode) {\n        if r < 0 || r >= rows || c < 0 || c >= cols || board[r][c] == '#' { return }\n        ch := board[r][c]\n        next := node.children[ch-'a']\n        if next == nil { return }\n        if next.word != \"\" {\n            result = append(result, next.word)\n            next.word = \"\"\n        }\n        board[r][c] = '#'\n        dfs(r+1,c,next); dfs(r-1,c,next); dfs(r,c+1,next); dfs(r,c-1,next)\n        board[r][c] = ch\n    }\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            dfs(r, c, root)\n        }\n    }\n    return result\n}",
+      "java": "public List<String> findWords(char[][] board, String[] words) {\n    TrieNode root = new TrieNode();\n    for (String w : words) {\n        TrieNode node = root;\n        for (char ch : w.toCharArray()) {\n            int idx = ch - 'a';\n            if (node.children[idx] == null) node.children[idx] = new TrieNode();\n            node = node.children[idx];\n        }\n        node.word = w;\n    }\n    List<String> result = new ArrayList<>();\n    for (int r = 0; r < board.length; r++)\n        for (int c = 0; c < board[0].length; c++)\n            dfs(board, r, c, root, result);\n    return result;\n}\nprivate void dfs(char[][] board, int r, int c, TrieNode node, List<String> result) {\n    if (r < 0 || r >= board.length || c < 0 || c >= board[0].length || board[r][c] == '#') return;\n    char ch = board[r][c];\n    TrieNode next = node.children[ch - 'a'];\n    if (next == null) return;\n    if (next.word != null) { result.add(next.word); next.word = null; }\n    board[r][c] = '#';\n    dfs(board,r+1,c,next,result); dfs(board,r-1,c,next,result);\n    dfs(board,r,c+1,next,result); dfs(board,r,c-1,next,result);\n    board[r][c] = ch;\n}\nclass TrieNode { TrieNode[] children = new TrieNode[26]; String word; }"
+    }
+  },
+  {
+    "id": 64,
+    "number": "#133",
+    "title": "Clone Graph",
+    "difficulty": "Medium",
+    "category": "Graph",
+    "description": "Given a reference of a node in a connected undirected graph, return a deep copy (clone) of the graph. Each node contains a value and a list of its neighbors.",
+    "examples": [
+      {
+        "input": "adjList = [[2,4],[1,3],[2,4],[1,3]]",
+        "output": "[[2,4],[1,3],[2,4],[1,3]]"
+      },
+      {
+        "input": "adjList = [[]]",
+        "output": "[[]]"
+      }
+    ],
+    "hints": [
+      "Use a hash map from original node to its clone.",
+      "DFS or BFS: when visiting a node, clone it if not already cloned.",
+      "Recursively clone all neighbors."
+    ],
+    "approach": "DFS with a hash map mapping original nodes to their clones. For each node, create a clone (if not already done), then recursively clone all neighbors and attach them.",
+    "tags": [
+      "Graph",
+      "DFS",
+      "Hash Map"
+    ],
+    "timeComplexity": "O(V + E)",
+    "spaceComplexity": "O(V)",
+    "solutions": {
+      "python": "def cloneGraph(node):\n    if not node:\n        return None\n    cloned = {}\n    def dfs(n):\n        if n in cloned:\n            return cloned[n]\n        clone = Node(n.val)\n        cloned[n] = clone\n        for neighbor in n.neighbors:\n            clone.neighbors.append(dfs(neighbor))\n        return clone\n    return dfs(node)",
+      "go": "func cloneGraph(node *Node) *Node {\n    if node == nil {\n        return nil\n    }\n    cloned := make(map[*Node]*Node)\n    var dfs func(n *Node) *Node\n    dfs = func(n *Node) *Node {\n        if c, ok := cloned[n]; ok {\n            return c\n        }\n        clone := &Node{Val: n.Val}\n        cloned[n] = clone\n        for _, neighbor := range n.Neighbors {\n            clone.Neighbors = append(clone.Neighbors, dfs(neighbor))\n        }\n        return clone\n    }\n    return dfs(node)\n}",
+      "java": "public Node cloneGraph(Node node) {\n    if (node == null) return null;\n    Map<Node, Node> cloned = new HashMap<>();\n    return dfs(node, cloned);\n}\nprivate Node dfs(Node node, Map<Node, Node> cloned) {\n    if (cloned.containsKey(node)) return cloned.get(node);\n    Node clone = new Node(node.val);\n    cloned.put(node, clone);\n    for (Node neighbor : node.neighbors)\n        clone.neighbors.add(dfs(neighbor, cloned));\n    return clone;\n}"
+    }
+  },
+  {
+    "id": 65,
+    "number": "#417",
+    "title": "Pacific Atlantic Water Flow",
+    "difficulty": "Medium",
+    "category": "Graph",
+    "description": "There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges. Water can flow to neighboring cells (up, down, left, right) only if the neighboring cell's height is less than or equal to the current cell's height. Return a list of grid coordinates where water can flow to both the Pacific and Atlantic oceans.",
+    "examples": [
+      {
+        "input": "heights = [[1,2,2,3,5],[3,2,3,4,4],[2,4,5,3,1],[6,7,1,4,5],[5,1,1,2,4]]",
+        "output": "[[0,4],[1,3],[1,4],[2,2],[3,0],[3,1],[4,0]]"
+      }
+    ],
+    "hints": [
+      "Reverse the problem: do BFS/DFS from ocean borders inward.",
+      "Pacific reachable: start from top row and left column.",
+      "Atlantic reachable: start from bottom row and right column.",
+      "Answer = cells reachable from both."
+    ],
+    "approach": "Reverse BFS from ocean borders. Mark cells reachable from Pacific (top/left edges) and Atlantic (bottom/right edges) by flowing uphill. Return cells marked by both.",
+    "tags": [
+      "Graph",
+      "BFS",
+      "DFS",
+      "Matrix"
+    ],
+    "timeComplexity": "O(m * n)",
+    "spaceComplexity": "O(m * n)",
+    "solutions": {
+      "python": "from collections import deque\n\ndef pacificAtlantic(heights: list[list[int]]) -> list[list[int]]:\n    rows, cols = len(heights), len(heights[0])\n    def bfs(starts):\n        visited = set(starts)\n        queue = deque(starts)\n        while queue:\n            r, c = queue.popleft()\n            for dr, dc in [(1,0),(-1,0),(0,1),(0,-1)]:\n                nr, nc = r+dr, c+dc\n                if (0 <= nr < rows and 0 <= nc < cols\n                        and (nr, nc) not in visited\n                        and heights[nr][nc] >= heights[r][c]):\n                    visited.add((nr, nc))\n                    queue.append((nr, nc))\n        return visited\n    pacific = bfs([(r, 0) for r in range(rows)] + [(0, c) for c in range(cols)])\n    atlantic = bfs([(r, cols-1) for r in range(rows)] + [(rows-1, c) for c in range(cols)])\n    return [[r, c] for r, c in pacific & atlantic]",
+      "go": "func pacificAtlantic(heights [][]int) [][]int {\n    rows, cols := len(heights), len(heights[0])\n    bfs := func(starts [][2]int) [][]bool {\n        visited := make([][]bool, rows)\n        for i := range visited { visited[i] = make([]bool, cols) }\n        queue := starts\n        for _, s := range starts { visited[s[0]][s[1]] = true }\n        dirs := [][2]int{{1,0},{-1,0},{0,1},{0,-1}}\n        for len(queue) > 0 {\n            cur := queue[0]; queue = queue[1:]\n            for _, d := range dirs {\n                nr, nc := cur[0]+d[0], cur[1]+d[1]\n                if nr >= 0 && nr < rows && nc >= 0 && nc < cols && !visited[nr][nc] && heights[nr][nc] >= heights[cur[0]][cur[1]] {\n                    visited[nr][nc] = true\n                    queue = append(queue, [2]int{nr, nc})\n                }\n            }\n        }\n        return visited\n    }\n    var pStarts, aStarts [][2]int\n    for r := 0; r < rows; r++ { pStarts = append(pStarts, [2]int{r, 0}); aStarts = append(aStarts, [2]int{r, cols-1}) }\n    for c := 0; c < cols; c++ { pStarts = append(pStarts, [2]int{0, c}); aStarts = append(aStarts, [2]int{rows-1, c}) }\n    pac, atl := bfs(pStarts), bfs(aStarts)\n    var result [][]int\n    for r := 0; r < rows; r++ {\n        for c := 0; c < cols; c++ {\n            if pac[r][c] && atl[r][c] { result = append(result, []int{r, c}) }\n        }\n    }\n    return result\n}",
+      "java": "public List<List<Integer>> pacificAtlantic(int[][] heights) {\n    int rows = heights.length, cols = heights[0].length;\n    boolean[][] pac = new boolean[rows][cols], atl = new boolean[rows][cols];\n    Queue<int[]> pQ = new LinkedList<>(), aQ = new LinkedList<>();\n    for (int r = 0; r < rows; r++) { pQ.offer(new int[]{r,0}); pac[r][0]=true; aQ.offer(new int[]{r,cols-1}); atl[r][cols-1]=true; }\n    for (int c = 0; c < cols; c++) { pQ.offer(new int[]{0,c}); pac[0][c]=true; aQ.offer(new int[]{rows-1,c}); atl[rows-1][c]=true; }\n    bfs(heights, pQ, pac); bfs(heights, aQ, atl);\n    List<List<Integer>> result = new ArrayList<>();\n    for (int r = 0; r < rows; r++)\n        for (int c = 0; c < cols; c++)\n            if (pac[r][c] && atl[r][c]) result.add(Arrays.asList(r, c));\n    return result;\n}\nprivate void bfs(int[][] h, Queue<int[]> q, boolean[][] vis) {\n    int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n    while (!q.isEmpty()) {\n        int[] cur = q.poll();\n        for (int[] d : dirs) {\n            int nr = cur[0]+d[0], nc = cur[1]+d[1];\n            if (nr>=0 && nr<h.length && nc>=0 && nc<h[0].length && !vis[nr][nc] && h[nr][nc]>=h[cur[0]][cur[1]]) {\n                vis[nr][nc] = true; q.offer(new int[]{nr,nc});\n            }\n        }\n    }\n}"
+    }
+  },
+  {
+    "id": 66,
+    "number": "#207",
+    "title": "Course Schedule",
+    "difficulty": "Medium",
+    "category": "Graph",
+    "description": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses-1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai. Return true if you can finish all courses, otherwise return false.",
+    "examples": [
+      {
+        "input": "numCourses = 2, prerequisites = [[1,0]]",
+        "output": "true"
+      },
+      {
+        "input": "numCourses = 2, prerequisites = [[1,0],[0,1]]",
+        "output": "false"
+      }
+    ],
+    "hints": [
+      "Model as a directed graph; detect cycles.",
+      "Use DFS with three states: unvisited, visiting (in current path), visited.",
+      "A cycle is detected if you revisit a node currently in the path."
+    ],
+    "approach": "Build adjacency list. DFS with cycle detection using three states: 0=unvisited, 1=visiting, 2=done. If we reach a node marked visiting, there's a cycle \u2014 return false.",
+    "tags": [
+      "Graph",
+      "DFS",
+      "Topological Sort"
+    ],
+    "timeComplexity": "O(V + E)",
+    "spaceComplexity": "O(V + E)",
+    "solutions": {
+      "python": "def canFinish(numCourses: int, prerequisites: list[list[int]]) -> bool:\n    adj = [[] for _ in range(numCourses)]\n    for a, b in prerequisites:\n        adj[b].append(a)\n    state = [0] * numCourses  # 0=unvisited, 1=visiting, 2=done\n    def dfs(node):\n        if state[node] == 1: return False  # cycle\n        if state[node] == 2: return True\n        state[node] = 1\n        for neighbor in adj[node]:\n            if not dfs(neighbor): return False\n        state[node] = 2\n        return True\n    return all(dfs(i) for i in range(numCourses))",
+      "go": "func canFinish(numCourses int, prerequisites [][]int) bool {\n    adj := make([][]int, numCourses)\n    for _, p := range prerequisites {\n        adj[p[1]] = append(adj[p[1]], p[0])\n    }\n    state := make([]int, numCourses) // 0=unvisited, 1=visiting, 2=done\n    var dfs func(node int) bool\n    dfs = func(node int) bool {\n        if state[node] == 1 { return false }\n        if state[node] == 2 { return true }\n        state[node] = 1\n        for _, neighbor := range adj[node] {\n            if !dfs(neighbor) { return false }\n        }\n        state[node] = 2\n        return true\n    }\n    for i := 0; i < numCourses; i++ {\n        if !dfs(i) { return false }\n    }\n    return true\n}",
+      "java": "public boolean canFinish(int numCourses, int[][] prerequisites) {\n    List<List<Integer>> adj = new ArrayList<>();\n    for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());\n    for (int[] p : prerequisites) adj.get(p[1]).add(p[0]);\n    int[] state = new int[numCourses];\n    for (int i = 0; i < numCourses; i++)\n        if (!dfs(i, adj, state)) return false;\n    return true;\n}\nprivate boolean dfs(int node, List<List<Integer>> adj, int[] state) {\n    if (state[node] == 1) return false;\n    if (state[node] == 2) return true;\n    state[node] = 1;\n    for (int neighbor : adj.get(node))\n        if (!dfs(neighbor, adj, state)) return false;\n    state[node] = 2;\n    return true;\n}"
+    }
+  },
+  {
+    "id": 67,
+    "number": "#261",
+    "title": "Graph Valid Tree",
+    "difficulty": "Medium",
+    "category": "Graph",
+    "description": "Given n nodes labeled from 0 to n-1 and a list of undirected edges, write a function to check whether these edges make up a valid tree. A valid tree has exactly n-1 edges and is fully connected with no cycles.",
+    "examples": [
+      {
+        "input": "n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]",
+        "output": "true"
+      },
+      {
+        "input": "n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]",
+        "output": "false"
+      }
+    ],
+    "hints": [
+      "A tree has exactly n-1 edges.",
+      "Check for cycles using Union-Find or DFS.",
+      "Also verify all nodes are connected."
+    ],
+    "approach": "A valid tree must have exactly n-1 edges and no cycles. Use Union-Find: for each edge, if both nodes share the same root, it's a cycle. Otherwise union them. Finally check all nodes are in one component.",
+    "tags": [
+      "Graph",
+      "Union Find"
+    ],
+    "timeComplexity": "O(n * alpha(n))",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def validTree(n: int, edges: list[list[int]]) -> bool:\n    if len(edges) != n - 1:\n        return False\n    parent = list(range(n))\n    def find(x):\n        while parent[x] != x:\n            parent[x] = parent[parent[x]]\n            x = parent[x]\n        return x\n    def union(x, y):\n        px, py = find(x), find(y)\n        if px == py: return False\n        parent[px] = py\n        return True\n    return all(union(u, v) for u, v in edges)",
+      "go": "func validTree(n int, edges [][]int) bool {\n    if len(edges) != n-1 { return false }\n    parent := make([]int, n)\n    for i := range parent { parent[i] = i }\n    var find func(x int) int\n    find = func(x int) int {\n        if parent[x] != x { parent[x] = find(parent[x]) }\n        return parent[x]\n    }\n    for _, e := range edges {\n        px, py := find(e[0]), find(e[1])\n        if px == py { return false }\n        parent[px] = py\n    }\n    return true\n}",
+      "java": "public boolean validTree(int n, int[][] edges) {\n    if (edges.length != n - 1) return false;\n    int[] parent = new int[n];\n    for (int i = 0; i < n; i++) parent[i] = i;\n    for (int[] e : edges) {\n        int px = find(parent, e[0]), py = find(parent, e[1]);\n        if (px == py) return false;\n        parent[px] = py;\n    }\n    return true;\n}\nprivate int find(int[] parent, int x) {\n    if (parent[x] != x) parent[x] = find(parent, parent[x]);\n    return parent[x];\n}"
+    }
+  },
+  {
+    "id": 68,
+    "number": "#323",
+    "title": "Number of Connected Components in an Undirected Graph",
+    "difficulty": "Medium",
+    "category": "Graph",
+    "description": "You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph. Return the number of connected components in the graph.",
+    "examples": [
+      {
+        "input": "n = 5, edges = [[0,1],[1,2],[3,4]]",
+        "output": "2"
+      },
+      {
+        "input": "n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]",
+        "output": "1"
+      }
+    ],
+    "hints": [
+      "Use Union-Find or DFS.",
+      "Start with n components.",
+      "Each successful union (merging two different sets) reduces count by 1."
+    ],
+    "approach": "Union-Find: initialize each node as its own component (count = n). For each edge, if nodes are in different components, union them and decrement count. Return final count.",
+    "tags": [
+      "Graph",
+      "Union Find"
+    ],
+    "timeComplexity": "O(n * alpha(n))",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def countComponents(n: int, edges: list[list[int]]) -> int:\n    parent = list(range(n))\n    def find(x):\n        while parent[x] != x:\n            parent[x] = parent[parent[x]]\n            x = parent[x]\n        return x\n    count = n\n    for u, v in edges:\n        pu, pv = find(u), find(v)\n        if pu != pv:\n            parent[pu] = pv\n            count -= 1\n    return count",
+      "go": "func countComponents(n int, edges [][]int) int {\n    parent := make([]int, n)\n    for i := range parent { parent[i] = i }\n    var find func(x int) int\n    find = func(x int) int {\n        if parent[x] != x { parent[x] = find(parent[x]) }\n        return parent[x]\n    }\n    count := n\n    for _, e := range edges {\n        pu, pv := find(e[0]), find(e[1])\n        if pu != pv {\n            parent[pu] = pv\n            count--\n        }\n    }\n    return count\n}",
+      "java": "public int countComponents(int n, int[][] edges) {\n    int[] parent = new int[n];\n    for (int i = 0; i < n; i++) parent[i] = i;\n    int count = n;\n    for (int[] e : edges) {\n        int pu = find(parent, e[0]), pv = find(parent, e[1]);\n        if (pu != pv) { parent[pu] = pv; count--; }\n    }\n    return count;\n}\nprivate int find(int[] parent, int x) {\n    if (parent[x] != x) parent[x] = find(parent, parent[x]);\n    return parent[x];\n}"
+    }
+  },
+  {
+    "id": 69,
+    "number": "#269",
+    "title": "Alien Dictionary",
+    "difficulty": "Hard",
+    "category": "Graph",
+    "description": "There is a new alien language that uses the English alphabet. However, the order among the letters is unknown to you. You are given a list of strings words from the alien language's dictionary, where the strings in words are sorted lexicographically by the rules of this new language. Derive the order of letters in this language. If no valid ordering exists, return \"\". If multiple valid orderings exist, return any of them.",
+    "examples": [
+      {
+        "input": "words = [\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"]",
+        "output": "\"wertf\""
+      },
+      {
+        "input": "words = [\"z\",\"x\"]",
+        "output": "\"zx\""
+      },
+      {
+        "input": "words = [\"z\",\"x\",\"z\"]",
+        "output": "\"\""
+      }
+    ],
+    "hints": [
+      "Compare adjacent words to extract character ordering constraints.",
+      "Build a directed graph from constraints; topological sort gives the order.",
+      "If a cycle exists or a shorter word comes after a longer prefix, return \"\"."
+    ],
+    "approach": "Build a directed graph by comparing adjacent words character-by-character. Topological sort (Kahn's BFS with in-degree) gives the letter order. Detect cycles or invalid inputs.",
+    "tags": [
+      "Graph",
+      "Topological Sort",
+      "BFS"
+    ],
+    "timeComplexity": "O(total characters)",
+    "spaceComplexity": "O(1) (at most 26 letters)",
+    "solutions": {
+      "python": "from collections import defaultdict, deque\n\ndef alienOrder(words: list[str]) -> str:\n    adj = defaultdict(set)\n    in_degree = {ch: 0 for word in words for ch in word}\n    for i in range(len(words) - 1):\n        w1, w2 = words[i], words[i+1]\n        min_len = min(len(w1), len(w2))\n        if len(w1) > len(w2) and w1[:min_len] == w2[:min_len]:\n            return \"\"\n        for j in range(min_len):\n            if w1[j] != w2[j]:\n                if w2[j] not in adj[w1[j]]:\n                    adj[w1[j]].add(w2[j])\n                    in_degree[w2[j]] += 1\n                break\n    queue = deque([ch for ch in in_degree if in_degree[ch] == 0])\n    result = []\n    while queue:\n        ch = queue.popleft()\n        result.append(ch)\n        for neighbor in adj[ch]:\n            in_degree[neighbor] -= 1\n            if in_degree[neighbor] == 0:\n                queue.append(neighbor)\n    return \"\".join(result) if len(result) == len(in_degree) else \"\"",
+      "go": "func alienOrder(words []string) string {\n    adj := make(map[byte][]byte)\n    inDegree := make(map[byte]int)\n    for _, w := range words {\n        for _, ch := range []byte(w) {\n            if _, ok := inDegree[ch]; !ok { inDegree[ch] = 0 }\n        }\n    }\n    for i := 0; i < len(words)-1; i++ {\n        w1, w2 := words[i], words[i+1]\n        minLen := len(w1)\n        if len(w2) < minLen { minLen = len(w2) }\n        if len(w1) > len(w2) && w1[:minLen] == w2[:minLen] { return \"\" }\n        for j := 0; j < minLen; j++ {\n            if w1[j] != w2[j] {\n                adj[w1[j]] = append(adj[w1[j]], w2[j])\n                inDegree[w2[j]]++\n                break\n            }\n        }\n    }\n    queue := []byte{}\n    for ch, deg := range inDegree { if deg == 0 { queue = append(queue, ch) } }\n    var result []byte\n    for len(queue) > 0 {\n        ch := queue[0]; queue = queue[1:]\n        result = append(result, ch)\n        for _, neighbor := range adj[ch] {\n            inDegree[neighbor]--\n            if inDegree[neighbor] == 0 { queue = append(queue, neighbor) }\n        }\n    }\n    if len(result) != len(inDegree) { return \"\" }\n    return string(result)\n}",
+      "java": "public String alienOrder(String[] words) {\n    Map<Character, Set<Character>> adj = new HashMap<>();\n    Map<Character, Integer> inDegree = new HashMap<>();\n    for (String w : words) for (char ch : w.toCharArray()) inDegree.putIfAbsent(ch, 0);\n    for (int i = 0; i < words.length - 1; i++) {\n        String w1 = words[i], w2 = words[i+1];\n        int minLen = Math.min(w1.length(), w2.length());\n        if (w1.length() > w2.length() && w1.substring(0, minLen).equals(w2.substring(0, minLen))) return \"\";\n        for (int j = 0; j < minLen; j++) {\n            if (w1.charAt(j) != w2.charAt(j)) {\n                adj.computeIfAbsent(w1.charAt(j), k -> new HashSet<>()).add(w2.charAt(j));\n                inDegree.merge(w2.charAt(j), 1, Integer::sum);\n                break;\n            }\n        }\n    }\n    Queue<Character> queue = new LinkedList<>();\n    for (Map.Entry<Character,Integer> e : inDegree.entrySet()) if (e.getValue() == 0) queue.offer(e.getKey());\n    StringBuilder result = new StringBuilder();\n    while (!queue.isEmpty()) {\n        char ch = queue.poll(); result.append(ch);\n        if (adj.containsKey(ch)) for (char nb : adj.get(ch)) { inDegree.merge(nb, -1, Integer::sum); if (inDegree.get(nb) == 0) queue.offer(nb); }\n    }\n    return result.length() == inDegree.size() ? result.toString() : \"\";\n}"
+    }
+  },
+  {
+    "id": 70,
+    "number": "#70",
+    "title": "Climbing Stairs",
+    "difficulty": "Easy",
+    "category": "Dynamic Programming",
+    "description": "You are climbing a staircase. It takes n steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+    "examples": [
+      {
+        "input": "n = 2",
+        "output": "2",
+        "explanation": "1+1 or 2"
+      },
+      {
+        "input": "n = 3",
+        "output": "3",
+        "explanation": "1+1+1, 1+2, or 2+1"
+      }
+    ],
+    "hints": [
+      "ways(n) = ways(n-1) + ways(n-2).",
+      "Base cases: ways(1) = 1, ways(2) = 2.",
+      "This is the Fibonacci sequence."
+    ],
+    "approach": "The number of ways to reach step n equals the sum of ways to reach n-1 (take 1 step) and n-2 (take 2 steps). Use two variables to compute iteratively.",
+    "tags": [
+      "Dynamic Programming"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def climbStairs(n: int) -> int:\n    a, b = 1, 1\n    for _ in range(n - 1):\n        a, b = b, a + b\n    return b",
+      "go": "func climbStairs(n int) int {\n    a, b := 1, 1\n    for i := 1; i < n; i++ {\n        a, b = b, a+b\n    }\n    return b\n}",
+      "java": "public int climbStairs(int n) {\n    int a = 1, b = 1;\n    for (int i = 1; i < n; i++) {\n        int tmp = b; b = a + b; a = tmp;\n    }\n    return b;\n}"
+    }
+  },
+  {
+    "id": 71,
+    "number": "#198",
+    "title": "House Robber",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. Adjacent houses have security systems connected. Given an integer array nums representing the amount of money of each house, return the maximum amount you can rob without alerting the police (cannot rob two adjacent houses).",
+    "examples": [
+      {
+        "input": "nums = [1,2,3,1]",
+        "output": "4",
+        "explanation": "Rob house 1 (1) then house 3 (3)"
+      },
+      {
+        "input": "nums = [2,7,9,3,1]",
+        "output": "12"
+      }
+    ],
+    "hints": [
+      "At each house: either rob it (add to prev-prev) or skip it (keep prev).",
+      "dp[i] = max(dp[i-1], dp[i-2] + nums[i])",
+      "Only two variables needed."
+    ],
+    "approach": "For each house, choose the max of: skipping it (keep previous max) or robbing it (prev-prev max + current value). Track with two variables.",
+    "tags": [
+      "Dynamic Programming",
+      "Array"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def rob(nums: list[int]) -> int:\n    prev2, prev1 = 0, 0\n    for num in nums:\n        prev2, prev1 = prev1, max(prev1, prev2 + num)\n    return prev1",
+      "go": "func rob(nums []int) int {\n    prev2, prev1 := 0, 0\n    for _, num := range nums {\n        prev2, prev1 = prev1, max(prev1, prev2+num)\n    }\n    return prev1\n}",
+      "java": "public int rob(int[] nums) {\n    int prev2 = 0, prev1 = 0;\n    for (int num : nums) {\n        int tmp = prev1;\n        prev1 = Math.max(prev1, prev2 + num);\n        prev2 = tmp;\n    }\n    return prev1;\n}"
+    }
+  },
+  {
+    "id": 72,
+    "number": "#213",
+    "title": "House Robber II",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "All houses are arranged in a circle. This means the first house is the neighbor of the last one. Given an integer array nums representing the amount of money of each house, return the maximum amount you can rob.",
+    "examples": [
+      {
+        "input": "nums = [2,3,2]",
+        "output": "3"
+      },
+      {
+        "input": "nums = [1,2,3,1]",
+        "output": "4"
+      }
+    ],
+    "hints": [
+      "You can't rob both house 0 and house n-1.",
+      "Run House Robber twice: once on nums[0..n-2] and once on nums[1..n-1].",
+      "Return the max of both."
+    ],
+    "approach": "Since first and last houses are adjacent, split into two subproblems: rob houses 0 to n-2, or rob houses 1 to n-1. Apply linear House Robber on each and take the maximum.",
+    "tags": [
+      "Dynamic Programming",
+      "Array"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def rob(nums: list[int]) -> int:\n    def rob_linear(houses):\n        prev2, prev1 = 0, 0\n        for num in houses:\n            prev2, prev1 = prev1, max(prev1, prev2 + num)\n        return prev1\n    if len(nums) == 1: return nums[0]\n    return max(rob_linear(nums[:-1]), rob_linear(nums[1:]))",
+      "go": "func rob(nums []int) int {\n    if len(nums) == 1 { return nums[0] }\n    robLinear := func(houses []int) int {\n        prev2, prev1 := 0, 0\n        for _, num := range houses {\n            prev2, prev1 = prev1, max(prev1, prev2+num)\n        }\n        return prev1\n    }\n    a := robLinear(nums[:len(nums)-1])\n    b := robLinear(nums[1:])\n    if a > b { return a }\n    return b\n}",
+      "java": "public int rob(int[] nums) {\n    if (nums.length == 1) return nums[0];\n    return Math.max(robLinear(nums, 0, nums.length-2), robLinear(nums, 1, nums.length-1));\n}\nprivate int robLinear(int[] nums, int l, int r) {\n    int prev2 = 0, prev1 = 0;\n    for (int i = l; i <= r; i++) {\n        int tmp = prev1;\n        prev1 = Math.max(prev1, prev2 + nums[i]);\n        prev2 = tmp;\n    }\n    return prev1;\n}"
+    }
+  },
+  {
+    "id": 73,
+    "number": "#5",
+    "title": "Longest Palindromic Substring",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "Given a string s, return the longest palindromic substring in s.",
+    "examples": [
+      {
+        "input": "s = \"babad\"",
+        "output": "\"bab\""
+      },
+      {
+        "input": "s = \"cbbd\"",
+        "output": "\"bb\""
+      }
+    ],
+    "hints": [
+      "Expand around center: try each index (and gap) as palindrome center.",
+      "A palindrome can have odd or even length.",
+      "Track the longest found."
+    ],
+    "approach": "Expand around center for every index. For odd-length palindromes, center at each character. For even-length, center between each pair. Track and return the longest palindrome found.",
+    "tags": [
+      "Dynamic Programming",
+      "String",
+      "Two Pointers"
+    ],
+    "timeComplexity": "O(n^2)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def longestPalindrome(s: str) -> str:\n    result = \"\"\n    def expand(l, r):\n        while l >= 0 and r < len(s) and s[l] == s[r]:\n            l -= 1; r += 1\n        return s[l+1:r]\n    for i in range(len(s)):\n        odd = expand(i, i)\n        even = expand(i, i+1)\n        if len(odd) > len(result): result = odd\n        if len(even) > len(result): result = even\n    return result",
+      "go": "func longestPalindrome(s string) string {\n    result := \"\"\n    expand := func(l, r int) string {\n        for l >= 0 && r < len(s) && s[l] == s[r] {\n            l--; r++\n        }\n        return s[l+1 : r]\n    }\n    for i := 0; i < len(s); i++ {\n        odd := expand(i, i)\n        even := expand(i, i+1)\n        if len(odd) > len(result) { result = odd }\n        if len(even) > len(result) { result = even }\n    }\n    return result\n}",
+      "java": "public String longestPalindrome(String s) {\n    String result = \"\";\n    for (int i = 0; i < s.length(); i++) {\n        String odd = expand(s, i, i);\n        String even = expand(s, i, i+1);\n        if (odd.length() > result.length()) result = odd;\n        if (even.length() > result.length()) result = even;\n    }\n    return result;\n}\nprivate String expand(String s, int l, int r) {\n    while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) { l--; r++; }\n    return s.substring(l+1, r);\n}"
+    }
+  },
+  {
+    "id": 74,
+    "number": "#647",
+    "title": "Palindromic Substrings",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "Given a string s, return the number of palindromic substrings in it. A string is a palindrome when it reads the same backward as forward. A substring is a contiguous sequence of characters within the string.",
+    "examples": [
+      {
+        "input": "s = \"abc\"",
+        "output": "3",
+        "explanation": "\"a\", \"b\", \"c\""
+      },
+      {
+        "input": "s = \"aaa\"",
+        "output": "6",
+        "explanation": "\"a\", \"a\", \"a\", \"aa\", \"aa\", \"aaa\""
+      }
+    ],
+    "hints": [
+      "Expand around center like Longest Palindromic Substring.",
+      "Count every palindrome found, not just the longest.",
+      "Each center can yield multiple palindromes."
+    ],
+    "approach": "Expand around every center (each character for odd length, each gap for even). Count every valid expansion.",
+    "tags": [
+      "Dynamic Programming",
+      "String",
+      "Two Pointers"
+    ],
+    "timeComplexity": "O(n^2)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def countSubstrings(s: str) -> int:\n    count = 0\n    def expand(l, r):\n        nonlocal count\n        while l >= 0 and r < len(s) and s[l] == s[r]:\n            count += 1\n            l -= 1; r += 1\n    for i in range(len(s)):\n        expand(i, i)\n        expand(i, i+1)\n    return count",
+      "go": "func countSubstrings(s string) int {\n    count := 0\n    expand := func(l, r int) {\n        for l >= 0 && r < len(s) && s[l] == s[r] {\n            count++; l--; r++\n        }\n    }\n    for i := 0; i < len(s); i++ {\n        expand(i, i)\n        expand(i, i+1)\n    }\n    return count\n}",
+      "java": "public int countSubstrings(String s) {\n    int count = 0;\n    for (int i = 0; i < s.length(); i++) {\n        count += expand(s, i, i);\n        count += expand(s, i, i+1);\n    }\n    return count;\n}\nprivate int expand(String s, int l, int r) {\n    int count = 0;\n    while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) { count++; l--; r++; }\n    return count;\n}"
+    }
+  },
+  {
+    "id": 75,
+    "number": "#91",
+    "title": "Decode Ways",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "A message containing letters from A-Z can be encoded into numbers using 'A'->1, 'B'->2, ..., 'Z'->26. Given a string s containing only digits, return the number of ways to decode it.",
+    "examples": [
+      {
+        "input": "s = \"12\"",
+        "output": "2",
+        "explanation": "\"AB\" (1 2) or \"L\" (12)"
+      },
+      {
+        "input": "s = \"226\"",
+        "output": "3",
+        "explanation": "\"BZ\", \"VF\", or \"BBF\""
+      },
+      {
+        "input": "s = \"06\"",
+        "output": "0"
+      }
+    ],
+    "hints": [
+      "dp[i] = number of ways to decode s[0..i-1].",
+      "Single digit: valid if s[i] != '0'.",
+      "Two digits: valid if 10 <= int(s[i-1:i+1]) <= 26."
+    ],
+    "approach": "DP where dp[i] = ways to decode first i characters. For each position, check if single digit (non-zero) and two-digit (10-26) decodings are valid and accumulate.",
+    "tags": [
+      "Dynamic Programming",
+      "String"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def numDecodings(s: str) -> int:\n    if not s or s[0] == '0': return 0\n    prev2, prev1 = 1, 1\n    for i in range(1, len(s)):\n        cur = 0\n        if s[i] != '0':\n            cur += prev1\n        two_digit = int(s[i-1:i+1])\n        if 10 <= two_digit <= 26:\n            cur += prev2\n        prev2, prev1 = prev1, cur\n    return prev1",
+      "go": "func numDecodings(s string) int {\n    if len(s) == 0 || s[0] == '0' { return 0 }\n    prev2, prev1 := 1, 1\n    for i := 1; i < len(s); i++ {\n        cur := 0\n        if s[i] != '0' { cur += prev1 }\n        twoDigit := (int(s[i-1]-'0') * 10) + int(s[i]-'0')\n        if twoDigit >= 10 && twoDigit <= 26 { cur += prev2 }\n        prev2, prev1 = prev1, cur\n    }\n    return prev1\n}",
+      "java": "public int numDecodings(String s) {\n    if (s.isEmpty() || s.charAt(0) == '0') return 0;\n    int prev2 = 1, prev1 = 1;\n    for (int i = 1; i < s.length(); i++) {\n        int cur = 0;\n        if (s.charAt(i) != '0') cur += prev1;\n        int two = Integer.parseInt(s.substring(i-1, i+1));\n        if (two >= 10 && two <= 26) cur += prev2;\n        prev2 = prev1; prev1 = cur;\n    }\n    return prev1;\n}"
+    }
+  },
+  {
+    "id": 76,
+    "number": "#322",
+    "title": "Coin Change",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money. Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1. You may assume that you have an infinite number of each kind of coin.",
+    "examples": [
+      {
+        "input": "coins = [1,5,10], amount = 11",
+        "output": "2"
+      },
+      {
+        "input": "coins = [2], amount = 3",
+        "output": "-1"
+      },
+      {
+        "input": "coins = [1], amount = 0",
+        "output": "0"
+      }
+    ],
+    "hints": [
+      "dp[i] = min coins needed for amount i.",
+      "dp[0] = 0; initialize rest to infinity.",
+      "For each amount i and coin c: dp[i] = min(dp[i], dp[i-c] + 1)."
+    ],
+    "approach": "Bottom-up DP. dp[i] = minimum coins to make amount i. For each amount, try all coins and take the minimum. Return dp[amount] or -1 if still infinity.",
+    "tags": [
+      "Dynamic Programming",
+      "Array"
+    ],
+    "timeComplexity": "O(amount * n)",
+    "spaceComplexity": "O(amount)",
+    "solutions": {
+      "python": "def coinChange(coins: list[int], amount: int) -> int:\n    dp = [float('inf')] * (amount + 1)\n    dp[0] = 0\n    for i in range(1, amount + 1):\n        for coin in coins:\n            if coin <= i:\n                dp[i] = min(dp[i], dp[i - coin] + 1)\n    return dp[amount] if dp[amount] != float('inf') else -1",
+      "go": "func coinChange(coins []int, amount int) int {\n    dp := make([]int, amount+1)\n    for i := range dp { dp[i] = amount + 1 }\n    dp[0] = 0\n    for i := 1; i <= amount; i++ {\n        for _, coin := range coins {\n            if coin <= i && dp[i-coin]+1 < dp[i] {\n                dp[i] = dp[i-coin] + 1\n            }\n        }\n    }\n    if dp[amount] > amount { return -1 }\n    return dp[amount]\n}",
+      "java": "public int coinChange(int[] coins, int amount) {\n    int[] dp = new int[amount + 1];\n    Arrays.fill(dp, amount + 1);\n    dp[0] = 0;\n    for (int i = 1; i <= amount; i++)\n        for (int coin : coins)\n            if (coin <= i) dp[i] = Math.min(dp[i], dp[i - coin] + 1);\n    return dp[amount] > amount ? -1 : dp[amount];\n}"
+    }
+  },
+  {
+    "id": 77,
+    "number": "#152",
+    "title": "Maximum Product Subarray",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "Given an integer array nums, find a subarray that has the largest product, and return the product. The test cases are generated so that the answer will fit in a 32-bit integer.",
+    "examples": [
+      {
+        "input": "nums = [2,3,-2,4]",
+        "output": "6",
+        "explanation": "[2,3] has the largest product 6"
+      },
+      {
+        "input": "nums = [-2,0,-1]",
+        "output": "0"
+      }
+    ],
+    "hints": [
+      "Track both current max and current min (negatives can flip).",
+      "A negative * negative = positive, so min can become max.",
+      "Reset when encountering 0."
+    ],
+    "approach": "Track both curMax and curMin at each step. When multiplying by a negative number they swap. Update global max each step. Reset both to current number when previous products make things worse.",
+    "tags": [
+      "Dynamic Programming",
+      "Array"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def maxProduct(nums: list[int]) -> int:\n    result = max(nums)\n    cur_min = cur_max = 1\n    for num in nums:\n        if num == 0:\n            cur_min = cur_max = 1\n            continue\n        tmp = cur_max * num\n        cur_max = max(num * cur_max, num * cur_min, num)\n        cur_min = min(tmp, num * cur_min, num)\n        result = max(result, cur_max)\n    return result",
+      "go": "func maxProduct(nums []int) int {\n    result := nums[0]\n    curMin, curMax := 1, 1\n    for _, num := range nums {\n        if num == 0 {\n            curMin, curMax = 1, 1\n            if result < 0 { result = 0 }\n            continue\n        }\n        tmp := curMax * num\n        a, b, c := curMax*num, curMin*num, num\n        if a > b { curMax = a } else { curMax = b }\n        if curMax < c { curMax = c }\n        if a < b { curMin = a } else { curMin = b }\n        if curMin > c { curMin = c }\n        _ = tmp\n        if curMax > result { result = curMax }\n    }\n    return result\n}",
+      "java": "public int maxProduct(int[] nums) {\n    int result = nums[0], curMin = 1, curMax = 1;\n    for (int num : nums) {\n        if (num == 0) { curMin = curMax = 1; result = Math.max(result, 0); continue; }\n        int tmp = curMax * num;\n        curMax = Math.max(Math.max(curMax * num, curMin * num), num);\n        curMin = Math.min(Math.min(tmp, curMin * num), num);\n        result = Math.max(result, curMax);\n    }\n    return result;\n}"
+    }
+  },
+  {
+    "id": 78,
+    "number": "#139",
+    "title": "Word Break",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.",
+    "examples": [
+      {
+        "input": "s = \"leetcode\", wordDict = [\"leet\",\"code\"]",
+        "output": "true"
+      },
+      {
+        "input": "s = \"applepenapple\", wordDict = [\"apple\",\"pen\"]",
+        "output": "true"
+      },
+      {
+        "input": "s = \"catsandog\", wordDict = [\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]",
+        "output": "false"
+      }
+    ],
+    "hints": [
+      "dp[i] = true if s[0..i-1] can be segmented.",
+      "For each position i, check all j < i where dp[j] is true and s[j..i] is in dict.",
+      "Use a set for O(1) word lookups."
+    ],
+    "approach": "DP where dp[i] means s[:i] can be segmented. For each i, check all previous positions j where dp[j] is true and s[j:i] is in the word set. dp[0] = true (empty string).",
+    "tags": [
+      "Dynamic Programming",
+      "Hash Set"
+    ],
+    "timeComplexity": "O(n^2)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def wordBreak(s: str, wordDict: list[str]) -> bool:\n    word_set = set(wordDict)\n    dp = [False] * (len(s) + 1)\n    dp[0] = True\n    for i in range(1, len(s) + 1):\n        for j in range(i):\n            if dp[j] and s[j:i] in word_set:\n                dp[i] = True\n                break\n    return dp[len(s)]",
+      "go": "func wordBreak(s string, wordDict []string) bool {\n    wordSet := make(map[string]bool)\n    for _, w := range wordDict { wordSet[w] = true }\n    dp := make([]bool, len(s)+1)\n    dp[0] = true\n    for i := 1; i <= len(s); i++ {\n        for j := 0; j < i; j++ {\n            if dp[j] && wordSet[s[j:i]] {\n                dp[i] = true\n                break\n            }\n        }\n    }\n    return dp[len(s)]\n}",
+      "java": "public boolean wordBreak(String s, List<String> wordDict) {\n    Set<String> wordSet = new HashSet<>(wordDict);\n    boolean[] dp = new boolean[s.length() + 1];\n    dp[0] = true;\n    for (int i = 1; i <= s.length(); i++)\n        for (int j = 0; j < i; j++)\n            if (dp[j] && wordSet.contains(s.substring(j, i))) { dp[i] = true; break; }\n    return dp[s.length()];\n}"
+    }
+  },
+  {
+    "id": 79,
+    "number": "#300",
+    "title": "Longest Increasing Subsequence",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "Given an integer array nums, return the length of the longest strictly increasing subsequence.",
+    "examples": [
+      {
+        "input": "nums = [10,9,2,5,3,7,101,18]",
+        "output": "4",
+        "explanation": "[2,3,7,101]"
+      },
+      {
+        "input": "nums = [0,1,0,3,2,3]",
+        "output": "4"
+      }
+    ],
+    "hints": [
+      "dp[i] = length of LIS ending at index i.",
+      "For each i, check all j < i where nums[j] < nums[i].",
+      "O(n log n) is possible using patience sorting with binary search."
+    ],
+    "approach": "O(n log n) approach: maintain a tails array where tails[i] is the smallest tail element for increasing subsequences of length i+1. Binary search to find the insertion point for each element.",
+    "tags": [
+      "Dynamic Programming",
+      "Binary Search"
+    ],
+    "timeComplexity": "O(n log n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "import bisect\n\ndef lengthOfLIS(nums: list[int]) -> int:\n    tails = []\n    for num in nums:\n        pos = bisect.bisect_left(tails, num)\n        if pos == len(tails):\n            tails.append(num)\n        else:\n            tails[pos] = num\n    return len(tails)",
+      "go": "func lengthOfLIS(nums []int) int {\n    tails := []int{}\n    for _, num := range nums {\n        lo, hi := 0, len(tails)\n        for lo < hi {\n            mid := (lo + hi) / 2\n            if tails[mid] < num { lo = mid + 1 } else { hi = mid }\n        }\n        if lo == len(tails) {\n            tails = append(tails, num)\n        } else {\n            tails[lo] = num\n        }\n    }\n    return len(tails)\n}",
+      "java": "public int lengthOfLIS(int[] nums) {\n    List<Integer> tails = new ArrayList<>();\n    for (int num : nums) {\n        int lo = 0, hi = tails.size();\n        while (lo < hi) {\n            int mid = (lo + hi) / 2;\n            if (tails.get(mid) < num) lo = mid + 1; else hi = mid;\n        }\n        if (lo == tails.size()) tails.add(num);\n        else tails.set(lo, num);\n    }\n    return tails.size();\n}"
+    }
+  },
+  {
+    "id": 80,
+    "number": "#62",
+    "title": "Unique Paths",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "There is a robot on an m x n grid. The robot is initially located at the top-left corner and wants to reach the bottom-right corner. The robot can only move either down or right at any point in time. Given two integers m and n, return the number of possible unique paths.",
+    "examples": [
+      {
+        "input": "m = 3, n = 7",
+        "output": "28"
+      },
+      {
+        "input": "m = 3, n = 2",
+        "output": "3"
+      }
+    ],
+    "hints": [
+      "dp[i][j] = paths to reach cell (i, j).",
+      "dp[i][j] = dp[i-1][j] + dp[i][j-1].",
+      "First row and column are all 1s."
+    ],
+    "approach": "DP where dp[i][j] = number of ways to reach (i,j). Each cell = sum of cell above + cell to the left. Optimize to O(n) space using a 1D array.",
+    "tags": [
+      "Dynamic Programming",
+      "Math"
+    ],
+    "timeComplexity": "O(m * n)",
+    "spaceComplexity": "O(n)",
+    "solutions": {
+      "python": "def uniquePaths(m: int, n: int) -> int:\n    dp = [1] * n\n    for _ in range(1, m):\n        for j in range(1, n):\n            dp[j] += dp[j - 1]\n    return dp[-1]",
+      "go": "func uniquePaths(m int, n int) int {\n    dp := make([]int, n)\n    for i := range dp { dp[i] = 1 }\n    for i := 1; i < m; i++ {\n        for j := 1; j < n; j++ {\n            dp[j] += dp[j-1]\n        }\n    }\n    return dp[n-1]\n}",
+      "java": "public int uniquePaths(int m, int n) {\n    int[] dp = new int[n];\n    Arrays.fill(dp, 1);\n    for (int i = 1; i < m; i++)\n        for (int j = 1; j < n; j++)\n            dp[j] += dp[j-1];\n    return dp[n-1];\n}"
+    }
+  },
+  {
+    "id": 81,
+    "number": "#1143",
+    "title": "Longest Common Subsequence",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "Given two strings text1 and text2, return the length of their longest common subsequence. A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.",
+    "examples": [
+      {
+        "input": "text1 = \"abcde\", text2 = \"ace\"",
+        "output": "3",
+        "explanation": "LCS is \"ace\""
+      },
+      {
+        "input": "text1 = \"abc\", text2 = \"abc\"",
+        "output": "3"
+      },
+      {
+        "input": "text1 = \"abc\", text2 = \"def\"",
+        "output": "0"
+      }
+    ],
+    "hints": [
+      "dp[i][j] = LCS of text1[:i] and text2[:j].",
+      "If text1[i-1] == text2[j-1]: dp[i][j] = dp[i-1][j-1] + 1.",
+      "Otherwise: dp[i][j] = max(dp[i-1][j], dp[i][j-1])."
+    ],
+    "approach": "2D DP. When characters match, extend the diagonal. Otherwise take the max of skipping a character from either string. Can optimize to O(n) space with a rolling array.",
+    "tags": [
+      "Dynamic Programming",
+      "String"
+    ],
+    "timeComplexity": "O(m * n)",
+    "spaceComplexity": "O(m * n)",
+    "solutions": {
+      "python": "def longestCommonSubsequence(text1: str, text2: str) -> int:\n    m, n = len(text1), len(text2)\n    dp = [[0] * (n + 1) for _ in range(m + 1)]\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if text1[i-1] == text2[j-1]:\n                dp[i][j] = dp[i-1][j-1] + 1\n            else:\n                dp[i][j] = max(dp[i-1][j], dp[i][j-1])\n    return dp[m][n]",
+      "go": "func longestCommonSubsequence(text1 string, text2 string) int {\n    m, n := len(text1), len(text2)\n    dp := make([][]int, m+1)\n    for i := range dp { dp[i] = make([]int, n+1) }\n    for i := 1; i <= m; i++ {\n        for j := 1; j <= n; j++ {\n            if text1[i-1] == text2[j-1] {\n                dp[i][j] = dp[i-1][j-1] + 1\n            } else if dp[i-1][j] > dp[i][j-1] {\n                dp[i][j] = dp[i-1][j]\n            } else {\n                dp[i][j] = dp[i][j-1]\n            }\n        }\n    }\n    return dp[m][n]\n}",
+      "java": "public int longestCommonSubsequence(String text1, String text2) {\n    int m = text1.length(), n = text2.length();\n    int[][] dp = new int[m+1][n+1];\n    for (int i = 1; i <= m; i++)\n        for (int j = 1; j <= n; j++)\n            dp[i][j] = text1.charAt(i-1) == text2.charAt(j-1)\n                ? dp[i-1][j-1] + 1\n                : Math.max(dp[i-1][j], dp[i][j-1]);\n    return dp[m][n];\n}"
+    }
+  },
+  {
+    "id": 82,
+    "number": "#55",
+    "title": "Jump Game",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "description": "You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position. Return true if you can reach the last index, or false otherwise.",
+    "examples": [
+      {
+        "input": "nums = [2,3,1,1,4]",
+        "output": "true"
+      },
+      {
+        "input": "nums = [3,2,1,0,4]",
+        "output": "false"
+      }
+    ],
+    "hints": [
+      "Track the farthest index reachable.",
+      "If current index > farthest, you're stuck.",
+      "Update farthest = max(farthest, i + nums[i])."
+    ],
+    "approach": "Greedy: track the maximum reachable index. If at any point the current index exceeds max reachable, return false. If max reachable >= last index, return true.",
+    "tags": [
+      "Dynamic Programming",
+      "Greedy",
+      "Array"
+    ],
+    "timeComplexity": "O(n)",
+    "spaceComplexity": "O(1)",
+    "solutions": {
+      "python": "def canJump(nums: list[int]) -> bool:\n    max_reach = 0\n    for i, jump in enumerate(nums):\n        if i > max_reach:\n            return False\n        max_reach = max(max_reach, i + jump)\n    return True",
+      "go": "func canJump(nums []int) bool {\n    maxReach := 0\n    for i, jump := range nums {\n        if i > maxReach { return false }\n        if i+jump > maxReach { maxReach = i + jump }\n    }\n    return true\n}",
+      "java": "public boolean canJump(int[] nums) {\n    int maxReach = 0;\n    for (int i = 0; i < nums.length; i++) {\n        if (i > maxReach) return false;\n        maxReach = Math.max(maxReach, i + nums[i]);\n    }\n    return true;\n}"
     }
   }
 ]

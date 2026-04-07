@@ -6,20 +6,23 @@ import QuestionFilterBar from './QuestionFilterBar'
 
 const TOPICS = [
   { label: 'All' },
-  { label: 'Trees',  pattern: /tree|trie|avl|red.black|b-tree|segment/i },
-  { label: 'Graphs', pattern: /graph|bfs|dfs|topolog|dijkstra|bellman|floyd|spanning|union.find|dsu|cycle/i },
-  { label: 'Sort',   pattern: /sort/i },
-  { label: 'Maps',   pattern: /map|maps oper|hash maps/i },
-  { label: 'Other',  pattern: null },
+  { label: 'Trees',         pattern: /tree|trie|avl|red.black|b-tree|segment/i },
+  { label: 'Graphs',        pattern: /graph|bfs|dfs|topolog|dijkstra|bellman|floyd|spanning|union.find|dsu|cycle/i },
+  { label: 'Sort',          pattern: /sort/i },
+  { label: 'Maps',          pattern: /map|maps oper|hash maps/i },
+  { label: 'System Design', pattern: /system design/i, matchCategory: true },
+  { label: 'Other',         pattern: null },
 ]
 
 function getTopicFilter(label, topics) {
   if (label === 'All') return () => true
   const topic = topics.find(t => t.label === label)
   if (!topic || !topic.pattern) {
-    const pats = topics.filter(t => t.pattern).map(t => t.pattern)
-    return c => !pats.some(p => p.test(c.title))
+    const pats    = topics.filter(t => t.pattern).map(t => t.pattern)
+    const catPats = topics.filter(t => t.pattern && t.matchCategory).map(t => t.pattern)
+    return c => !pats.some(p => p.test(c.title)) && !catPats.some(p => p.test(c.category || ''))
   }
+  if (topic.matchCategory) return c => topic.pattern.test(c.category || '')
   return c => topic.pattern.test(c.title)
 }
 
@@ -106,12 +109,8 @@ const Feed = forwardRef(function Feed({ mode, questions, concepts, onStep }, fee
   useEffect(() => {
     let cooldown = false
     function onWheel(e) {
-      const pre = e.target.closest('.solution-area pre')
-      if (pre) {
-        const canUp   = pre.scrollTop > 0
-        const canDown = pre.scrollTop + pre.clientHeight < pre.scrollHeight - 1
-        if ((e.deltaY < 0 && canUp) || (e.deltaY > 0 && canDown)) return
-      }
+      // Never navigate cards while scrolling inside an open solution area
+      if (e.target.closest('.solution-area')) return
       const inner = e.target.closest('.card-inner')
       if (inner) {
         const canUp   = inner.scrollTop > 0
@@ -147,14 +146,17 @@ const Feed = forwardRef(function Feed({ mode, questions, concepts, onStep }, fee
     let startY = 0
     let startInnerScrollTop = 0
     let activeInner = null
+    let touchInSolution = false
 
     function onTouchStart(e) {
       startY = e.touches[0].clientY
       activeInner = e.target.closest('.card-inner')
       startInnerScrollTop = activeInner ? activeInner.scrollTop : 0
+      touchInSolution = !!e.target.closest('.solution-area')
     }
 
     function onTouchEnd(e) {
+      if (touchInSolution) return
       const dy = startY - e.changedTouches[0].clientY
       if (Math.abs(dy) < 40 || !activeInner) return
       const inner      = activeInner
